@@ -60,21 +60,19 @@ module.exports = grammar({
       $.throw_statement
     ),
 
-    expression_statement: $ => seq(
-      err(choice($._expression, $.comma_op)), terminator()
-    ),
+    expression_statement: $ =>
+      err(choice($._expression, $.comma_op)),
 
     var_declaration: $ => seq(
       variableType(),
       commaSep1(err(choice(
         $.identifier,
         $.var_assignment
-      ))),
-      terminator()
+      )))
     ),
 
     statement_block: $ => seq(
-      '{', err(repeat($._statement)), '}'
+      '{', sep($._statement, terminator()), '}'
     ),
 
     if_statement: $ => prec.right(seq(
@@ -98,9 +96,9 @@ module.exports = grammar({
       '(',
       choice(
         $.var_declaration,
-        seq(err(commaSep1($._expression)), ';'),
-        ';'
+        err(commaSep1($._expression))
       ),
+      ';',
       optional(err($._expression)), ';',
       optional(err($._expression)),
       ')',
@@ -139,8 +137,7 @@ module.exports = grammar({
       'do',
       $.statement_block,
       'while',
-      $._paren_expression,
-      terminator()
+      $._paren_expression
     ),
 
     try_statement: $ => seq(
@@ -151,26 +148,22 @@ module.exports = grammar({
     ),
 
     break_statement: $ => seq(
-      'break',
-      terminator()
+      'break'
     ),
 
     return_statement: $ => seq(
       'return',
-      optional($._expression),
-      terminator()
+      optional($._expression)
     ),
 
     yield_statement: $ => seq(
       'yield',
-      optional($._expression),
-      terminator()
+      optional($._expression)
     ),
 
     throw_statement: $ => seq(
       'throw',
-      $._expression,
-      terminator()
+      $._expression
     ),
 
     //
@@ -181,13 +174,13 @@ module.exports = grammar({
       'case',
       $._expression,
       ':',
-      repeat($._statement)
+      sep($._statement, terminator())
     ),
 
     default: $ => seq(
       'default',
       ':',
-      repeat($._statement)
+      sep($._statement, terminator())
     ),
 
     catch: $ => seq(
@@ -480,6 +473,14 @@ module.exports = grammar({
     _line_break: $ => '\n'
   }
 });
+
+function sep1 (rule, separator) {
+  return seq(rule, repeat(seq(separator, rule)));
+}
+
+function sep (rule, separator) {
+  return optional(sep1(rule, separator));
+}
 
 function commaSep1 (rule) {
   return seq(rule, repeat(seq(',', rule)));
