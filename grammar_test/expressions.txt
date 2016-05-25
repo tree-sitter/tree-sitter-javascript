@@ -79,6 +79,25 @@ false;
   (expression_statement (false)))
 
 ============================================
+More Complicated Assignments
+============================================
+
+function(e,n){t[n]=!0}
+
+---
+
+(program
+  (expression_statement
+    (function
+        (formal_parameters
+          (identifier) (identifier))
+        (statement_block 
+        (expression_statement
+          (assignment
+            (subscript_access (identifier) (identifier))
+            (bool_op (number))))))))
+
+============================================
 Regexps
 ============================================
 
