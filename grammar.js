@@ -28,6 +28,10 @@ module.exports = grammar({
     /[ \t\r]/
   ],
 
+  aliases: {
+    get_set_identifier: $ => $.identifier
+  },
+
   conflicts: $ => [
     [$._expression, $.method_definition],
     [$._expression, $.formal_parameters]
@@ -471,13 +475,7 @@ module.exports = grammar({
       )
     )),
 
-    identifier: $ => choice(
-      $._normal_identifier,
-      'get',
-      'set'
-    ),
-
-    _normal_identifier: $ => (/[\a_$][\a\d_$]*/),
+    identifier: $ => (/[\a_$][\a\d_$]*/),
 
     this_expression: $ => 'this',
     super: $ => 'super',
@@ -514,10 +512,12 @@ module.exports = grammar({
     ),
 
     pair: $ => seq(
-      choice($.identifier, $.string, $.number),
+      choice($.identifier, $.get_set_identifier, $.string, $.number),
       ':',
       $._expression
     ),
+
+    get_set_identifier: $ => choice('get', 'set'),
 
     _line_break: $ => '\n'
   }
