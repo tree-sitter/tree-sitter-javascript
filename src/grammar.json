@@ -3310,27 +3310,32 @@
       ]
     },
     "_template_chars": {
-      "type": "TOKEN",
+      "type": "ALIAS",
       "content": {
-        "type": "REPEAT1",
+        "type": "TOKEN",
         "content": {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "PATTERN",
-              "value": "[^`\\$]"
-            },
-            {
-              "type": "PATTERN",
-              "value": "\\$[^{]"
-            },
-            {
-              "type": "PATTERN",
-              "value": "\\\\`"
-            }
-          ]
+          "type": "REPEAT1",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "PATTERN",
+                "value": "[^`\\$]"
+              },
+              {
+                "type": "PATTERN",
+                "value": "\\$[^{]"
+              },
+              {
+                "type": "PATTERN",
+                "value": "\\\\`"
+              }
+            ]
+          }
         }
-      }
+      },
+      "named": true,
+      "value": "string"
     },
     "template_substitution": {
       "type": "SEQ",
