@@ -668,11 +668,11 @@ module.exports = grammar({
       '`'
     ),
 
-    _template_chars: $ => token(repeat1(choice(
+    _template_chars: $ => alias(token(repeat1(choice(
       /[^`\$]/,
       /\$[^{]/,
       /\\`/
-    ))),
+    ))), $.string),
 
     template_substitution: $ => seq(
       '${',

@@ -39,23 +39,30 @@ Template strings
 ----
 
 (program
-  (expression_statement (template_string))
-  (expression_statement (template_string))
+  (expression_statement (template_string (string)))
+  (expression_statement (template_string (string)))
   (expression_statement (template_string
+    (string)
     (template_substitution
       (binary_expression (number) (number)))
+    (string)
     (template_substitution (sequence_expression
       (binary_expression (number) (number))
-      (binary_expression (number) (number))))))
-  (expression_statement (template_string))
+      (binary_expression (number) (number))))
+    (string)))
+  (expression_statement (template_string (string)))
   (expression_statement (template_string
+    (string)
     (template_substitution (number))))
-	(expression_statement (template_string))
+	(expression_statement (template_string (string)))
   (expression_statement (template_string
+    (string)
     (template_substitution (call_expression
       (member_expression (identifier) (property_identifier))
       (arguments (string))))
-    (template_substitution (identifier)))))
+    (string)
+    (template_substitution (identifier))
+    (string))))
 
 ============================================
 Function calls with template strings
@@ -66,7 +73,7 @@ f `hello`;
 ---
 
 (program
-  (expression_statement (call_expression (identifier) (template_string))))
+  (expression_statement (call_expression (identifier) (template_string (string)))))
 
 ============================================
 Numbers
