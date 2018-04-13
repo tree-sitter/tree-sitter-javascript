@@ -796,7 +796,12 @@ module.exports = grammar({
       ))
     },
 
-    identifier: $ => /[a-zA-Z_$][a-zA-Z\d_$]*/,
+    identifier: $ => {
+      const alpha = /[^\s0-9:;`"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u00A0]/
+      const alpha_numeric = /[^\s:;`"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u00A0]/
+
+      return token(seq(alpha, repeat(alpha_numeric)))
+    },
 
     this: $ => 'this',
     super: $ => 'super',
