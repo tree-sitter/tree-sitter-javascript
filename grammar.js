@@ -864,6 +864,7 @@ module.exports = grammar({
       '(',
       commaSep(choice(
         $.identifier,
+        alias($._reserved_identifier, $.identifier),
         $._destructuring_pattern,
         $.assignment_pattern,
         $.rest_parameter

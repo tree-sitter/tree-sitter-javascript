@@ -468,6 +468,7 @@ a => 1;
 (f, g) => {
   return h;
 };
+(set, kv) => 2;
 
 ---
 
@@ -484,7 +485,9 @@ a => 1;
   (expression_statement (arrow_function
     (formal_parameters (identifier) (identifier))
     (statement_block
-      (return_statement (identifier))))))
+      (return_statement (identifier)))))
+  (expression_statement (arrow_function
+    (formal_parameters (identifier) (identifier)) (number))))
 
 ============================================
 Generator Functions
