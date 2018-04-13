@@ -779,7 +779,7 @@ module.exports = grammar({
 
       const decimal_integer_literal = choice(
         '0',
-        seq(/[1-9]/, optional(decimal_digits))
+        seq(optional('0'), /[1-9]/, optional(decimal_digits))
       )
 
       const decimal_literal = choice(

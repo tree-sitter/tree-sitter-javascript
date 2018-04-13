@@ -1,0 +1,12 @@
+============================================
+Numbers
+============================================
+
+04000
+400
+
+---
+
+(program
+  (expression_statement (number))
+  (expression_statement (number)))
