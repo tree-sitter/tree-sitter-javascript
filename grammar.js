@@ -601,7 +601,7 @@ module.exports = grammar({
     )),
 
     subscript_expression: $ => prec.right(PREC.MEMBER, seq(
-      $._expression,
+      choice($._expression, $.super),
       '[', $._expressions , ']'
     )),
 
