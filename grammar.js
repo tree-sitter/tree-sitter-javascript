@@ -593,6 +593,7 @@ module.exports = grammar({
       choice(
         $._expression,
         $.identifier,
+        $.super,
         alias($._reserved_identifier, $.identifier)
       ),
       '.',

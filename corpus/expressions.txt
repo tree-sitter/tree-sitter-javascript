@@ -331,6 +331,10 @@ class Foo extends require('another-class') {
   constructor() {
     super()
   }
+
+  bar() {
+    super.a()
+  }
 }
 
 ---
@@ -360,7 +364,12 @@ class Foo extends require('another-class') {
         (property_identifier)
         (formal_parameters)
         (statement_block
-          (expression_statement (call_expression (super) (arguments))))))))
+          (expression_statement (call_expression (super) (arguments)))))
+      (method_definition
+        (property_identifier)
+        (formal_parameters)
+        (statement_block
+          (expression_statement (call_expression (member_expression (super) (property_identifier)) (arguments))))))))
 
 ============================================
 Class Property Fields
@@ -1162,4 +1171,3 @@ i = <Foo:Bar bar={}>{...children}</Foo:Bar>
         (jsx_attribute (property_identifier) (jsx_expression)))
       (jsx_expression (spread_element (identifier)))
       (jsx_closing_element (jsx_namespace_name (identifier) (identifier)))))))
-

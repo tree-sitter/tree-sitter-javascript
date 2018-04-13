@@ -2464,6 +2464,10 @@
                 "name": "identifier"
               },
               {
+                "type": "SYMBOL",
+                "name": "super"
+              },
+              {
                 "type": "ALIAS",
                 "content": {
                   "type": "SYMBOL",
