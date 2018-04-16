@@ -4,10 +4,11 @@ set -e
 
 tree-sitter parse examples/*.js -q
 
+ls -la
 # TODO: Fix known issues in known_failures.txt
 known_failures=$(cat script/known_failures.txt)
 examples_to_parse=$(
-  for example in $(find ./node_modules/npm -name '*.js'); do
+  for example in $(find node_modules/npm -name '*.js'); do
     if [[ ! $known_failures == *$example* ]]; then
       echo $example
     fi
