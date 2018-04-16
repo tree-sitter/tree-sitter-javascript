@@ -2,12 +2,23 @@
 
 set -e
 
+cd "$(dirname "$0")/.."
+
+repo=examples/npm
+
+if [ -d "$repo" ]; then
+  pushd "$repo" && git pull
+  popd
+else
+  git clone https://github.com/npm/npm "$repo"
+fi
+
 tree-sitter parse examples/*.js -q
 
 # TODO: Fix known issues in known_failures.txt
 known_failures=$(cat script/known_failures.txt)
 examples_to_parse=$(
-  for example in $(find examples/npm -name '*.js'); do
+  for example in $(find "$repo" -name '*.js'); do
     if [[ ! $known_failures == *$example* ]]; then
       echo $example
     fi
