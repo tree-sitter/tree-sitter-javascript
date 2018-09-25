@@ -48,15 +48,14 @@ module.exports = grammar({
     $._jsx_attribute_name,
     $._jsx_attribute_value,
     $._jsx_identifier,
+    $._property_name,
   ],
 
   conflicts: $ => [
-    [$._expression, $._property_name],
-    [$._expression, $._property_name, $.arrow_function],
+    [$._expression, $.method_definition, $.arrow_function],
     [$._expression, $.arrow_function],
     [$._expression, $.method_definition],
     [$._expression, $.formal_parameters],
-    [$.labeled_statement, $._property_name],
     [$.assignment_pattern, $.assignment_expression],
     [$.computed_property_name, $.array],
   ],

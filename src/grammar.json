@@ -4788,11 +4788,7 @@
   "conflicts": [
     [
       "_expression",
-      "_property_name"
-    ],
-    [
-      "_expression",
-      "_property_name",
+      "method_definition",
       "arrow_function"
     ],
     [
@@ -4806,10 +4802,6 @@
     [
       "_expression",
       "formal_parameters"
-    ],
-    [
-      "labeled_statement",
-      "_property_name"
     ],
     [
       "assignment_pattern",
@@ -4841,6 +4833,7 @@
     "_jsx_element",
     "_jsx_attribute_name",
     "_jsx_attribute_value",
-    "_jsx_identifier"
+    "_jsx_identifier",
+    "_property_name"
   ]
 }
