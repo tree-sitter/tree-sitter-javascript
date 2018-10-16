@@ -1,0 +1,110 @@
+/*
+ * Definitions
+ */
+
+class {
+  module: true;
+  definition: true;
+  definition-type: class;
+
+  & > identifier {
+    module-part: name;
+    definition-part: name;
+  }
+}
+
+function {
+  definition: true;
+  definition-type: function;
+
+  & > identifier {
+    definition-part: name;
+  }
+}
+
+method_definition {
+  definition: true;
+  definition-type: method function;
+
+  & > property_identifier {
+    definition-part: name;
+  }
+}
+
+assignment {
+  definition: true;
+
+  & > identifier,
+  & > member_expression:nth-child(0) > property_identifier {
+    definition-part: name;
+  }
+
+  & > function,
+  & > arrow_function {
+    definition-part: value;
+  }
+}
+
+/*
+ * References
+ */
+
+call_expression > identifier {
+  reference: true;
+  reference-type: function;
+}
+
+call_expression > member_expression > property_identifier {
+  reference: true;
+  reference-type: method function;
+}
+
+/*
+ * Local definitions
+ */
+
+method_definition, function, arrow_function {
+  local-scope: true;
+  local-scope-type: function;
+}
+
+statement_block {
+  local-scope: true;
+  local-scope-type: block;
+}
+
+arrow_function > identifier:nth-child(0) {
+  local-definition: true;
+  local-scope-type: function;
+}
+
+function, class {
+  & > identifier {
+    local-definition: true;
+  }
+}
+
+variable_declaration > variable_declarator {
+  & > identifier,
+  & array_pattern > identifier,
+  & assignment_pattern > identifier:nth-child(0),
+  & object_pattern > shorthand_property_identifier,
+  & object_pattern > pair > identifier {
+    local-definition: true;
+    local-is-hoisted: true;
+    local-scope-type: function;
+  }
+}
+
+formal_parameters, variable_declarator {
+  & > identifier,
+  & array_pattern > identifier,
+  & object_pattern > shorthand_property_identifier,
+  & object_pattern > pair > identifier {
+    local-definition: true;
+  }
+}
+
+identifier, shorthand_property_identifier {
+  local-reference: true;
+}

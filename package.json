@@ -22,5 +22,11 @@
     "build": "tree-sitter generate && node-gyp build",
     "test": "tree-sitter test && script/parse-examples",
     "test-windows": "tree-sitter test && tree-sitter parse examples --quiet --time"
+  },
+  "tree-sitter": {
+    "file-types": [
+      "js",
+      "jsx"
+    ]
   }
 }
