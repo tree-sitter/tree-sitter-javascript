@@ -16,11 +16,13 @@
     "acorn": "^2.6.4",
     "babylon": "^6.3.26",
     "esprima": "^2.7.1",
+    "results-interpreter": "^1.0.0",
+    "test262-stream": "^1.2.0",
     "tree-sitter-cli": "^0.13.5"
   },
   "scripts": {
     "build": "tree-sitter generate && node-gyp build",
-    "test": "tree-sitter test && script/parse-examples",
+    "test": "tree-sitter test && script/parse-examples && script/test262.js",
     "test-windows": "tree-sitter test && tree-sitter parse examples --quiet --time"
   }
 }
