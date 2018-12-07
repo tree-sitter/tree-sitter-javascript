@@ -3741,8 +3741,16 @@
           }
         },
         {
-          "type": "SYMBOL",
-          "name": "regex_flags"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "regex_flags"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },
@@ -3815,11 +3823,8 @@
     "regex_flags": {
       "type": "IMMEDIATE_TOKEN",
       "content": {
-        "type": "REPEAT",
-        "content": {
-          "type": "PATTERN",
-          "value": "[a-z]"
-        }
+        "type": "PATTERN",
+        "value": "[a-z]+"
       }
     },
     "number": {
