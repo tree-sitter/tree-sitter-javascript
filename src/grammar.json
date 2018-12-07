@@ -4862,6 +4862,10 @@
       "formal_parameters"
     ],
     [
+      "arguments",
+      "formal_parameters"
+    ],
+    [
       "_expression",
       "rest_parameter"
     ],

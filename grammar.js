@@ -58,6 +58,7 @@ module.exports = grammar({
     [$._expression, $.arrow_function],
     [$._expression, $.method_definition],
     [$._expression, $.formal_parameters],
+    [$.arguments, $.formal_parameters],
     [$._expression, $.rest_parameter],
     [$.labeled_statement, $._property_name],
     [$.assignment_pattern, $.assignment_expression],
