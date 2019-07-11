@@ -1,0 +1,8 @@
+[package]
+name = "tree-sitter-javascript"
+version = "0.1.0"
+authors = ["Ethan Spurlock <ethan@spurlock.io>"]
+edition = "2018"
+
+[build-dependencies]
+cc = "1.0"

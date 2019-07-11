@@ -5,3 +5,12 @@ build
 /test.js
 /examples/npm
 package-lock.json
+
+
+#Added by cargo
+#
+#already existing elements are commented out
+
+/target
+**/*.rs.bk
+Cargo.lock
