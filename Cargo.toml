@@ -4,5 +4,8 @@ version = "0.1.0"
 authors = ["Ethan Spurlock <ethan@spurlock.io>"]
 edition = "2018"
 
+[dependencies]
+tree-sitter = "0.3.10"
+
 [build-dependencies]
 cc = "1.0"
