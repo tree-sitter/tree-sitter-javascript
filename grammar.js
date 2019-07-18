@@ -235,13 +235,22 @@ module.exports = grammar({
       '}'
     ),
 
+    statement_empty_block: $ => token(
+      /\{\s*\}/
+    ),
+
+    _body_statement: $ => choice(
+      alias($.statement_empty_block, $.statement_block),
+      $._statement,
+    ),
+
     if_statement: $ => prec.right(seq(
       'if',
       field('condition', $.parenthesized_expression),
-      field('consequence', $._statement),
+      field('consequence', $._body_statement),
       optional(seq(
         'else',
-        field('alternative', $._statement)
+        field('alternative', $._body_statement)
       ))
     )),
 
@@ -266,14 +275,14 @@ module.exports = grammar({
       )),
       field('increment', optional($._expressions)),
       ')',
-      field('body', $._statement)
+      field('body', $._body_statement)
     ),
 
     for_in_statement: $ => seq(
       'for',
       optional('await'),
       $._for_header,
-      field('body', $._statement)
+      field('body', $._body_statement)
     ),
 
     _for_header: $ => seq(
@@ -288,12 +297,12 @@ module.exports = grammar({
     while_statement: $ => seq(
       'while',
       field('condition', $.parenthesized_expression),
-      field('body', $._statement)
+      field('body', $._body_statement)
     ),
 
     do_statement: $ => seq(
       'do',
-      field('body', $._statement),
+      field('body', $._body_statement),
       'while',
       field('condition', $.parenthesized_expression),
       $._semicolon
@@ -309,7 +318,7 @@ module.exports = grammar({
     with_statement: $ => seq(
       'with',
       field('object', $.parenthesized_expression),
-      field('body', $._statement)
+      field('body', $._body_statement)
     ),
 
     break_statement: $ => seq(

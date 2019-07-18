@@ -711,6 +711,31 @@
         }
       ]
     },
+    "statement_empty_block": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "\\{\\s*\\}"
+      }
+    },
+    "_body_statement": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "statement_empty_block"
+          },
+          "named": true,
+          "value": "statement_block"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_statement"
+        }
+      ]
+    },
     "if_statement": {
       "type": "PREC_RIGHT",
       "value": 0,
@@ -734,7 +759,7 @@
             "name": "consequence",
             "content": {
               "type": "SYMBOL",
-              "name": "_statement"
+              "name": "_body_statement"
             }
           },
           {
@@ -752,7 +777,7 @@
                     "name": "alternative",
                     "content": {
                       "type": "SYMBOL",
-                      "name": "_statement"
+                      "name": "_body_statement"
                     }
                   }
                 ]
@@ -868,7 +893,7 @@
           "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "_statement"
+            "name": "_body_statement"
           }
         }
       ]
@@ -901,7 +926,7 @@
           "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "_statement"
+            "name": "_body_statement"
           }
         }
       ]
@@ -1002,7 +1027,7 @@
           "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "_statement"
+            "name": "_body_statement"
           }
         }
       ]
@@ -1019,7 +1044,7 @@
           "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "_statement"
+            "name": "_body_statement"
           }
         },
         {
@@ -1109,7 +1134,7 @@
           "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "_statement"
+            "name": "_body_statement"
           }
         }
       ]
