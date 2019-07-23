@@ -141,10 +141,8 @@ module.exports = grammar({
     //
 
     import_expression: $ => seq(
-      'import',
-      '(',
-      field('source', $.string),
-      ')',
+      'import', 
+      $.arguments,
     ),
 
     import_statement: $ => seq(
