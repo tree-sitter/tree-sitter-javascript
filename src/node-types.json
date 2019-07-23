@@ -324,24 +324,8 @@
         "required": false,
         "types": [
           {
-            "type": "async",
-            "named": false
-          },
-          {
-            "type": "get",
-            "named": false
-          },
-          {
             "type": "identifier",
             "named": true
-          },
-          {
-            "type": "set",
-            "named": false
-          },
-          {
-            "type": "static",
-            "named": false
           }
         ]
       },

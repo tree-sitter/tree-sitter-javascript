@@ -554,6 +554,7 @@ async => async + 1;
   (expression_statement (arrow_function
     (formal_parameters (identifier) (identifier)) (number)))
   (expression_statement (arrow_function
+    (identifier)
     (binary_expression (identifier) (number)))))
 
 ============================================
