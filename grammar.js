@@ -823,8 +823,8 @@ module.exports = grammar({
       seq(
         '/*',
         /[^*]*\*+([^/*][^*]*\*+)*/,
-      '/'
-    )
+        '/'
+      )
     ))),
 
     template_string: $ => seq(
