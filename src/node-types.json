@@ -92,6 +92,10 @@
         "named": true
       },
       {
+        "type": "import_expression",
+        "named": true
+      },
+      {
         "type": "jsx_element",
         "named": true
       },
@@ -1331,6 +1335,22 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "import_expression",
+    "named": true,
+    "fields": {
+      "source": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "string",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -2662,6 +2682,14 @@
     "named": false
   },
   {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
     "type": "from",
     "named": false
   },
@@ -2691,14 +2719,6 @@
   },
   {
     "type": "for",
-    "named": false
-  },
-  {
-    "type": "(",
-    "named": false
-  },
-  {
-    "type": ")",
     "named": false
   },
   {
