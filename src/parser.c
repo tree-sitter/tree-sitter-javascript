@@ -1915,7 +1915,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == 0) ADVANCE(43);
       if (lookahead == '!') ADVANCE(120);
       if (lookahead == '"') ADVANCE(124);
-      if (lookahead == '#') ADVANCE(11);
+      if (lookahead == '#') ADVANCE(7);
       if (lookahead == '$') ADVANCE(157);
       if (lookahead == '%') ADVANCE(110);
       if (lookahead == '&') ADVANCE(100);
@@ -1933,7 +1933,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == ';') ADVANCE(53);
       if (lookahead == '<') ADVANCE(60);
       if (lookahead == '=') ADVANCE(56);
-      if (lookahead == '>') ADVANCE(64);
+      if (lookahead == '>') ADVANCE(63);
       if (lookahead == '?') ADVANCE(90);
       if (lookahead == '@') ADVANCE(159);
       if (lookahead == '[') ADVANCE(57);
@@ -1960,27 +1960,18 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == 0) ADVANCE(43);
       if (lookahead == '!') ADVANCE(120);
       if (lookahead == '"') ADVANCE(124);
-<<<<<<< HEAD
       if (lookahead == '#') ADVANCE(7);
       if (lookahead == '$') ADVANCE(157);
       if (lookahead == '%') ADVANCE(110);
       if (lookahead == '&') ADVANCE(100);
-=======
-      if (lookahead == '#') ADVANCE(11);
->>>>>>> Fix bigint literal for hex, oct and bin
       if (lookahead == '\'') ADVANCE(130);
       if (lookahead == '(') ADVANCE(51);
       if (lookahead == ')') ADVANCE(52);
       if (lookahead == '*') ADVANCE(46);
       if (lookahead == '+') ADVANCE(106);
       if (lookahead == ',') ADVANCE(49);
-<<<<<<< HEAD
       if (lookahead == '-') ADVANCE(108);
       if (lookahead == '.') ADVANCE(74);
-=======
-      if (lookahead == '-') ADVANCE(107);
-      if (lookahead == '.') ADVANCE(20);
->>>>>>> Fix bigint literal for hex, oct and bin
       if (lookahead == '/') ADVANCE(65);
       if (lookahead == '0') ADVANCE(149);
       if (lookahead == ':') ADVANCE(54);
@@ -2014,15 +2005,8 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == 0) ADVANCE(43);
       if (lookahead == '!') ADVANCE(120);
       if (lookahead == '"') ADVANCE(124);
-<<<<<<< HEAD
       if (lookahead == '%') ADVANCE(109);
       if (lookahead == '&') ADVANCE(99);
-=======
-      if (lookahead == '#') ADVANCE(11);
-      if (lookahead == '$') ADVANCE(157);
-      if (lookahead == '%') ADVANCE(110);
-      if (lookahead == '&') ADVANCE(100);
->>>>>>> Fix bigint literal for hex, oct and bin
       if (lookahead == '\'') ADVANCE(130);
       if (lookahead == '(') ADVANCE(51);
       if (lookahead == ')') ADVANCE(52);
@@ -2078,15 +2062,8 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == '0') ADVANCE(149);
       if (lookahead == ':') ADVANCE(54);
       if (lookahead == ';') ADVANCE(53);
-<<<<<<< HEAD
       if (lookahead == '<') ADVANCE(59);
       if (lookahead == '=') ADVANCE(55);
-=======
-      if (lookahead == '<') ADVANCE(60);
-      if (lookahead == '=') ADVANCE(56);
-      if (lookahead == '>') ADVANCE(63);
-      if (lookahead == '?') ADVANCE(90);
->>>>>>> Fix bigint literal for hex, oct and bin
       if (lookahead == '@') ADVANCE(159);
       if (lookahead == '[') ADVANCE(57);
       if (lookahead == ']') ADVANCE(58);
@@ -2109,7 +2086,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '|') ADVANCE(158);
       END_STATE();
     case 4:
-<<<<<<< HEAD
       if (lookahead == '\n') SKIP(12)
       if (lookahead == '"') ADVANCE(124);
       if (lookahead == '/') ADVANCE(125);
@@ -2128,12 +2104,6 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == '\'') ADVANCE(130);
       if (lookahead == '/') ADVANCE(131);
       if (lookahead == '\\') ADVANCE(28);
-=======
-      if (lookahead == '\n') SKIP(22)
-      if (lookahead == '/') ADVANCE(18);
-      if (lookahead == '[') ADVANCE(26);
-      if (lookahead == '\\') ADVANCE(41);
->>>>>>> Fix bigint literal for hex, oct and bin
       if (lookahead == '\t' ||
           lookahead == '\r' ||
           lookahead == ' ' ||
@@ -2143,19 +2113,11 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead == 65279) ADVANCE(134);
       if (lookahead != 0) ADVANCE(135);
       END_STATE();
-<<<<<<< HEAD
     case 6:
       if (lookahead == '\n') SKIP(22)
       if (lookahead == '/') ADVANCE(16);
       if (lookahead == '[') ADVANCE(26);
       if (lookahead == '\\') ADVANCE(42);
-=======
-    case 5:
-      if (lookahead == '\n') SKIP(12)
-      if (lookahead == '"') ADVANCE(124);
-      if (lookahead == '/') ADVANCE(125);
-      if (lookahead == '\\') ADVANCE(28);
->>>>>>> Fix bigint literal for hex, oct and bin
       if (lookahead == '\t' ||
           lookahead == '\r' ||
           lookahead == ' ' ||
@@ -2165,21 +2127,10 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead == 65279) ADVANCE(145);
       if (lookahead != 0) ADVANCE(146);
       END_STATE();
-    case 6:
-      if (lookahead == '\n') SKIP(15)
-      if (lookahead == '\'') ADVANCE(130);
-      if (lookahead == '/') ADVANCE(131);
-      if (lookahead == '\\') ADVANCE(28);
-      if (lookahead == '\t' ||
-          lookahead == '\r' ||
-          lookahead == ' ' ||
-          lookahead == 160 ||
-          lookahead == 8203 ||
-          lookahead == 8288 ||
-          lookahead == 65279) ADVANCE(134);
-      if (lookahead != 0) ADVANCE(135);
-      END_STATE();
     case 7:
+      if (lookahead == '!') ADVANCE(44);
+      END_STATE();
+    case 8:
       if (lookahead == '!') ADVANCE(119);
       if (lookahead == '"') ADVANCE(124);
       if (lookahead == '\'') ADVANCE(130);
@@ -2202,7 +2153,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead == 160 ||
           lookahead == 8203 ||
           lookahead == 8288 ||
-          lookahead == 65279) SKIP(7)
+          lookahead == 65279) SKIP(8)
       if (('1' <= lookahead && lookahead <= '9')) ADVANCE(150);
       if (lookahead != 0 &&
           lookahead != '#' &&
@@ -2211,13 +2162,8 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '|' &&
           lookahead != '}') ADVANCE(158);
       END_STATE();
-<<<<<<< HEAD
     case 9:
       if (lookahead == '!') ADVANCE(24);
-=======
-    case 8:
-      if (lookahead == '!') ADVANCE(25);
->>>>>>> Fix bigint literal for hex, oct and bin
       if (lookahead == '"') ADVANCE(124);
       if (lookahead == '%') ADVANCE(110);
       if (lookahead == '&') ADVANCE(100);
@@ -2235,7 +2181,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == ';') ADVANCE(53);
       if (lookahead == '<') ADVANCE(60);
       if (lookahead == '=') ADVANCE(56);
-      if (lookahead == '>') ADVANCE(64);
+      if (lookahead == '>') ADVANCE(63);
       if (lookahead == '?') ADVANCE(90);
       if (lookahead == '@') ADVANCE(159);
       if (lookahead == '[') ADVANCE(57);
@@ -2252,20 +2198,15 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead == 160 ||
           lookahead == 8203 ||
           lookahead == 8288 ||
-          lookahead == 65279) SKIP(8)
+          lookahead == 65279) SKIP(9)
       if (('1' <= lookahead && lookahead <= '9')) ADVANCE(150);
       if (lookahead != 0 &&
           lookahead != '#' &&
           lookahead != '\\' &&
           lookahead != '~') ADVANCE(158);
       END_STATE();
-<<<<<<< HEAD
     case 10:
       if (lookahead == '!') ADVANCE(24);
-=======
-    case 9:
-      if (lookahead == '!') ADVANCE(25);
->>>>>>> Fix bigint literal for hex, oct and bin
       if (lookahead == '%') ADVANCE(109);
       if (lookahead == '&') ADVANCE(99);
       if (lookahead == '(') ADVANCE(51);
@@ -2278,15 +2219,9 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == '/') ADVANCE(65);
       if (lookahead == ':') ADVANCE(54);
       if (lookahead == ';') ADVANCE(53);
-<<<<<<< HEAD
       if (lookahead == '<') ADVANCE(61);
       if (lookahead == '=') ADVANCE(25);
       if (lookahead == '>') ADVANCE(64);
-=======
-      if (lookahead == '<') ADVANCE(60);
-      if (lookahead == '=') ADVANCE(24);
-      if (lookahead == '>') ADVANCE(63);
->>>>>>> Fix bigint literal for hex, oct and bin
       if (lookahead == '?') ADVANCE(90);
       if (lookahead == '[') ADVANCE(57);
       if (lookahead == ']') ADVANCE(58);
@@ -2302,7 +2237,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead == 160 ||
           lookahead == 8203 ||
           lookahead == 8288 ||
-          lookahead == 65279) SKIP(10)
+          lookahead == 65279) SKIP(11)
       if (('a' <= lookahead && lookahead <= 'z')) ADVANCE(147);
       if (lookahead != 0 &&
           lookahead != '"' &&
@@ -2311,13 +2246,8 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '\\' &&
           lookahead != '~') ADVANCE(158);
       END_STATE();
-<<<<<<< HEAD
     case 11:
       if (lookahead == '!') ADVANCE(24);
-=======
-    case 10:
-      if (lookahead == '!') ADVANCE(25);
->>>>>>> Fix bigint literal for hex, oct and bin
       if (lookahead == '%') ADVANCE(109);
       if (lookahead == '&') ADVANCE(99);
       if (lookahead == '(') ADVANCE(51);
@@ -2330,15 +2260,9 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == '/') ADVANCE(65);
       if (lookahead == ':') ADVANCE(54);
       if (lookahead == ';') ADVANCE(53);
-<<<<<<< HEAD
       if (lookahead == '<') ADVANCE(61);
       if (lookahead == '=') ADVANCE(25);
       if (lookahead == '>') ADVANCE(64);
-=======
-      if (lookahead == '<') ADVANCE(60);
-      if (lookahead == '=') ADVANCE(24);
-      if (lookahead == '>') ADVANCE(63);
->>>>>>> Fix bigint literal for hex, oct and bin
       if (lookahead == '?') ADVANCE(90);
       if (lookahead == '[') ADVANCE(57);
       if (lookahead == ']') ADVANCE(58);
@@ -2354,7 +2278,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead == 160 ||
           lookahead == 8203 ||
           lookahead == 8288 ||
-          lookahead == 65279) SKIP(10)
+          lookahead == 65279) SKIP(11)
       if (lookahead != 0 &&
           lookahead != '"' &&
           lookahead != '#' &&
@@ -2362,12 +2286,9 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '\\' &&
           lookahead != '~') ADVANCE(158);
       END_STATE();
-    case 11:
-      if (lookahead == '!') ADVANCE(44);
-      END_STATE();
     case 12:
       if (lookahead == '"') ADVANCE(124);
-      if (lookahead == '/') ADVANCE(18);
+      if (lookahead == '/') ADVANCE(16);
       if (lookahead == '\t' ||
           lookahead == '\n' ||
           lookahead == '\r' ||
@@ -2400,7 +2321,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == '$') ADVANCE(29);
       if (lookahead == '(') ADVANCE(51);
       if (lookahead == '.') ADVANCE(73);
-      if (lookahead == '/') ADVANCE(18);
+      if (lookahead == '/') ADVANCE(16);
       if (lookahead == ':') ADVANCE(54);
       if (lookahead == '>') ADVANCE(62);
       if (lookahead == '[') ADVANCE(57);
@@ -2416,7 +2337,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       END_STATE();
     case 15:
       if (lookahead == '\'') ADVANCE(130);
-      if (lookahead == '/') ADVANCE(18);
+      if (lookahead == '/') ADVANCE(16);
       if (lookahead == '\t' ||
           lookahead == '\n' ||
           lookahead == '\r' ||
@@ -2427,19 +2348,26 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead == 65279) SKIP(15)
       END_STATE();
     case 16:
-      if (lookahead == '*') ADVANCE(16);
-      if (lookahead == '/') ADVANCE(139);
-      if (lookahead != 0) ADVANCE(17);
+      if (lookahead == '*') ADVANCE(18);
+      if (lookahead == '/') ADVANCE(141);
       END_STATE();
     case 17:
-      if (lookahead == '*') ADVANCE(16);
-      if (lookahead != 0) ADVANCE(17);
+      if (lookahead == '*') ADVANCE(17);
+      if (lookahead == '/') ADVANCE(139);
+      if (lookahead != 0) ADVANCE(18);
       END_STATE();
     case 18:
       if (lookahead == '*') ADVANCE(17);
-      if (lookahead == '/') ADVANCE(141);
+      if (lookahead != 0) ADVANCE(18);
       END_STATE();
     case 19:
+      if (lookahead == '.') ADVANCE(20);
+      if (('0' <= lookahead && lookahead <= '9')) ADVANCE(154);
+      END_STATE();
+    case 20:
+      if (lookahead == '.') ADVANCE(89);
+      END_STATE();
+    case 21:
       if (lookahead == '.') ADVANCE(73);
       if (lookahead == '/') ADVANCE(65);
       if (lookahead == ':') ADVANCE(54);
@@ -2453,7 +2381,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead == 160 ||
           lookahead == 8203 ||
           lookahead == 8288 ||
-          lookahead == 65279) SKIP(19)
+          lookahead == 65279) SKIP(21)
       if (lookahead == '$' ||
           ('A' <= lookahead && lookahead <= 'Z') ||
           lookahead == '_' ||
@@ -2461,19 +2389,8 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead != 0 &&
           (lookahead < '!' || '~' < lookahead)) ADVANCE(158);
       END_STATE();
-    case 20:
-      if (lookahead == '.') ADVANCE(21);
-      if (('0' <= lookahead && lookahead <= '9')) ADVANCE(154);
-      END_STATE();
-    case 21:
-      if (lookahead == '.') ADVANCE(89);
-      END_STATE();
     case 22:
-<<<<<<< HEAD
       if (lookahead == '/') ADVANCE(16);
-=======
-      if (lookahead == '/') ADVANCE(18);
->>>>>>> Fix bigint literal for hex, oct and bin
       if (lookahead == '\t' ||
           lookahead == '\n' ||
           lookahead == '\r' ||
@@ -2484,11 +2401,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead == 65279) SKIP(22)
       END_STATE();
     case 23:
-<<<<<<< HEAD
       if (lookahead == '/') ADVANCE(67);
-=======
-      if (lookahead == '/') ADVANCE(69);
->>>>>>> Fix bigint literal for hex, oct and bin
       if (lookahead == '<') ADVANCE(59);
       if (lookahead == '{') ADVANCE(48);
       if (lookahead == '\t' ||
@@ -2529,11 +2442,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       if (lookahead == '{') ADVANCE(143);
       END_STATE();
     case 30:
-<<<<<<< HEAD
       if (lookahead == '{') ADVANCE(38);
-=======
-      if (lookahead == '{') ADVANCE(36);
->>>>>>> Fix bigint literal for hex, oct and bin
       if (('0' <= lookahead && lookahead <= '9') ||
           ('A' <= lookahead && lookahead <= 'F') ||
           ('a' <= lookahead && lookahead <= 'f')) ADVANCE(39);
@@ -2562,25 +2471,17 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
     case 36:
       if (('0' <= lookahead && lookahead <= '9') ||
           ('A' <= lookahead && lookahead <= 'F') ||
-          ('a' <= lookahead && lookahead <= 'f')) ADVANCE(31);
+          ('a' <= lookahead && lookahead <= 'f')) ADVANCE(136);
       END_STATE();
     case 37:
       if (('0' <= lookahead && lookahead <= '9') ||
           ('A' <= lookahead && lookahead <= 'F') ||
-<<<<<<< HEAD
-          ('a' <= lookahead && lookahead <= 'f')) ADVANCE(155);
-=======
           ('a' <= lookahead && lookahead <= 'f')) ADVANCE(153);
->>>>>>> Fix bigint literal for hex, oct and bin
       END_STATE();
     case 38:
       if (('0' <= lookahead && lookahead <= '9') ||
           ('A' <= lookahead && lookahead <= 'F') ||
-<<<<<<< HEAD
           ('a' <= lookahead && lookahead <= 'f')) ADVANCE(31);
-=======
-          ('a' <= lookahead && lookahead <= 'f')) ADVANCE(136);
->>>>>>> Fix bigint literal for hex, oct and bin
       END_STATE();
     case 39:
       if (('0' <= lookahead && lookahead <= '9') ||
@@ -2590,7 +2491,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
     case 40:
       if (('0' <= lookahead && lookahead <= '9') ||
           ('A' <= lookahead && lookahead <= 'F') ||
-          ('a' <= lookahead && lookahead <= 'f')) ADVANCE(38);
+          ('a' <= lookahead && lookahead <= 'f')) ADVANCE(36);
       END_STATE();
     case 41:
       if (lookahead != 0 &&
@@ -2674,46 +2575,27 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
     case 63:
       ACCEPT_TOKEN(anon_sym_GT);
       if (lookahead == '=') ADVANCE(118);
-      if (lookahead == '>') ADVANCE(94);
+      if (lookahead == '>') ADVANCE(93);
       END_STATE();
     case 64:
       ACCEPT_TOKEN(anon_sym_GT);
       if (lookahead == '=') ADVANCE(118);
-      if (lookahead == '>') ADVANCE(93);
+      if (lookahead == '>') ADVANCE(94);
       END_STATE();
     case 65:
       ACCEPT_TOKEN(anon_sym_SLASH);
-      if (lookahead == '*') ADVANCE(17);
+      if (lookahead == '*') ADVANCE(18);
       if (lookahead == '/') ADVANCE(141);
       END_STATE();
     case 66:
       ACCEPT_TOKEN(anon_sym_SLASH);
-      if (lookahead == '*') ADVANCE(17);
+      if (lookahead == '*') ADVANCE(18);
       if (lookahead == '/') ADVANCE(141);
       if (lookahead == '=') ADVANCE(80);
       END_STATE();
     case 67:
       ACCEPT_TOKEN(sym_jsx_text);
-      if (lookahead == '*') ADVANCE(67);
-      if (lookahead == '/') ADVANCE(139);
-      if (lookahead == '<' ||
-          lookahead == '>' ||
-          lookahead == '{' ||
-          lookahead == '}') ADVANCE(17);
-      if (lookahead != 0) ADVANCE(68);
-      END_STATE();
-    case 68:
-      ACCEPT_TOKEN(sym_jsx_text);
-      if (lookahead == '*') ADVANCE(67);
-      if (lookahead == '<' ||
-          lookahead == '>' ||
-          lookahead == '{' ||
-          lookahead == '}') ADVANCE(17);
-      if (lookahead != 0) ADVANCE(68);
-      END_STATE();
-    case 69:
-      ACCEPT_TOKEN(sym_jsx_text);
-      if (lookahead == '*') ADVANCE(68);
+      if (lookahead == '*') ADVANCE(69);
       if (lookahead == '/') ADVANCE(140);
       if (lookahead != 0 &&
           lookahead != '<' &&
@@ -2721,9 +2603,28 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '{' &&
           lookahead != '}') ADVANCE(71);
       END_STATE();
+    case 68:
+      ACCEPT_TOKEN(sym_jsx_text);
+      if (lookahead == '*') ADVANCE(68);
+      if (lookahead == '/') ADVANCE(139);
+      if (lookahead == '<' ||
+          lookahead == '>' ||
+          lookahead == '{' ||
+          lookahead == '}') ADVANCE(18);
+      if (lookahead != 0) ADVANCE(69);
+      END_STATE();
+    case 69:
+      ACCEPT_TOKEN(sym_jsx_text);
+      if (lookahead == '*') ADVANCE(68);
+      if (lookahead == '<' ||
+          lookahead == '>' ||
+          lookahead == '{' ||
+          lookahead == '}') ADVANCE(18);
+      if (lookahead != 0) ADVANCE(69);
+      END_STATE();
     case 70:
       ACCEPT_TOKEN(sym_jsx_text);
-      if (lookahead == '/') ADVANCE(69);
+      if (lookahead == '/') ADVANCE(67);
       if (lookahead == '\t' ||
           lookahead == '\n' ||
           lookahead == '\r' ||
@@ -2760,7 +2661,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       END_STATE();
     case 74:
       ACCEPT_TOKEN(anon_sym_DOT);
-      if (lookahead == '.') ADVANCE(21);
+      if (lookahead == '.') ADVANCE(20);
       if (('0' <= lookahead && lookahead <= '9')) ADVANCE(154);
       END_STATE();
     case 75:
@@ -3072,12 +2973,12 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       END_STATE();
     case 144:
       ACCEPT_TOKEN(anon_sym_SLASH2);
-      if (lookahead == '*') ADVANCE(17);
+      if (lookahead == '*') ADVANCE(18);
       if (lookahead == '/') ADVANCE(141);
       END_STATE();
     case 145:
       ACCEPT_TOKEN(sym_regex_pattern);
-      if (lookahead == '/') ADVANCE(18);
+      if (lookahead == '/') ADVANCE(16);
       if (lookahead == '[') ADVANCE(26);
       if (lookahead == '\\') ADVANCE(42);
       if (lookahead == '\t' ||
@@ -3870,7 +3771,6 @@ static bool ts_lex_keywords(TSLexer *lexer, TSStateId state) {
 
 static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [0] = {.lex_state = 0, .external_lex_state = 1},
-<<<<<<< HEAD
   [1] = {.lex_state = 3},
   [2] = {.lex_state = 3},
   [3] = {.lex_state = 3},
@@ -3882,24 +3782,10 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [9] = {.lex_state = 3},
   [10] = {.lex_state = 3},
   [11] = {.lex_state = 3},
-=======
-  [1] = {.lex_state = 1},
-  [2] = {.lex_state = 1},
-  [3] = {.lex_state = 1},
-  [4] = {.lex_state = 1},
-  [5] = {.lex_state = 5},
-  [6] = {.lex_state = 13, .external_lex_state = 2},
-  [7] = {.lex_state = 1},
-  [8] = {.lex_state = 8, .external_lex_state = 3},
-  [9] = {.lex_state = 1},
-  [10] = {.lex_state = 1},
-  [11] = {.lex_state = 1},
->>>>>>> Fix bigint literal for hex, oct and bin
   [12] = {.lex_state = 0},
   [13] = {.lex_state = 3},
   [14] = {.lex_state = 3},
   [15] = {.lex_state = 0},
-<<<<<<< HEAD
   [16] = {.lex_state = 3},
   [17] = {.lex_state = 3},
   [18] = {.lex_state = 3},
@@ -3910,52 +3796,24 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [23] = {.lex_state = 3},
   [24] = {.lex_state = 3, .external_lex_state = 3},
   [25] = {.lex_state = 3},
-=======
-  [16] = {.lex_state = 1},
-  [17] = {.lex_state = 1},
-  [18] = {.lex_state = 1},
-  [19] = {.lex_state = 1},
-  [20] = {.lex_state = 1},
-  [21] = {.lex_state = 6},
-  [22] = {.lex_state = 4},
-  [23] = {.lex_state = 1},
-  [24] = {.lex_state = 1, .external_lex_state = 3},
-  [25] = {.lex_state = 1},
->>>>>>> Fix bigint literal for hex, oct and bin
   [26] = {.lex_state = 0, .external_lex_state = 3},
   [27] = {.lex_state = 3},
   [28] = {.lex_state = 0},
   [29] = {.lex_state = 13},
-<<<<<<< HEAD
   [30] = {.lex_state = 9, .external_lex_state = 3},
   [31] = {.lex_state = 21},
   [32] = {.lex_state = 2, .external_lex_state = 3},
   [33] = {.lex_state = 9, .external_lex_state = 3},
   [34] = {.lex_state = 8},
   [35] = {.lex_state = 3},
-=======
-  [30] = {.lex_state = 8, .external_lex_state = 3},
-  [31] = {.lex_state = 19},
-  [32] = {.lex_state = 3, .external_lex_state = 3},
-  [33] = {.lex_state = 8, .external_lex_state = 3},
-  [34] = {.lex_state = 7},
-  [35] = {.lex_state = 1},
->>>>>>> Fix bigint literal for hex, oct and bin
   [36] = {.lex_state = 0},
   [37] = {.lex_state = 3},
   [38] = {.lex_state = 3, .external_lex_state = 3},
   [39] = {.lex_state = 0},
-<<<<<<< HEAD
   [40] = {.lex_state = 3, .external_lex_state = 3},
   [41] = {.lex_state = 3},
   [42] = {.lex_state = 9, .external_lex_state = 3},
   [43] = {.lex_state = 3},
-=======
-  [40] = {.lex_state = 1, .external_lex_state = 3},
-  [41] = {.lex_state = 1},
-  [42] = {.lex_state = 8, .external_lex_state = 3},
-  [43] = {.lex_state = 1},
->>>>>>> Fix bigint literal for hex, oct and bin
   [44] = {.lex_state = 0},
   [45] = {.lex_state = 2, .external_lex_state = 3},
   [46] = {.lex_state = 3},
@@ -3964,7 +3822,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [49] = {.lex_state = 2, .external_lex_state = 3},
   [50] = {.lex_state = 0},
   [51] = {.lex_state = 0, .external_lex_state = 3},
-<<<<<<< HEAD
   [52] = {.lex_state = 2, .external_lex_state = 3},
   [53] = {.lex_state = 23},
   [54] = {.lex_state = 3},
@@ -3991,34 +3848,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [75] = {.lex_state = 3},
   [76] = {.lex_state = 3},
   [77] = {.lex_state = 3},
-=======
-  [52] = {.lex_state = 3, .external_lex_state = 3},
-  [53] = {.lex_state = 23},
-  [54] = {.lex_state = 1},
-  [55] = {.lex_state = 1},
-  [56] = {.lex_state = 1},
-  [57] = {.lex_state = 8, .external_lex_state = 3},
-  [58] = {.lex_state = 8, .external_lex_state = 3},
-  [59] = {.lex_state = 3, .external_lex_state = 3},
-  [60] = {.lex_state = 1},
-  [61] = {.lex_state = 3, .external_lex_state = 3},
-  [62] = {.lex_state = 1},
-  [63] = {.lex_state = 1},
-  [64] = {.lex_state = 1},
-  [65] = {.lex_state = 0},
-  [66] = {.lex_state = 3, .external_lex_state = 3},
-  [67] = {.lex_state = 3, .external_lex_state = 3},
-  [68] = {.lex_state = 5},
-  [69] = {.lex_state = 1},
-  [70] = {.lex_state = 3, .external_lex_state = 3},
-  [71] = {.lex_state = 13, .external_lex_state = 2},
-  [72] = {.lex_state = 8},
-  [73] = {.lex_state = 8},
-  [74] = {.lex_state = 1},
-  [75] = {.lex_state = 1},
-  [76] = {.lex_state = 1},
-  [77] = {.lex_state = 1},
->>>>>>> Fix bigint literal for hex, oct and bin
   [78] = {.lex_state = 0},
   [79] = {.lex_state = 3},
   [80] = {.lex_state = 3},
@@ -4033,7 +3862,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [89] = {.lex_state = 3},
   [90] = {.lex_state = 3},
   [91] = {.lex_state = 0, .external_lex_state = 3},
-<<<<<<< HEAD
   [92] = {.lex_state = 3},
   [93] = {.lex_state = 3},
   [94] = {.lex_state = 2, .external_lex_state = 3},
@@ -4047,21 +3875,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [102] = {.lex_state = 2, .external_lex_state = 3},
   [103] = {.lex_state = 3},
   [104] = {.lex_state = 9, .external_lex_state = 3},
-=======
-  [92] = {.lex_state = 1},
-  [93] = {.lex_state = 1},
-  [94] = {.lex_state = 3, .external_lex_state = 3},
-  [95] = {.lex_state = 8, .external_lex_state = 3},
-  [96] = {.lex_state = 1},
-  [97] = {.lex_state = 8, .external_lex_state = 3},
-  [98] = {.lex_state = 1},
-  [99] = {.lex_state = 1},
-  [100] = {.lex_state = 3, .external_lex_state = 3},
-  [101] = {.lex_state = 8, .external_lex_state = 3},
-  [102] = {.lex_state = 3, .external_lex_state = 3},
-  [103] = {.lex_state = 1},
-  [104] = {.lex_state = 8, .external_lex_state = 3},
->>>>>>> Fix bigint literal for hex, oct and bin
   [105] = {.lex_state = 0},
   [106] = {.lex_state = 2, .external_lex_state = 3},
   [107] = {.lex_state = 3},
@@ -4082,34 +3895,21 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [122] = {.lex_state = 0},
   [123] = {.lex_state = 2},
   [124] = {.lex_state = 0},
-<<<<<<< HEAD
   [125] = {.lex_state = 5},
-=======
-  [125] = {.lex_state = 6},
->>>>>>> Fix bigint literal for hex, oct and bin
   [126] = {.lex_state = 13},
   [127] = {.lex_state = 3},
   [128] = {.lex_state = 3},
   [129] = {.lex_state = 0, .external_lex_state = 3},
-<<<<<<< HEAD
   [130] = {.lex_state = 3},
   [131] = {.lex_state = 9},
   [132] = {.lex_state = 3},
   [133] = {.lex_state = 9},
   [134] = {.lex_state = 9},
-=======
-  [130] = {.lex_state = 1},
-  [131] = {.lex_state = 8},
-  [132] = {.lex_state = 1},
-  [133] = {.lex_state = 8},
-  [134] = {.lex_state = 8},
->>>>>>> Fix bigint literal for hex, oct and bin
   [135] = {.lex_state = 0},
   [136] = {.lex_state = 2},
   [137] = {.lex_state = 0},
   [138] = {.lex_state = 2},
   [139] = {.lex_state = 0},
-<<<<<<< HEAD
   [140] = {.lex_state = 2},
   [141] = {.lex_state = 3},
   [142] = {.lex_state = 3},
@@ -4139,37 +3939,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [166] = {.lex_state = 2, .external_lex_state = 3},
   [167] = {.lex_state = 2, .external_lex_state = 3},
   [168] = {.lex_state = 2, .external_lex_state = 3},
-=======
-  [140] = {.lex_state = 3},
-  [141] = {.lex_state = 1},
-  [142] = {.lex_state = 1},
-  [143] = {.lex_state = 1},
-  [144] = {.lex_state = 1},
-  [145] = {.lex_state = 3, .external_lex_state = 3},
-  [146] = {.lex_state = 1},
-  [147] = {.lex_state = 1},
-  [148] = {.lex_state = 1},
-  [149] = {.lex_state = 1},
-  [150] = {.lex_state = 19},
-  [151] = {.lex_state = 19},
-  [152] = {.lex_state = 23},
-  [153] = {.lex_state = 19},
-  [154] = {.lex_state = 19},
-  [155] = {.lex_state = 3, .external_lex_state = 3},
-  [156] = {.lex_state = 1},
-  [157] = {.lex_state = 0},
-  [158] = {.lex_state = 0},
-  [159] = {.lex_state = 3, .external_lex_state = 3},
-  [160] = {.lex_state = 8, .external_lex_state = 3},
-  [161] = {.lex_state = 8, .external_lex_state = 3},
-  [162] = {.lex_state = 1},
-  [163] = {.lex_state = 8, .external_lex_state = 3},
-  [164] = {.lex_state = 8, .external_lex_state = 3},
-  [165] = {.lex_state = 3},
-  [166] = {.lex_state = 3, .external_lex_state = 3},
-  [167] = {.lex_state = 3, .external_lex_state = 3},
-  [168] = {.lex_state = 3, .external_lex_state = 3},
->>>>>>> Fix bigint literal for hex, oct and bin
   [169] = {.lex_state = 0, .external_lex_state = 3},
   [170] = {.lex_state = 0},
   [171] = {.lex_state = 3},
@@ -4188,7 +3957,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [184] = {.lex_state = 3},
   [185] = {.lex_state = 2, .external_lex_state = 3},
   [186] = {.lex_state = 0, .external_lex_state = 3},
-<<<<<<< HEAD
   [187] = {.lex_state = 3},
   [188] = {.lex_state = 3},
   [189] = {.lex_state = 3},
@@ -4212,31 +3980,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [207] = {.lex_state = 2, .external_lex_state = 3},
   [208] = {.lex_state = 23},
   [209] = {.lex_state = 3},
-=======
-  [187] = {.lex_state = 1},
-  [188] = {.lex_state = 1},
-  [189] = {.lex_state = 1},
-  [190] = {.lex_state = 1},
-  [191] = {.lex_state = 1},
-  [192] = {.lex_state = 1},
-  [193] = {.lex_state = 1},
-  [194] = {.lex_state = 1},
-  [195] = {.lex_state = 1},
-  [196] = {.lex_state = 1},
-  [197] = {.lex_state = 1},
-  [198] = {.lex_state = 1},
-  [199] = {.lex_state = 1},
-  [200] = {.lex_state = 1},
-  [201] = {.lex_state = 3, .external_lex_state = 3},
-  [202] = {.lex_state = 1},
-  [203] = {.lex_state = 1},
-  [204] = {.lex_state = 1},
-  [205] = {.lex_state = 1},
-  [206] = {.lex_state = 19},
-  [207] = {.lex_state = 3, .external_lex_state = 3},
-  [208] = {.lex_state = 23},
-  [209] = {.lex_state = 1},
->>>>>>> Fix bigint literal for hex, oct and bin
   [210] = {.lex_state = 0},
   [211] = {.lex_state = 3},
   [212] = {.lex_state = 3},
@@ -4260,25 +4003,15 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [230] = {.lex_state = 0, .external_lex_state = 3},
   [231] = {.lex_state = 3},
   [232] = {.lex_state = 0},
-<<<<<<< HEAD
   [233] = {.lex_state = 2, .external_lex_state = 3},
   [234] = {.lex_state = 2},
   [235] = {.lex_state = 2, .external_lex_state = 3},
   [236] = {.lex_state = 2, .external_lex_state = 3},
   [237] = {.lex_state = 4},
   [238] = {.lex_state = 2},
-=======
-  [233] = {.lex_state = 3, .external_lex_state = 3},
-  [234] = {.lex_state = 3},
-  [235] = {.lex_state = 3, .external_lex_state = 3},
-  [236] = {.lex_state = 3, .external_lex_state = 3},
-  [237] = {.lex_state = 5},
-  [238] = {.lex_state = 3},
->>>>>>> Fix bigint literal for hex, oct and bin
   [239] = {.lex_state = 0},
   [240] = {.lex_state = 2, .external_lex_state = 3},
   [241] = {.lex_state = 13, .external_lex_state = 2},
-<<<<<<< HEAD
   [242] = {.lex_state = 3},
   [243] = {.lex_state = 3},
   [244] = {.lex_state = 3},
@@ -4286,15 +4019,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [246] = {.lex_state = 2, .external_lex_state = 3},
   [247] = {.lex_state = 2, .external_lex_state = 3},
   [248] = {.lex_state = 9, .external_lex_state = 3},
-=======
-  [242] = {.lex_state = 1},
-  [243] = {.lex_state = 1},
-  [244] = {.lex_state = 1},
-  [245] = {.lex_state = 1},
-  [246] = {.lex_state = 3, .external_lex_state = 3},
-  [247] = {.lex_state = 3, .external_lex_state = 3},
-  [248] = {.lex_state = 8, .external_lex_state = 3},
->>>>>>> Fix bigint literal for hex, oct and bin
   [249] = {.lex_state = 0},
   [250] = {.lex_state = 0},
   [251] = {.lex_state = 0},
@@ -4344,7 +4068,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [295] = {.lex_state = 3},
   [296] = {.lex_state = 3},
   [297] = {.lex_state = 0},
-<<<<<<< HEAD
   [298] = {.lex_state = 3},
   [299] = {.lex_state = 3},
   [300] = {.lex_state = 3},
@@ -4360,39 +4083,15 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [310] = {.lex_state = 3},
   [311] = {.lex_state = 3},
   [312] = {.lex_state = 3},
-=======
-  [298] = {.lex_state = 1},
-  [299] = {.lex_state = 1},
-  [300] = {.lex_state = 1},
-  [301] = {.lex_state = 8, .external_lex_state = 3},
-  [302] = {.lex_state = 1},
-  [303] = {.lex_state = 8, .external_lex_state = 3},
-  [304] = {.lex_state = 8, .external_lex_state = 3},
-  [305] = {.lex_state = 1},
-  [306] = {.lex_state = 8, .external_lex_state = 3},
-  [307] = {.lex_state = 1},
-  [308] = {.lex_state = 3, .external_lex_state = 3},
-  [309] = {.lex_state = 3, .external_lex_state = 3},
-  [310] = {.lex_state = 1},
-  [311] = {.lex_state = 1},
-  [312] = {.lex_state = 1},
->>>>>>> Fix bigint literal for hex, oct and bin
   [313] = {.lex_state = 0},
   [314] = {.lex_state = 2},
   [315] = {.lex_state = 2, .external_lex_state = 3},
   [316] = {.lex_state = 0},
   [317] = {.lex_state = 0},
-<<<<<<< HEAD
   [318] = {.lex_state = 5},
   [319] = {.lex_state = 10, .external_lex_state = 3},
   [320] = {.lex_state = 3},
   [321] = {.lex_state = 3},
-=======
-  [318] = {.lex_state = 6},
-  [319] = {.lex_state = 9, .external_lex_state = 3},
-  [320] = {.lex_state = 1},
-  [321] = {.lex_state = 1},
->>>>>>> Fix bigint literal for hex, oct and bin
   [322] = {.lex_state = 0},
   [323] = {.lex_state = 0},
   [324] = {.lex_state = 0},
@@ -4413,7 +4112,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [339] = {.lex_state = 0},
   [340] = {.lex_state = 2},
   [341] = {.lex_state = 0},
-<<<<<<< HEAD
   [342] = {.lex_state = 9, .external_lex_state = 3},
   [343] = {.lex_state = 2, .external_lex_state = 3},
   [344] = {.lex_state = 3},
@@ -4429,23 +4127,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [354] = {.lex_state = 21},
   [355] = {.lex_state = 21},
   [356] = {.lex_state = 21},
-=======
-  [342] = {.lex_state = 8, .external_lex_state = 3},
-  [343] = {.lex_state = 3, .external_lex_state = 3},
-  [344] = {.lex_state = 1},
-  [345] = {.lex_state = 3, .external_lex_state = 3},
-  [346] = {.lex_state = 3, .external_lex_state = 3},
-  [347] = {.lex_state = 3, .external_lex_state = 3},
-  [348] = {.lex_state = 19},
-  [349] = {.lex_state = 23},
-  [350] = {.lex_state = 1},
-  [351] = {.lex_state = 19},
-  [352] = {.lex_state = 0},
-  [353] = {.lex_state = 19},
-  [354] = {.lex_state = 19},
-  [355] = {.lex_state = 19},
-  [356] = {.lex_state = 19},
->>>>>>> Fix bigint literal for hex, oct and bin
   [357] = {.lex_state = 23},
   [358] = {.lex_state = 0},
   [359] = {.lex_state = 0},
@@ -4493,7 +4174,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [401] = {.lex_state = 2, .external_lex_state = 3},
   [402] = {.lex_state = 2, .external_lex_state = 3},
   [403] = {.lex_state = 0, .external_lex_state = 3},
-<<<<<<< HEAD
   [404] = {.lex_state = 2},
   [405] = {.lex_state = 2, .external_lex_state = 3},
   [406] = {.lex_state = 23},
@@ -4501,15 +4181,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [408] = {.lex_state = 2},
   [409] = {.lex_state = 21},
   [410] = {.lex_state = 2, .external_lex_state = 3},
-=======
-  [404] = {.lex_state = 3},
-  [405] = {.lex_state = 3, .external_lex_state = 3},
-  [406] = {.lex_state = 23},
-  [407] = {.lex_state = 0},
-  [408] = {.lex_state = 3},
-  [409] = {.lex_state = 19},
-  [410] = {.lex_state = 3, .external_lex_state = 3},
->>>>>>> Fix bigint literal for hex, oct and bin
   [411] = {.lex_state = 23},
   [412] = {.lex_state = 0},
   [413] = {.lex_state = 2, .external_lex_state = 3},
@@ -4529,15 +4200,9 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [427] = {.lex_state = 2, .external_lex_state = 3},
   [428] = {.lex_state = 3},
   [429] = {.lex_state = 13, .external_lex_state = 2},
-<<<<<<< HEAD
   [430] = {.lex_state = 9},
   [431] = {.lex_state = 9},
   [432] = {.lex_state = 2, .external_lex_state = 3},
-=======
-  [430] = {.lex_state = 8},
-  [431] = {.lex_state = 8},
-  [432] = {.lex_state = 3, .external_lex_state = 3},
->>>>>>> Fix bigint literal for hex, oct and bin
   [433] = {.lex_state = 0},
   [434] = {.lex_state = 2, .external_lex_state = 3},
   [435] = {.lex_state = 2, .external_lex_state = 3},
@@ -4558,7 +4223,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [450] = {.lex_state = 3},
   [451] = {.lex_state = 3},
   [452] = {.lex_state = 0},
-<<<<<<< HEAD
   [453] = {.lex_state = 2, .external_lex_state = 3},
   [454] = {.lex_state = 2, .external_lex_state = 3},
   [455] = {.lex_state = 2, .external_lex_state = 3},
@@ -4584,33 +4248,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [475] = {.lex_state = 3},
   [476] = {.lex_state = 2, .external_lex_state = 3},
   [477] = {.lex_state = 2, .external_lex_state = 3},
-=======
-  [453] = {.lex_state = 3, .external_lex_state = 3},
-  [454] = {.lex_state = 3, .external_lex_state = 3},
-  [455] = {.lex_state = 3, .external_lex_state = 3},
-  [456] = {.lex_state = 3, .external_lex_state = 3},
-  [457] = {.lex_state = 3, .external_lex_state = 3},
-  [458] = {.lex_state = 1},
-  [459] = {.lex_state = 1},
-  [460] = {.lex_state = 3},
-  [461] = {.lex_state = 1},
-  [462] = {.lex_state = 3, .external_lex_state = 3},
-  [463] = {.lex_state = 1},
-  [464] = {.lex_state = 8},
-  [465] = {.lex_state = 8, .external_lex_state = 3},
-  [466] = {.lex_state = 8},
-  [467] = {.lex_state = 8},
-  [468] = {.lex_state = 3, .external_lex_state = 3},
-  [469] = {.lex_state = 3, .external_lex_state = 3},
-  [470] = {.lex_state = 1},
-  [471] = {.lex_state = 1},
-  [472] = {.lex_state = 1},
-  [473] = {.lex_state = 1},
-  [474] = {.lex_state = 1},
-  [475] = {.lex_state = 1},
-  [476] = {.lex_state = 3, .external_lex_state = 3},
-  [477] = {.lex_state = 3, .external_lex_state = 3},
->>>>>>> Fix bigint literal for hex, oct and bin
   [478] = {.lex_state = 0},
   [479] = {.lex_state = 0},
   [480] = {.lex_state = 0},
@@ -4627,7 +4264,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [491] = {.lex_state = 3},
   [492] = {.lex_state = 2, .external_lex_state = 3},
   [493] = {.lex_state = 0},
-<<<<<<< HEAD
   [494] = {.lex_state = 9, .external_lex_state = 3},
   [495] = {.lex_state = 3},
   [496] = {.lex_state = 21},
@@ -4637,19 +4273,8 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [500] = {.lex_state = 0},
   [501] = {.lex_state = 21},
   [502] = {.lex_state = 3},
-=======
-  [494] = {.lex_state = 8, .external_lex_state = 3},
-  [495] = {.lex_state = 1},
-  [496] = {.lex_state = 19},
-  [497] = {.lex_state = 19},
-  [498] = {.lex_state = 3, .external_lex_state = 3},
-  [499] = {.lex_state = 23},
-  [500] = {.lex_state = 0},
-  [501] = {.lex_state = 19},
-  [502] = {.lex_state = 1},
->>>>>>> Fix bigint literal for hex, oct and bin
   [503] = {.lex_state = 0},
-  [504] = {.lex_state = 19},
+  [504] = {.lex_state = 21},
   [505] = {.lex_state = 0},
   [506] = {.lex_state = 2, .external_lex_state = 3},
   [507] = {.lex_state = 2, .external_lex_state = 3},
@@ -4682,29 +4307,17 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [534] = {.lex_state = 0, .external_lex_state = 3},
   [535] = {.lex_state = 2, .external_lex_state = 3},
   [536] = {.lex_state = 0},
-<<<<<<< HEAD
   [537] = {.lex_state = 2, .external_lex_state = 3},
   [538] = {.lex_state = 2, .external_lex_state = 3},
   [539] = {.lex_state = 3},
-=======
-  [537] = {.lex_state = 3, .external_lex_state = 3},
-  [538] = {.lex_state = 3, .external_lex_state = 3},
-  [539] = {.lex_state = 1},
->>>>>>> Fix bigint literal for hex, oct and bin
   [540] = {.lex_state = 23},
   [541] = {.lex_state = 13},
   [542] = {.lex_state = 0},
   [543] = {.lex_state = 13},
   [544] = {.lex_state = 0},
-<<<<<<< HEAD
   [545] = {.lex_state = 21},
   [546] = {.lex_state = 2, .external_lex_state = 3},
   [547] = {.lex_state = 2, .external_lex_state = 3},
-=======
-  [545] = {.lex_state = 19},
-  [546] = {.lex_state = 3, .external_lex_state = 3},
-  [547] = {.lex_state = 3, .external_lex_state = 3},
->>>>>>> Fix bigint literal for hex, oct and bin
   [548] = {.lex_state = 0},
   [549] = {.lex_state = 2},
   [550] = {.lex_state = 2},
@@ -4746,21 +4359,14 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [586] = {.lex_state = 0},
   [587] = {.lex_state = 2},
   [588] = {.lex_state = 0},
-<<<<<<< HEAD
   [589] = {.lex_state = 9},
   [590] = {.lex_state = 2},
   [591] = {.lex_state = 2},
-=======
-  [589] = {.lex_state = 8},
-  [590] = {.lex_state = 3},
-  [591] = {.lex_state = 3},
->>>>>>> Fix bigint literal for hex, oct and bin
   [592] = {.lex_state = 0},
   [593] = {.lex_state = 3},
   [594] = {.lex_state = 0},
   [595] = {.lex_state = 0},
   [596] = {.lex_state = 0},
-<<<<<<< HEAD
   [597] = {.lex_state = 2, .external_lex_state = 3},
   [598] = {.lex_state = 21},
   [599] = {.lex_state = 2, .external_lex_state = 3},
@@ -4770,17 +4376,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [603] = {.lex_state = 2, .external_lex_state = 3},
   [604] = {.lex_state = 9},
   [605] = {.lex_state = 2},
-=======
-  [597] = {.lex_state = 3, .external_lex_state = 3},
-  [598] = {.lex_state = 19},
-  [599] = {.lex_state = 3, .external_lex_state = 3},
-  [600] = {.lex_state = 19},
-  [601] = {.lex_state = 3, .external_lex_state = 3},
-  [602] = {.lex_state = 0},
-  [603] = {.lex_state = 3, .external_lex_state = 3},
-  [604] = {.lex_state = 8},
-  [605] = {.lex_state = 3},
->>>>>>> Fix bigint literal for hex, oct and bin
   [606] = {.lex_state = 0},
   [607] = {.lex_state = 3},
   [608] = {.lex_state = 3},
@@ -4845,7 +4440,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [667] = {.lex_state = 3},
   [668] = {.lex_state = 3},
   [669] = {.lex_state = 0},
-<<<<<<< HEAD
   [670] = {.lex_state = 3},
   [671] = {.lex_state = 3},
   [672] = {.lex_state = 3},
@@ -5035,234 +4629,25 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [856] = {.lex_state = 3},
   [857] = {.lex_state = 3},
   [858] = {.lex_state = 5},
-=======
-  [670] = {.lex_state = 1},
-  [671] = {.lex_state = 1},
-  [672] = {.lex_state = 1},
-  [673] = {.lex_state = 1},
-  [674] = {.lex_state = 1},
-  [675] = {.lex_state = 1},
-  [676] = {.lex_state = 1},
-  [677] = {.lex_state = 1},
-  [678] = {.lex_state = 1},
-  [679] = {.lex_state = 1},
-  [680] = {.lex_state = 8},
-  [681] = {.lex_state = 1},
-  [682] = {.lex_state = 1},
-  [683] = {.lex_state = 1},
-  [684] = {.lex_state = 3},
-  [685] = {.lex_state = 8},
-  [686] = {.lex_state = 3},
-  [687] = {.lex_state = 3},
-  [688] = {.lex_state = 3},
-  [689] = {.lex_state = 8},
-  [690] = {.lex_state = 8},
-  [691] = {.lex_state = 3},
-  [692] = {.lex_state = 3},
-  [693] = {.lex_state = 3},
-  [694] = {.lex_state = 3},
-  [695] = {.lex_state = 3},
-  [696] = {.lex_state = 1},
-  [697] = {.lex_state = 1},
-  [698] = {.lex_state = 3},
-  [699] = {.lex_state = 3, .external_lex_state = 3},
-  [700] = {.lex_state = 3},
-  [701] = {.lex_state = 3},
-  [702] = {.lex_state = 3},
-  [703] = {.lex_state = 3},
-  [704] = {.lex_state = 1},
-  [705] = {.lex_state = 1},
-  [706] = {.lex_state = 1},
-  [707] = {.lex_state = 3},
-  [708] = {.lex_state = 3},
-  [709] = {.lex_state = 8},
-  [710] = {.lex_state = 8},
-  [711] = {.lex_state = 8},
-  [712] = {.lex_state = 8},
-  [713] = {.lex_state = 3},
-  [714] = {.lex_state = 3},
-  [715] = {.lex_state = 3},
-  [716] = {.lex_state = 1},
-  [717] = {.lex_state = 1},
-  [718] = {.lex_state = 1},
-  [719] = {.lex_state = 1},
-  [720] = {.lex_state = 1},
-  [721] = {.lex_state = 1},
-  [722] = {.lex_state = 1},
-  [723] = {.lex_state = 1},
-  [724] = {.lex_state = 3},
-  [725] = {.lex_state = 1},
-  [726] = {.lex_state = 1},
-  [727] = {.lex_state = 3},
-  [728] = {.lex_state = 3},
-  [729] = {.lex_state = 3},
-  [730] = {.lex_state = 0},
-  [731] = {.lex_state = 3, .external_lex_state = 3},
-  [732] = {.lex_state = 3},
-  [733] = {.lex_state = 3},
-  [734] = {.lex_state = 3},
-  [735] = {.lex_state = 3},
-  [736] = {.lex_state = 3},
-  [737] = {.lex_state = 8},
-  [738] = {.lex_state = 3},
-  [739] = {.lex_state = 3},
-  [740] = {.lex_state = 1, .external_lex_state = 3},
-  [741] = {.lex_state = 1, .external_lex_state = 3},
-  [742] = {.lex_state = 3, .external_lex_state = 3},
-  [743] = {.lex_state = 1},
-  [744] = {.lex_state = 3},
-  [745] = {.lex_state = 1},
-  [746] = {.lex_state = 3, .external_lex_state = 3},
-  [747] = {.lex_state = 1},
-  [748] = {.lex_state = 8},
-  [749] = {.lex_state = 8},
-  [750] = {.lex_state = 8},
-  [751] = {.lex_state = 8},
-  [752] = {.lex_state = 3},
-  [753] = {.lex_state = 3},
-  [754] = {.lex_state = 3},
-  [755] = {.lex_state = 9},
-  [756] = {.lex_state = 1},
-  [757] = {.lex_state = 3},
-  [758] = {.lex_state = 8},
-  [759] = {.lex_state = 3},
-  [760] = {.lex_state = 3},
-  [761] = {.lex_state = 3},
-  [762] = {.lex_state = 3},
-  [763] = {.lex_state = 1},
-  [764] = {.lex_state = 1},
-  [765] = {.lex_state = 3},
-  [766] = {.lex_state = 3},
-  [767] = {.lex_state = 3},
-  [768] = {.lex_state = 3},
-  [769] = {.lex_state = 3, .external_lex_state = 3},
-  [770] = {.lex_state = 3},
-  [771] = {.lex_state = 3},
-  [772] = {.lex_state = 3},
-  [773] = {.lex_state = 3},
-  [774] = {.lex_state = 3},
-  [775] = {.lex_state = 3},
-  [776] = {.lex_state = 3},
-  [777] = {.lex_state = 3},
-  [778] = {.lex_state = 3},
-  [779] = {.lex_state = 3},
-  [780] = {.lex_state = 0},
-  [781] = {.lex_state = 3},
-  [782] = {.lex_state = 19},
-  [783] = {.lex_state = 3},
-  [784] = {.lex_state = 3},
-  [785] = {.lex_state = 3},
-  [786] = {.lex_state = 3, .external_lex_state = 3},
-  [787] = {.lex_state = 3, .external_lex_state = 3},
-  [788] = {.lex_state = 3},
-  [789] = {.lex_state = 3},
-  [790] = {.lex_state = 0},
-  [791] = {.lex_state = 3},
-  [792] = {.lex_state = 3},
-  [793] = {.lex_state = 3},
-  [794] = {.lex_state = 3, .external_lex_state = 3},
-  [795] = {.lex_state = 3},
-  [796] = {.lex_state = 3},
-  [797] = {.lex_state = 3},
-  [798] = {.lex_state = 3},
-  [799] = {.lex_state = 8},
-  [800] = {.lex_state = 3},
-  [801] = {.lex_state = 3},
-  [802] = {.lex_state = 3},
-  [803] = {.lex_state = 3},
-  [804] = {.lex_state = 3},
-  [805] = {.lex_state = 3},
-  [806] = {.lex_state = 3},
-  [807] = {.lex_state = 3, .external_lex_state = 3},
-  [808] = {.lex_state = 3},
-  [809] = {.lex_state = 1},
-  [810] = {.lex_state = 19},
-  [811] = {.lex_state = 3},
-  [812] = {.lex_state = 3},
-  [813] = {.lex_state = 3},
-  [814] = {.lex_state = 0},
-  [815] = {.lex_state = 3, .external_lex_state = 3},
-  [816] = {.lex_state = 3},
-  [817] = {.lex_state = 3},
-  [818] = {.lex_state = 3},
-  [819] = {.lex_state = 3, .external_lex_state = 3},
-  [820] = {.lex_state = 3, .external_lex_state = 3},
-  [821] = {.lex_state = 3},
-  [822] = {.lex_state = 3},
-  [823] = {.lex_state = 3},
-  [824] = {.lex_state = 3},
-  [825] = {.lex_state = 3},
-  [826] = {.lex_state = 3},
-  [827] = {.lex_state = 19},
-  [828] = {.lex_state = 3, .external_lex_state = 3},
-  [829] = {.lex_state = 23},
-  [830] = {.lex_state = 1, .external_lex_state = 3},
-  [831] = {.lex_state = 19},
-  [832] = {.lex_state = 3},
-  [833] = {.lex_state = 3},
-  [834] = {.lex_state = 3, .external_lex_state = 3},
-  [835] = {.lex_state = 23},
-  [836] = {.lex_state = 1, .external_lex_state = 3},
-  [837] = {.lex_state = 3},
-  [838] = {.lex_state = 23},
-  [839] = {.lex_state = 23},
-  [840] = {.lex_state = 19},
-  [841] = {.lex_state = 23},
-  [842] = {.lex_state = 19},
-  [843] = {.lex_state = 3, .external_lex_state = 3},
-  [844] = {.lex_state = 19},
-  [845] = {.lex_state = 1, .external_lex_state = 3},
-  [846] = {.lex_state = 1, .external_lex_state = 3},
-  [847] = {.lex_state = 19},
-  [848] = {.lex_state = 1, .external_lex_state = 3},
-  [849] = {.lex_state = 19},
-  [850] = {.lex_state = 19},
-  [851] = {.lex_state = 19},
-  [852] = {.lex_state = 1},
-  [853] = {.lex_state = 1},
-  [854] = {.lex_state = 5},
-  [855] = {.lex_state = 13, .external_lex_state = 2},
-  [856] = {.lex_state = 1},
-  [857] = {.lex_state = 1},
-  [858] = {.lex_state = 6},
->>>>>>> Fix bigint literal for hex, oct and bin
   [859] = {.lex_state = 13},
-  [860] = {.lex_state = 7},
+  [860] = {.lex_state = 8},
   [861] = {.lex_state = 0},
   [862] = {.lex_state = 23},
-<<<<<<< HEAD
   [863] = {.lex_state = 3},
   [864] = {.lex_state = 3},
   [865] = {.lex_state = 3},
   [866] = {.lex_state = 3},
   [867] = {.lex_state = 0},
   [868] = {.lex_state = 4},
-=======
-  [863] = {.lex_state = 1},
-  [864] = {.lex_state = 1},
-  [865] = {.lex_state = 1},
-  [866] = {.lex_state = 1},
-  [867] = {.lex_state = 0},
-  [868] = {.lex_state = 5},
->>>>>>> Fix bigint literal for hex, oct and bin
   [869] = {.lex_state = 13, .external_lex_state = 2},
   [870] = {.lex_state = 3},
   [871] = {.lex_state = 0},
-<<<<<<< HEAD
   [872] = {.lex_state = 3},
   [873] = {.lex_state = 9, .external_lex_state = 3},
   [874] = {.lex_state = 9, .external_lex_state = 3},
   [875] = {.lex_state = 9, .external_lex_state = 3},
   [876] = {.lex_state = 3},
   [877] = {.lex_state = 9, .external_lex_state = 3},
-=======
-  [872] = {.lex_state = 1},
-  [873] = {.lex_state = 8, .external_lex_state = 3},
-  [874] = {.lex_state = 8, .external_lex_state = 3},
-  [875] = {.lex_state = 8, .external_lex_state = 3},
-  [876] = {.lex_state = 1},
-  [877] = {.lex_state = 8, .external_lex_state = 3},
->>>>>>> Fix bigint literal for hex, oct and bin
   [878] = {.lex_state = 0},
   [879] = {.lex_state = 3},
   [880] = {.lex_state = 0},
@@ -5271,11 +4656,7 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [883] = {.lex_state = 0},
   [884] = {.lex_state = 2},
   [885] = {.lex_state = 0},
-<<<<<<< HEAD
   [886] = {.lex_state = 5},
-=======
-  [886] = {.lex_state = 6},
->>>>>>> Fix bigint literal for hex, oct and bin
   [887] = {.lex_state = 13},
   [888] = {.lex_state = 2},
   [889] = {.lex_state = 0},
@@ -5285,7 +4666,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [893] = {.lex_state = 3},
   [894] = {.lex_state = 0},
   [895] = {.lex_state = 0},
-<<<<<<< HEAD
   [896] = {.lex_state = 3},
   [897] = {.lex_state = 2},
   [898] = {.lex_state = 3},
@@ -5293,15 +4673,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [900] = {.lex_state = 23},
   [901] = {.lex_state = 3},
   [902] = {.lex_state = 3},
-=======
-  [896] = {.lex_state = 1},
-  [897] = {.lex_state = 3},
-  [898] = {.lex_state = 1},
-  [899] = {.lex_state = 1},
-  [900] = {.lex_state = 23},
-  [901] = {.lex_state = 1},
-  [902] = {.lex_state = 1},
->>>>>>> Fix bigint literal for hex, oct and bin
   [903] = {.lex_state = 0},
   [904] = {.lex_state = 3},
   [905] = {.lex_state = 3},
@@ -5352,7 +4723,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [950] = {.lex_state = 3},
   [951] = {.lex_state = 0},
   [952] = {.lex_state = 0},
-<<<<<<< HEAD
   [953] = {.lex_state = 3},
   [954] = {.lex_state = 2, .external_lex_state = 3},
   [955] = {.lex_state = 4},
@@ -5370,25 +4740,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [967] = {.lex_state = 23},
   [968] = {.lex_state = 3},
   [969] = {.lex_state = 3, .external_lex_state = 3},
-=======
-  [953] = {.lex_state = 1},
-  [954] = {.lex_state = 3, .external_lex_state = 3},
-  [955] = {.lex_state = 5},
-  [956] = {.lex_state = 1},
-  [957] = {.lex_state = 6},
-  [958] = {.lex_state = 13},
-  [959] = {.lex_state = 23},
-  [960] = {.lex_state = 1},
-  [961] = {.lex_state = 5},
-  [962] = {.lex_state = 1},
-  [963] = {.lex_state = 6},
-  [964] = {.lex_state = 3},
-  [965] = {.lex_state = 0},
-  [966] = {.lex_state = 1},
-  [967] = {.lex_state = 23},
-  [968] = {.lex_state = 1},
-  [969] = {.lex_state = 1, .external_lex_state = 3},
->>>>>>> Fix bigint literal for hex, oct and bin
   [970] = {.lex_state = 0},
   [971] = {.lex_state = 0},
   [972] = {.lex_state = 0},
@@ -5397,15 +4748,9 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [975] = {.lex_state = 13},
   [976] = {.lex_state = 0},
   [977] = {.lex_state = 0},
-<<<<<<< HEAD
   [978] = {.lex_state = 3},
   [979] = {.lex_state = 23},
   [980] = {.lex_state = 3},
-=======
-  [978] = {.lex_state = 1},
-  [979] = {.lex_state = 23},
-  [980] = {.lex_state = 1},
->>>>>>> Fix bigint literal for hex, oct and bin
   [981] = {.lex_state = 23},
   [982] = {.lex_state = 0},
   [983] = {.lex_state = 0},
@@ -5417,7 +4762,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [989] = {.lex_state = 3},
   [990] = {.lex_state = 0},
   [991] = {.lex_state = 0},
-<<<<<<< HEAD
   [992] = {.lex_state = 3},
   [993] = {.lex_state = 6},
   [994] = {.lex_state = 3},
@@ -5425,20 +4769,10 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [996] = {.lex_state = 9, .external_lex_state = 3},
   [997] = {.lex_state = 3},
   [998] = {.lex_state = 3},
-=======
-  [992] = {.lex_state = 1},
-  [993] = {.lex_state = 4},
-  [994] = {.lex_state = 1},
-  [995] = {.lex_state = 0},
-  [996] = {.lex_state = 8, .external_lex_state = 3},
-  [997] = {.lex_state = 1},
-  [998] = {.lex_state = 1},
->>>>>>> Fix bigint literal for hex, oct and bin
   [999] = {.lex_state = 0},
   [1000] = {.lex_state = 3},
   [1001] = {.lex_state = 3},
   [1002] = {.lex_state = 0},
-<<<<<<< HEAD
   [1003] = {.lex_state = 3},
   [1004] = {.lex_state = 21},
   [1005] = {.lex_state = 21},
@@ -5448,23 +4782,11 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [1009] = {.lex_state = 3},
   [1010] = {.lex_state = 3},
   [1011] = {.lex_state = 3},
-=======
-  [1003] = {.lex_state = 1},
-  [1004] = {.lex_state = 19},
-  [1005] = {.lex_state = 19},
-  [1006] = {.lex_state = 19},
-  [1007] = {.lex_state = 19},
-  [1008] = {.lex_state = 1},
-  [1009] = {.lex_state = 1},
-  [1010] = {.lex_state = 1},
-  [1011] = {.lex_state = 1},
->>>>>>> Fix bigint literal for hex, oct and bin
   [1012] = {.lex_state = 0},
   [1013] = {.lex_state = 3},
   [1014] = {.lex_state = 3},
   [1015] = {.lex_state = 3},
   [1016] = {.lex_state = 0},
-<<<<<<< HEAD
   [1017] = {.lex_state = 3},
   [1018] = {.lex_state = 21},
   [1019] = {.lex_state = 21},
@@ -5475,24 +4797,11 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [1024] = {.lex_state = 0},
   [1025] = {.lex_state = 3},
   [1026] = {.lex_state = 21},
-=======
-  [1017] = {.lex_state = 1},
-  [1018] = {.lex_state = 19},
-  [1019] = {.lex_state = 19},
-  [1020] = {.lex_state = 0},
-  [1021] = {.lex_state = 1},
-  [1022] = {.lex_state = 19},
-  [1023] = {.lex_state = 0},
-  [1024] = {.lex_state = 0},
-  [1025] = {.lex_state = 1},
-  [1026] = {.lex_state = 19},
->>>>>>> Fix bigint literal for hex, oct and bin
   [1027] = {.lex_state = 0},
   [1028] = {.lex_state = 2},
   [1029] = {.lex_state = 0},
   [1030] = {.lex_state = 0},
   [1031] = {.lex_state = 0},
-<<<<<<< HEAD
   [1032] = {.lex_state = 3},
   [1033] = {.lex_state = 21},
   [1034] = {.lex_state = 21},
@@ -5518,38 +4827,10 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [1054] = {.lex_state = 3},
   [1055] = {.lex_state = 21},
   [1056] = {.lex_state = 3},
-=======
-  [1032] = {.lex_state = 1},
-  [1033] = {.lex_state = 19},
-  [1034] = {.lex_state = 19},
-  [1035] = {.lex_state = 19},
-  [1036] = {.lex_state = 19},
-  [1037] = {.lex_state = 19},
-  [1038] = {.lex_state = 19},
-  [1039] = {.lex_state = 19},
-  [1040] = {.lex_state = 19},
-  [1041] = {.lex_state = 19},
-  [1042] = {.lex_state = 19},
-  [1043] = {.lex_state = 19},
-  [1044] = {.lex_state = 19},
-  [1045] = {.lex_state = 19},
-  [1046] = {.lex_state = 19},
-  [1047] = {.lex_state = 1},
-  [1048] = {.lex_state = 19},
-  [1049] = {.lex_state = 1},
-  [1050] = {.lex_state = 1},
-  [1051] = {.lex_state = 1},
-  [1052] = {.lex_state = 23},
-  [1053] = {.lex_state = 1},
-  [1054] = {.lex_state = 1},
-  [1055] = {.lex_state = 19},
-  [1056] = {.lex_state = 1},
->>>>>>> Fix bigint literal for hex, oct and bin
   [1057] = {.lex_state = 23},
   [1058] = {.lex_state = 0},
   [1059] = {.lex_state = 0},
   [1060] = {.lex_state = 0},
-<<<<<<< HEAD
   [1061] = {.lex_state = 21},
   [1062] = {.lex_state = 23},
   [1063] = {.lex_state = 21},
@@ -5561,19 +4842,6 @@ static TSLexMode ts_lex_modes[STATE_COUNT] = {
   [1069] = {.lex_state = 3},
   [1070] = {.lex_state = 3},
   [1071] = {.lex_state = 3},
-=======
-  [1061] = {.lex_state = 19},
-  [1062] = {.lex_state = 23},
-  [1063] = {.lex_state = 19},
-  [1064] = {.lex_state = 23},
-  [1065] = {.lex_state = 19},
-  [1066] = {.lex_state = 8, .external_lex_state = 3},
-  [1067] = {.lex_state = 1},
-  [1068] = {.lex_state = 1},
-  [1069] = {.lex_state = 1},
-  [1070] = {.lex_state = 1},
-  [1071] = {.lex_state = 1},
->>>>>>> Fix bigint literal for hex, oct and bin
 };
 
 enum {
