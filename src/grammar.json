@@ -294,6 +294,23 @@
         }
       ]
     },
+    "import_meta": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "import"
+        },
+        {
+          "type": "STRING",
+          "value": "."
+        },
+        {
+          "type": "STRING",
+          "value": "meta"
+        }
+      ]
+    },
     "import_statement": {
       "type": "SEQ",
       "members": [
@@ -1533,6 +1550,10 @@
         {
           "type": "SYMBOL",
           "name": "import_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "import_meta"
         }
       ]
     },

@@ -96,6 +96,10 @@
         "named": true
       },
       {
+        "type": "import_meta",
+        "named": true
+      },
+      {
         "type": "jsx_element",
         "named": true
       },
@@ -1351,6 +1355,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "import_meta",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "import_statement",
@@ -2681,6 +2690,14 @@
     "named": false
   },
   {
+    "type": ".",
+    "named": false
+  },
+  {
+    "type": "meta",
+    "named": false
+  },
+  {
     "type": "from",
     "named": false
   },
@@ -2823,10 +2840,6 @@
   {
     "type": "jsx_identifier",
     "named": true
-  },
-  {
-    "type": ".",
-    "named": false
   },
   {
     "type": "class",

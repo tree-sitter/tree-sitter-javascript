@@ -13,6 +13,7 @@ import "module-name";
 import { member1 , member2 as alias2, } from "module-name";
 import("a");
 import("a").then((m) => {});
+import.meta.url;
 
 ----
 
@@ -42,7 +43,8 @@ import("a").then((m) => {});
       (member_expression
         (import_expression (arguments (string)))
         (property_identifier))
-      (arguments (arrow_function (formal_parameters (identifier)) (statement_block))))))
+      (arguments (arrow_function (formal_parameters (identifier)) (statement_block)))))
+  (expression_statement (member_expression (import_meta) (property_identifier))))
 
 ============================================
 Exports
