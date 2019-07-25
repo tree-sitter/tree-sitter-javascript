@@ -92,11 +92,7 @@
         "named": true
       },
       {
-        "type": "import_expression",
-        "named": true
-      },
-      {
-        "type": "import_meta",
+        "type": "import",
         "named": true
       },
       {
@@ -1319,6 +1315,11 @@
     }
   },
   {
+    "type": "import",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "import_clause",
     "named": true,
     "fields": {},
@@ -1340,26 +1341,6 @@
         }
       ]
     }
-  },
-  {
-    "type": "import_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "arguments",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "import_meta",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "import_statement",
@@ -1866,6 +1847,10 @@
           },
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "import",
             "named": true
           },
           {
@@ -2690,14 +2675,6 @@
     "named": false
   },
   {
-    "type": ".",
-    "named": false
-  },
-  {
-    "type": "meta",
-    "named": false
-  },
-  {
     "type": "from",
     "named": false
   },
@@ -2840,6 +2817,10 @@
   {
     "type": "jsx_identifier",
     "named": true
+  },
+  {
+    "type": ".",
+    "named": false
   },
   {
     "type": "class",

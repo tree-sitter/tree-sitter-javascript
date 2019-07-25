@@ -37,14 +37,23 @@ import.meta.url;
   (import_statement
     (import_clause (named_imports (import_specifier (identifier)) (import_specifier (identifier) (identifier)))) (string))
   (expression_statement
-    (import_expression (arguments (string))))
+    (call_expression
+      (import)
+      (arguments (string))))
   (expression_statement
     (call_expression
       (member_expression
-        (import_expression (arguments (string)))
+        (call_expression
+          (import)
+          (arguments (string)))
         (property_identifier))
       (arguments (arrow_function (formal_parameters (identifier)) (statement_block)))))
-  (expression_statement (member_expression (import_meta) (property_identifier))))
+  (expression_statement
+    (member_expression
+      (member_expression
+        (import)
+        (property_identifier))
+      (property_identifier))))
 
 ============================================
 Exports
