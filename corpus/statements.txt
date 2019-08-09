@@ -460,6 +460,7 @@ Variable declarations
 
 var x = 1;
 var x, y = {}, z;
+var set = 1;
 
 ---
 
@@ -469,7 +470,9 @@ var x, y = {}, z;
   (variable_declaration
     (variable_declarator (identifier))
     (variable_declarator (identifier) (object))
-    (variable_declarator (identifier))))
+    (variable_declarator (identifier)))
+  (variable_declaration
+    (variable_declarator (identifier) (number))))
 
 ============================================
 Comments
