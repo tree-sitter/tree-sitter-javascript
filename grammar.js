@@ -229,11 +229,7 @@ module.exports = grammar({
     ),
 
     variable_declarator: $ => seq(
-      field('name', choice(
-        $.identifier,
-        $._destructuring_pattern,
-        alias($._reserved_identifier, $.identifier),
-      )),
+      field('name', choice($.identifier, $._destructuring_pattern)),
       optional($._initializer)
     ),
 
