@@ -17,7 +17,7 @@ line';
   (expression_statement (string (escape_sequence) (escape_sequence)))
   (expression_statement (string (escape_sequence)))
   (expression_statement (string (escape_sequence)))
-	(expression_statement (string (escape_sequence))))
+  (expression_statement (string)))
 
 ============================================
 Template strings
@@ -121,10 +121,12 @@ Variables
 theVar;
 theVar2;
 $_;
+\u0061\u{62}cd;
 
 ---
 
 (program
+  (expression_statement (identifier))
   (expression_statement (identifier))
   (expression_statement (identifier))
   (expression_statement (identifier)))
@@ -218,7 +220,8 @@ Objects
 ---
 
 (program
-  (expression_statement (object))
+  (statement_block)
+  (empty_statement)
   (expression_statement (object
     (pair (property_identifier) (string))))
   (expression_statement (object
@@ -486,7 +489,9 @@ Functions
   },
   function stuff() {},
   function trailing(a,) {},
-  function trailing(a,b,) {}
+  function trailing(a,b,) {},
+  function reserved(async) {},
+  function rest(...[_ = x]) {}
 ]
 
 ---
@@ -511,6 +516,14 @@ Functions
     (function
       (identifier)
       (formal_parameters (identifier) (identifier))
+      (statement_block))
+    (function
+      (identifier)
+      (formal_parameters (identifier))
+      (statement_block))
+    (function
+      (identifier)
+      (formal_parameters (rest_parameter (array_pattern (assignment_expression (identifier) (identifier)))))
       (statement_block)))))
 
 ===================================================
@@ -526,6 +539,7 @@ a => 1;
 (trailing,) => 4;
 (h, trailing,) => 5;
 (set, kv) => 2;
+async => async + 1;
 
 ---
 
@@ -550,7 +564,10 @@ a => 1;
     (formal_parameters (identifier) (identifier))
     (number)))
   (expression_statement (arrow_function
-    (formal_parameters (identifier) (identifier)) (number))))
+    (formal_parameters (identifier) (identifier)) (number)))
+  (expression_statement (arrow_function
+    (identifier)
+    (binary_expression (identifier) (number)))))
 
 ============================================
 Generator Functions
@@ -561,6 +578,7 @@ Generator Functions
   function *generateStuff(arg1, arg2) {
     yield;
     yield arg2;
+    yield * foo();
   }
 ]
 
@@ -576,13 +594,14 @@ Generator Functions
       (formal_parameters (identifier) (identifier))
       (statement_block
         (expression_statement (yield_expression))
-        (expression_statement (yield_expression (identifier))))))))
+        (expression_statement (yield_expression (identifier)))
+        (expression_statement (yield_expression (call_expression (identifier) (arguments)))))))))
 
 ============================================
 Function parameters with default values
 ============================================
 
-function a({b}, c = d, e = f) {
+function a({b}, c = d, e = f, async = true) {
 }
 
 ---
@@ -593,7 +612,8 @@ function a({b}, c = d, e = f) {
     (formal_parameters
       (object_pattern (shorthand_property_identifier))
       (assignment_pattern (shorthand_property_identifier) (identifier))
-      (assignment_pattern (shorthand_property_identifier) (identifier)))
+      (assignment_pattern (shorthand_property_identifier) (identifier))
+      (assignment_pattern (shorthand_property_identifier) (true)))
     (statement_block)))
 
 ============================================
@@ -733,6 +753,8 @@ class Foo {
 
 async (a) => { return foo; };
 
+async function* foo() { yield 1; }
+
 ---
 
 (program
@@ -755,7 +777,11 @@ async (a) => { return foo; };
     (arrow_function
       (formal_parameters (identifier))
       (statement_block
-        (return_statement (identifier))))))
+        (return_statement (identifier)))))
+  (generator_function_declaration
+    (identifier)
+      (formal_parameters)
+      (statement_block (expression_statement (yield_expression (number))))))
 
 ============================================
 Math operators
@@ -808,6 +834,22 @@ i && j;
     (binary_expression
       (unary_expression (identifier))
       (unary_expression (identifier))))))
+
+============================================
+The null-coalescing operator
+============================================
+
+x = b ?? c();
+
+---
+
+(program
+  (expression_statement
+    (assignment_expression
+      (identifier)
+      (binary_expression
+        (identifier)
+        (call_expression (identifier) (arguments))))))
 
 ============================================
 Bitwise operators
@@ -865,6 +907,8 @@ x = 0;
 x.y = 0;
 x["y"] = 0;
 async = 0;
+(x) = 1;
+(x) += 1;
 
 ---
 
@@ -880,6 +924,12 @@ async = 0;
     (number)))
   (expression_statement (assignment_expression
     (identifier)
+    (number)))
+  (expression_statement (assignment_expression
+    (parenthesized_expression (identifier))
+    (number)))
+  (expression_statement (augmented_assignment_expression
+    (parenthesized_expression (identifier))
     (number))))
 
 ==============================================

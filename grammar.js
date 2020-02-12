@@ -3,9 +3,9 @@ const PREC = {
   STRING: 2,  // In a string, prefer string characters over comments
 
   COMMA: -1,
+  OBJECT: -1,
   DECLARATION: 1,
   ASSIGN: 0,
-  OBJECT: 1,
   TERNARY: 1,
   OR: 2,
   AND: 3,
@@ -45,6 +45,7 @@ module.exports = grammar({
   ],
 
   inline: $ => [
+    $._call_signature,
     $._constructable_expression,
     $._statement,
     $._expressions,
@@ -60,6 +61,7 @@ module.exports = grammar({
     $._jsx_attribute_name,
     $._jsx_attribute_value,
     $._jsx_identifier,
+    $._lhs_expression,
   ],
 
   conflicts: $ => [
@@ -72,6 +74,7 @@ module.exports = grammar({
     [$.labeled_statement, $._property_name],
     [$.assignment_pattern, $.assignment_expression],
     [$.computed_property_name, $.array],
+    [$._for_header, $._expression],
   ],
 
   word: $ => $.identifier,
@@ -138,14 +141,16 @@ module.exports = grammar({
     // Import declarations
     //
 
-    import_statement: $ => seq(
+    import: $ => token('import'),
+
+    import_statement: $ => prec(1, seq(
       'import',
       choice(
         seq($.import_clause, $._from_clause),
         field('source', $.string)
       ),
       $._semicolon
-    ),
+    )),
 
     import_clause: $ => choice(
       $.namespace_import,
@@ -193,7 +198,6 @@ module.exports = grammar({
       $.switch_statement,
       $.for_statement,
       $.for_in_statement,
-      $.for_of_statement,
       $.while_statement,
       $.do_statement,
       $.try_statement,
@@ -218,8 +222,6 @@ module.exports = grammar({
       $._semicolon
     ),
 
-    // let x = y, z = a;
-
     lexical_declaration: $ => seq(
       choice('let', 'const'),
       commaSep1($.variable_declarator),
@@ -231,11 +233,12 @@ module.exports = grammar({
       optional($._initializer)
     ),
 
-    statement_block: $ => seq(
+    statement_block: $ => prec.right(seq(
       '{',
       repeat($._statement),
-      '}'
-    ),
+      '}',
+      optional($._automatic_semicolon)
+    )),
 
     if_statement: $ => prec.right(seq(
       'if',
@@ -249,9 +252,7 @@ module.exports = grammar({
 
     switch_statement: $ => seq(
       'switch',
-      '(',
-      field('value', $._expressions),
-      ')',
+      field('value', $.parenthesized_expression),
       field('body', $.switch_body)
     ),
 
@@ -275,25 +276,18 @@ module.exports = grammar({
 
     for_in_statement: $ => seq(
       'for',
-      '(',
-      optional(choice('var', 'let', 'const')),
-      field('left', choice($.identifier, $._destructuring_pattern)),
-      'in',
-      field('right', $._expressions),
-      ')',
+      optional('await'),
+      $._for_header,
       field('body', $._statement)
     ),
 
-    for_of_statement: $ => seq(
-      'for',
-      optional('await'),
+    _for_header: $ => seq(
       '(',
       optional(choice('var', 'let', 'const')),
-      field('left', choice($.identifier, $._destructuring_pattern)),
-      'of',
-      field('right', $._expression),
+      field('left', choice($.parenthesized_expression, $._lhs_expression)),
+      choice('in', 'of'),
+      field('right', $._expressions),
       ')',
-      field('body', $._statement)
     ),
 
     while_statement: $ => seq(
@@ -342,20 +336,20 @@ module.exports = grammar({
 
     return_statement: $ => seq(
       'return',
-      optional(field('argument', $._expressions)),
+      optional($._expressions),
       $._semicolon
     ),
 
     throw_statement: $ => seq(
       'throw',
-      field('argument', $._expressions),
+      $._expressions,
       $._semicolon
     ),
 
     empty_statement: $ => ';',
 
     labeled_statement: $ => prec.dynamic(-1, seq(
-      field('label', alias($.identifier, $.statement_identifier)),
+      field('label', alias(choice($.identifier, $._reserved_identifier), $.statement_identifier)),
       ':',
       $._statement
     )),
@@ -385,7 +379,7 @@ module.exports = grammar({
 
     catch_clause: $ => seq(
       'catch',
-      optional(seq('(', field('parameter', $.identifier), ')')),
+      optional(seq('(', field('parameter', choice($.identifier, $._destructuring_pattern)), ')')),
       field('body', $.statement_block)
     ),
 
@@ -426,8 +420,10 @@ module.exports = grammar({
 
     yield_expression: $ => prec.right(seq(
       'yield',
-      optional(field('argument', $._expression))
-    )),
+      choice(
+        seq('*', $._expression),
+        optional($._expression)
+      ))),
 
     object: $ => prec(PREC.OBJECT, seq(
       '{',
@@ -446,7 +442,7 @@ module.exports = grammar({
 
     assignment_pattern: $ => seq(
       field('left', choice(
-        alias($.identifier, $.shorthand_property_identifier),
+        alias(choice($._reserved_identifier, $.identifier), $.shorthand_property_identifier),
         $._destructuring_pattern
       )),
       '=',
@@ -575,32 +571,34 @@ module.exports = grammar({
       optional('async'),
       'function',
       field('name', optional($.identifier)),
-      field('parameters', $.formal_parameters),
+      $._call_signature,
       field('body', $.statement_block)
     ),
 
-    function_declaration: $ => prec(PREC.DECLARATION, seq(
+    function_declaration: $ => prec.right(PREC.DECLARATION, seq(
       optional('async'),
       'function',
       field('name', $.identifier),
-      field('parameters', $.formal_parameters),
+      $._call_signature,
       field('body', $.statement_block),
       optional($._automatic_semicolon)
     )),
 
     generator_function: $ => seq(
+      optional('async'),
       'function',
       '*',
       field('name', optional($.identifier)),
-      field('parameters', $.formal_parameters),
+      $._call_signature,
       field('body', $.statement_block)
     ),
 
-    generator_function_declaration: $ => prec(PREC.DECLARATION, seq(
+    generator_function_declaration: $ => prec.right(PREC.DECLARATION, seq(
+      optional('async'),
       'function',
       '*',
       field('name', $.identifier),
-      field('parameters', $.formal_parameters),
+      $._call_signature,
       field('body', $.statement_block),
       optional($._automatic_semicolon)
     )),
@@ -608,14 +606,22 @@ module.exports = grammar({
     arrow_function: $ => seq(
       optional('async'),
       choice(
-        field('parameter', $.identifier),
-        field('parameters', $.formal_parameters)
+        field('parameter', choice(
+          alias($._reserved_identifier, $.identifier),
+          $.identifier,
+        )),
+        $._call_signature
       ),
       '=>',
       field('body', choice(
         $._expression,
         $.statement_block
       ))
+    ),
+
+    // Override
+    _call_signature: $ => seq(
+      field('parameters', $.formal_parameters)
     ),
 
     call_expression: $ => prec(PREC.CALL, seq(
@@ -642,6 +648,7 @@ module.exports = grammar({
       $.false,
       $.null,
       $.undefined,
+      $.import,
       $.object,
       $.array,
       $.function,
@@ -676,14 +683,16 @@ module.exports = grammar({
       '[', field('index', $._expressions), ']'
     )),
 
+    _lhs_expression: $ => choice(
+      $.member_expression,
+      $.subscript_expression,
+      $.identifier,
+      alias($._reserved_identifier, $.identifier),
+      $._destructuring_pattern
+    ),
+
     assignment_expression: $ => prec.right(PREC.ASSIGN, seq(
-      field('left', choice(
-        $.member_expression,
-        $.subscript_expression,
-        $.identifier,
-        alias($._reserved_identifier, $.identifier),
-        $._destructuring_pattern
-      )),
+      field('left', choice($.parenthesized_expression, $._lhs_expression)),
       '=',
       field('right', $._expression)
     )),
@@ -693,7 +702,8 @@ module.exports = grammar({
         $.member_expression,
         $.subscript_expression,
         alias($._reserved_identifier, $.identifier),
-        $.identifier
+        $.identifier,
+        $.parenthesized_expression,
       )),
       choice('+=', '-=', '*=', '/=', '%=', '^=', '&=', '|=', '>>=', '>>>=', '<<=', '**='),
       field('right', $._expression)
@@ -720,13 +730,6 @@ module.exports = grammar({
     )),
 
     binary_expression: $ => choice(
-      // Avoid a conflict between `for_in_statement` and the `in` operator
-      prec.left(PREC.REL, seq(
-        field('left', choice($.identifier, $.object, $.array)),
-        field('operator', 'in'),
-        field('right', $._expression)
-      )),
-
       ...[
         ['&&', PREC.AND],
         ['||', PREC.OR],
@@ -750,6 +753,7 @@ module.exports = grammar({
         ['!==', PREC.REL],
         ['>=', PREC.REL],
         ['>', PREC.REL],
+        ['??', PREC.TERNARY],
         ['instanceof', PREC.REL],
         ['in', PREC.REL],
       ].map(([operator, precedence]) =>
@@ -801,7 +805,7 @@ module.exports = grammar({
       seq(
         '"',
         repeat(choice(
-          token.immediate(prec(PREC.STRING, /[^"\\\n]+/)),
+          token.immediate(prec(PREC.STRING, /[^"\\\n]+|\\\r?\n/)),
           $.escape_sequence
         )),
         '"'
@@ -809,7 +813,7 @@ module.exports = grammar({
       seq(
         "'",
         repeat(choice(
-          token.immediate(prec(PREC.STRING, /[^'\\\n]+/)),
+          token.immediate(prec(PREC.STRING, /[^'\\\n]+|\\\r?\n/)),
           $.escape_sequence
         )),
         "'"
@@ -880,28 +884,29 @@ module.exports = grammar({
     number: $ => {
       const hex_literal = seq(
         choice('0x', '0X'),
-        /[\da-fA-F]+/
+        /[\da-fA-F](_?[\da-fA-F])*/
       )
 
-      const decimal_digits = /\d+/
+      const decimal_digits = /\d(_?\d)*/
       const signed_integer = seq(optional(choice('-','+')), decimal_digits)
       const exponent_part = seq(choice('e', 'E'), signed_integer)
 
-      const binary_literal = seq(choice('0b', '0B'), /[0-1]+/)
+      const binary_literal = seq(choice('0b', '0B'), /[0-1](_?[0-1])*/)
 
-      const octal_literal = seq(choice('0o', '0O'), /[0-7]+/)
+      const octal_literal = seq(choice('0o', '0O'), /[0-7](_?[0-7])*/)
 
-      const bigint_literal = seq(decimal_digits, 'n')
+      const bigint_literal = seq(choice(hex_literal, binary_literal, octal_literal, decimal_digits), 'n')
 
       const decimal_integer_literal = choice(
         '0',
-        seq(optional('0'), /[1-9]/, optional(decimal_digits))
+        seq(optional('0'), /[1-9]/, optional(seq(optional('_'), decimal_digits)))
       )
 
       const decimal_literal = choice(
         seq(decimal_integer_literal, '.', optional(decimal_digits), optional(exponent_part)),
         seq('.', decimal_digits, optional(exponent_part)),
-        seq(decimal_integer_literal, optional(exponent_part))
+        seq(decimal_integer_literal, exponent_part),
+        seq(decimal_digits),
       )
 
       return token(choice(
@@ -914,8 +919,8 @@ module.exports = grammar({
     },
 
     identifier: $ => {
-      const alpha = /[^\s0-9:;`"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u00A0]/
-      const alpha_numeric = /[^\s:;`"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u00A0]/
+      const alpha = /[^\s0-9:;`"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u00A0]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/
+      const alpha_numeric = /[^\s:;`"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u00A0]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/
 
       return token(seq(alpha, repeat(alpha_numeric)))
     },
@@ -1004,7 +1009,10 @@ module.exports = grammar({
 
     rest_parameter: $ => seq(
       '...',
-      $.identifier
+      choice(
+        $.identifier,
+        $._destructuring_pattern,
+      )
     ),
 
     method_definition: $ => seq(

@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-javascript",
-  "version": "0.15.1",
+  "version": "0.16.0",
   "description": "Javascript grammar for node-tree-sitter",
   "main": "index.js",
   "keywords": [
@@ -13,14 +13,9 @@
     "nan": "^2.12.1"
   },
   "devDependencies": {
-    "acorn": "^2.6.4",
-    "babylon": "^6.3.26",
-    "esprima": "^2.7.1",
-    "tree-sitter-cli": "^0.15.5",
-    "tree-sitter-highlight-schema": "0.1.1"
+    "tree-sitter-cli": "^0.16.1"
   },
   "scripts": {
-    "build": "tree-sitter generate && node-gyp build",
     "test": "tree-sitter test && script/parse-examples",
     "test-windows": "tree-sitter test"
   },
@@ -30,7 +25,10 @@
       "file-types": [
         "js"
       ],
-      "highlights": "src/highlights.json",
+      "highlights": [
+        "queries/highlights-jsx.scm",
+        "queries/highlights.scm"
+      ],
       "injection-regex": "^(js|javascript)$"
     }
   ]
