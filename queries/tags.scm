@@ -17,6 +17,14 @@
 
 (
   (comment)* @doc
+  (function_declaration
+    name: (identifier) @name) @function
+  (#strip! @doc "^[\\s\\*/]+|^[\\s\\*/]$")
+  (#select-adjacent! @doc @function)
+)
+
+(
+  (comment)* @doc
   (class_declaration
     name: (identifier) @name) @class
   (#strip! @doc "^[\\s\\*/]+|^[\\s\\*/]$")
@@ -50,4 +58,3 @@
 (call_expression
   function: (member_expression
     property: (property_identifier) @name)) @call
-
