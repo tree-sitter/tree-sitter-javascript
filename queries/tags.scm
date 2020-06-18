@@ -19,6 +19,22 @@
 )
 
 (
+  (comment)* @doc
+  [
+  (function
+    name: (identifier) @name)
+  (function_declaration
+    name: (identifier) @name)
+  (generator_function
+    name: (identifier) @name)
+  (generator_function_declaration
+    name: (identifier) @name)
+  ] @definition.function
+  (#strip! @doc "^[\\s\\*/]+|^[\\s\\*/]$")
+  (#select-adjacent! @doc @definition.function)
+)
+
+(
   (comment)+? @doc
   (lexical_declaration
     (variable_declarator
