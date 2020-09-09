@@ -2680,7 +2680,7 @@
     },
     "call_expression": {
       "type": "PREC",
-      "value": 12,
+      "value": 14,
       "content": {
         "type": "SEQ",
         "members": [
@@ -2914,8 +2914,17 @@
             }
           },
           {
-            "type": "STRING",
-            "value": "."
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "."
+              },
+              {
+                "type": "STRING",
+                "value": "?."
+              }
+            ]
           },
           {
             "type": "FIELD",
@@ -2951,14 +2960,45 @@
                 },
                 {
                   "type": "SYMBOL",
+                  "name": "identifier"
+                },
+                {
+                  "type": "SYMBOL",
                   "name": "super"
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
+                    "type": "SYMBOL",
+                    "name": "_reserved_identifier"
+                  },
+                  "named": true,
+                  "value": "identifier"
                 }
               ]
             }
           },
           {
-            "type": "STRING",
-            "value": "["
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "["
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "?."
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "["
+                  }
+                ]
+              }
+            ]
           },
           {
             "type": "FIELD",
