@@ -624,7 +624,7 @@ module.exports = grammar({
       field('parameters', $.formal_parameters)
     ),
 
-    call_expression: $ => prec(PREC.MEMBER, seq(
+    call_expression: $ => prec(PREC.CALL, seq(
       field('function', choice($._expression, $.super, $.function)),
       // optional('?.'), // TODO: optional chaining; doesn't work as is.
       field('arguments', choice($.arguments, $.template_string))

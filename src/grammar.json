@@ -2680,7 +2680,7 @@
     },
     "call_expression": {
       "type": "PREC",
-      "value": 14,
+      "value": 12,
       "content": {
         "type": "SEQ",
         "members": [
