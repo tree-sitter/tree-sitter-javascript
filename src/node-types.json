@@ -650,6 +650,10 @@
             "named": true
           },
           {
+            "type": "opt_arguments",
+            "named": true
+          },
+          {
             "type": "template_string",
             "named": true
           }
@@ -2067,6 +2071,25 @@
     }
   },
   {
+    "type": "opt_arguments",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "_expression",
+          "named": true
+        },
+        {
+          "type": "spread_element",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "pair",
     "named": true,
     "fields": {
@@ -2950,6 +2973,10 @@
   },
   {
     "type": "?.",
+    "named": false
+  },
+  {
+    "type": "?.(",
     "named": false
   },
   {
