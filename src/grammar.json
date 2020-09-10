@@ -2713,6 +2713,10 @@
               "members": [
                 {
                   "type": "SYMBOL",
+                  "name": "arguments"
+                },
+                {
+                  "type": "SYMBOL",
                   "name": "opt_arguments"
                 },
                 {
@@ -5369,17 +5373,8 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "("
-              },
-              {
-                "type": "STRING",
-                "value": "?.("
-              }
-            ]
+            "type": "STRING",
+            "value": "?.("
           },
           {
             "type": "CHOICE",
@@ -6063,10 +6058,6 @@
     [
       "_for_header",
       "_expression"
-    ],
-    [
-      "arguments",
-      "opt_arguments"
     ]
   ],
   "externals": [

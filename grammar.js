@@ -75,7 +75,6 @@ module.exports = grammar({
     [$.assignment_pattern, $.assignment_expression],
     [$.computed_property_name, $.array],
     [$._for_header, $._expression],
-    [$.arguments, $.opt_arguments],
   ],
 
   word: $ => $.identifier,
@@ -627,7 +626,7 @@ module.exports = grammar({
 
     call_expression: $ => prec(PREC.CALL, seq(
       field('function', choice($._expression, $.super, $.function)),
-      field('arguments', choice($.opt_arguments, $.template_string))
+      field('arguments', choice($.arguments, $.opt_arguments, $.template_string))
     )),
 
     new_expression: $ => prec.right(PREC.NEW, seq(
@@ -953,7 +952,7 @@ module.exports = grammar({
     )),
 
     opt_arguments: $ => prec(PREC.CALL, seq(
-      choice('(', '?.('),
+      '?.(',
       commaSep(optional(choice($._expression, $.spread_element))),
       ')'
     )),
