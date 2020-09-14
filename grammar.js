@@ -685,7 +685,8 @@ module.exports = grammar({
         $.super,
         alias($._reserved_identifier, $.identifier)
       )),
-      choice('[', seq('?.', '[')),
+      optional('?.'),
+      '[',
       field('index', $._expressions),
       ']'
     )),
@@ -952,7 +953,8 @@ module.exports = grammar({
     )),
 
     opt_arguments: $ => prec(PREC.CALL, seq(
-      '?.(',
+      '?.',
+      '(',
       commaSep(optional(choice($._expression, $.spread_element))),
       ')'
     )),

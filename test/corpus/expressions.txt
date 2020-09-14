@@ -736,6 +736,28 @@ a ?. [b];
     (subscript_expression (identifier) (identifier))))
 
 ============================================
+Optional function calls
+============================================
+
+a?.(b);
+a[b]?.(c);
+d.e?.(f);
+
+---
+
+(program
+  (expression_statement
+    (call_expression (identifier) (arguments (identifier))))
+  (expression_statement
+    (call_expression
+      (subscript_expression (identifier) (identifier))
+      (opt_arguments (identifier))))
+  (expression_statement
+    (call_expression
+      (member_expression (identifier) (property_identifier))
+      (opt_arguments (identifier)))))
+
+============================================
 Constructor calls
 ============================================
 
