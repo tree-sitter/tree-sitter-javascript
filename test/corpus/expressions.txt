@@ -751,11 +751,11 @@ d.e?.(f);
   (expression_statement
     (call_expression
       (subscript_expression (identifier) (identifier))
-      (opt_arguments (identifier))))
+      (arguments (identifier))))
   (expression_statement
     (call_expression
       (member_expression (identifier) (property_identifier))
-      (opt_arguments (identifier)))))
+      (arguments (identifier)))))
 
 ============================================
 Constructor calls
