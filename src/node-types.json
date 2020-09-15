@@ -148,6 +148,10 @@
         "named": true
       },
       {
+        "type": "super",
+        "named": true
+      },
+      {
         "type": "template_string",
         "named": true
       },
@@ -650,10 +654,6 @@
             "named": true
           },
           {
-            "type": "opt_arguments",
-            "named": true
-          },
-          {
             "type": "template_string",
             "named": true
           }
@@ -665,10 +665,6 @@
         "types": [
           {
             "type": "_expression",
-            "named": true
-          },
-          {
-            "type": "super",
             "named": true
           }
         ]
@@ -1767,10 +1763,6 @@
           {
             "type": "_expression",
             "named": true
-          },
-          {
-            "type": "super",
-            "named": true
           }
         ]
       },
@@ -1917,91 +1909,7 @@
         "required": true,
         "types": [
           {
-            "type": "array",
-            "named": true
-          },
-          {
-            "type": "arrow_function",
-            "named": true
-          },
-          {
-            "type": "class",
-            "named": true
-          },
-          {
-            "type": "false",
-            "named": true
-          },
-          {
-            "type": "function",
-            "named": true
-          },
-          {
-            "type": "generator_function",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "import",
-            "named": true
-          },
-          {
-            "type": "member_expression",
-            "named": true
-          },
-          {
-            "type": "meta_property",
-            "named": true
-          },
-          {
-            "type": "new_expression",
-            "named": true
-          },
-          {
-            "type": "null",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "object",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
-            "named": true
-          },
-          {
-            "type": "regex",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "subscript_expression",
-            "named": true
-          },
-          {
-            "type": "template_string",
-            "named": true
-          },
-          {
-            "type": "this",
-            "named": true
-          },
-          {
-            "type": "true",
-            "named": true
-          },
-          {
-            "type": "undefined",
+            "type": "_expression",
             "named": true
           }
         ]
@@ -2061,25 +1969,6 @@
         },
         {
           "type": "shorthand_property_identifier",
-          "named": true
-        },
-        {
-          "type": "spread_element",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "opt_arguments",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "_expression",
           "named": true
         },
         {
@@ -2366,10 +2255,6 @@
         "types": [
           {
             "type": "_expression",
-            "named": true
-          },
-          {
-            "type": "super",
             "named": true
           }
         ]
