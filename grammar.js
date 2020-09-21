@@ -20,7 +20,7 @@ const PREC = {
   NEG: 10,
   INC: 11,
   CALL: 12,
-  NEW: 12,
+  NEW: 13,
   MEMBER: 14
 };
 
@@ -75,7 +75,6 @@ module.exports = grammar({
     [$.assignment_pattern, $.assignment_expression],
     [$.computed_property_name, $.array],
     [$._for_header, $._expression],
-    [$.call_expression, $.new_expression],
   ],
 
   word: $ => $.identifier,
@@ -416,6 +415,7 @@ module.exports = grammar({
       $.ternary_expression,
       $.update_expression,
       $.call_expression,
+      alias($.optional_call_expression, $.call_expression),
       $.yield_expression,
     ),
 
@@ -627,19 +627,25 @@ module.exports = grammar({
 
     call_expression: $ => prec(PREC.CALL, seq(
       field('function', $._expression),
-      optional('?.'),
       field('arguments', choice($.arguments, $.template_string))
     )),
 
-    new_expression: $ => prec(PREC.NEW, seq(
+    optional_call_expression: $ => prec(PREC.MEMBER, seq(
+      field('function', choice($.identifier, $.member_expression, $.subscript_expression)),
+      '?.',
+      field('arguments', $.arguments)
+    )),
+
+    new_expression: $ => prec.right(PREC.NEW, seq(
       'new',
-      field('constructor', $._expression),
+      field('constructor', $._constructable_expression),
       field('arguments', optional(prec.dynamic(1, $.arguments)))
     )),
 
     _constructable_expression: $ => choice(
       $.super,
       $.this,
+      $.super,
       $.identifier,
       alias($._reserved_identifier, $.identifier),
       $.number,
@@ -670,17 +676,15 @@ module.exports = grammar({
     ),
 
     member_expression: $ => prec(PREC.MEMBER, seq(
-      field('object', $._expression),
+      field('object', choice($._expression, $._constructable_expression)),
       choice('.', '?.'),
       field('property', alias($.identifier, $.property_identifier))
     )),
 
     subscript_expression: $ => prec.right(PREC.MEMBER, seq(
-      field('object', $._expression),
+      field('object', choice($._expression, $._constructable_expression)),
       optional('?.'),
-      '[',
-      field('index', $._expressions),
-      ']'
+      '[', field('index', $._expressions), ']'
     )),
 
     _lhs_expression: $ => choice(
