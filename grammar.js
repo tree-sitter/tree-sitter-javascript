@@ -441,7 +441,6 @@ module.exports = grammar({
       $.member_expression,
       $.meta_property,
       $.call_expression,
-      alias($.optional_call_expression, $.call_expression),
     ),
 
     yield_expression: $ => prec.right(seq(
@@ -650,16 +649,17 @@ module.exports = grammar({
       field('parameters', $.formal_parameters)
     ),
 
-    call_expression: $ => prec(PREC.CALL, seq(
-      field('function', $._expression),
-      field('arguments', choice($.arguments, $.template_string))
-    )),
-
-    optional_call_expression: $ => prec(PREC.MEMBER, seq(
-      field('function', $._primary_expression),
-      '?.',
-      field('arguments', $.arguments)
-    )),
+    call_expression: $ => choice(
+      prec(PREC.CALL, seq(
+        field('function', $._expression),
+        field('arguments', choice($.arguments, $.template_string))
+      )),
+      prec(PREC.MEMBER, seq(
+        field('function', $._primary_expression),
+        '?.',
+        field('arguments', $.arguments)
+      ))
+    ),
 
     new_expression: $ => prec.right(PREC.NEW, seq(
       'new',

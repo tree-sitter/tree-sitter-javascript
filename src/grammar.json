@@ -1642,15 +1642,6 @@
         {
           "type": "SYMBOL",
           "name": "call_expression"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "optional_call_expression"
-          },
-          "named": true,
-          "value": "call_expression"
         }
       ]
     },
@@ -2794,67 +2785,72 @@
       ]
     },
     "call_expression": {
-      "type": "PREC",
-      "value": 12,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "FIELD",
-            "name": "function",
-            "content": {
-              "type": "SYMBOL",
-              "name": "_expression"
-            }
-          },
-          {
-            "type": "FIELD",
-            "name": "arguments",
-            "content": {
-              "type": "CHOICE",
-              "members": [
-                {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "PREC",
+          "value": 12,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "function",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                }
+              },
+              {
+                "type": "FIELD",
+                "name": "arguments",
+                "content": {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "arguments"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "template_string"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "PREC",
+          "value": 14,
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "FIELD",
+                "name": "function",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_primary_expression"
+                }
+              },
+              {
+                "type": "STRING",
+                "value": "?."
+              },
+              {
+                "type": "FIELD",
+                "name": "arguments",
+                "content": {
                   "type": "SYMBOL",
                   "name": "arguments"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "template_string"
                 }
-              ]
-            }
+              }
+            ]
           }
-        ]
-      }
-    },
-    "optional_call_expression": {
-      "type": "PREC",
-      "value": 14,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "FIELD",
-            "name": "function",
-            "content": {
-              "type": "SYMBOL",
-              "name": "_primary_expression"
-            }
-          },
-          {
-            "type": "STRING",
-            "value": "?."
-          },
-          {
-            "type": "FIELD",
-            "name": "arguments",
-            "content": {
-              "type": "SYMBOL",
-              "name": "arguments"
-            }
-          }
-        ]
-      }
+        }
+      ]
     },
     "new_expression": {
       "type": "PREC_RIGHT",
