@@ -1917,6 +1917,10 @@
             "named": true
           },
           {
+            "type": "call_expression",
+            "named": true
+          },
+          {
             "type": "class",
             "named": true
           },
@@ -1946,10 +1950,6 @@
           },
           {
             "type": "meta_property",
-            "named": true
-          },
-          {
-            "type": "new_expression",
             "named": true
           },
           {
