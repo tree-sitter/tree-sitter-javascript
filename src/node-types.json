@@ -1488,11 +1488,11 @@
           "named": true
         },
         {
-          "type": "property_identifier",
+          "type": "jsx_string",
           "named": true
         },
         {
-          "type": "string",
+          "type": "property_identifier",
           "named": true
         }
       ]
@@ -1717,6 +1717,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "jsx_string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_sequence",
+          "named": true
+        }
+      ]
     }
   },
   {

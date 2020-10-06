@@ -2337,7 +2337,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "string"
+          "name": "jsx_string"
         },
         {
           "type": "SYMBOL",
@@ -4411,7 +4411,7 @@
         ]
       }
     },
-    "string": {
+    "_string": {
       "type": "CHOICE",
       "members": [
         {
@@ -4433,7 +4433,7 @@
                       "value": 2,
                       "content": {
                         "type": "PATTERN",
-                        "value": "[^\"\\\\\\n]+|\\\\\\r?\\n"
+                        "value": "[^\"\\\\\\n]+|\\\\?\\r?\\n"
                       }
                     }
                   },
@@ -4469,7 +4469,7 @@
                       "value": 2,
                       "content": {
                         "type": "PATTERN",
-                        "value": "[^'\\\\\\n]+|\\\\\\r?\\n"
+                        "value": "[^'\\\\\\n]+|\\\\?\\r?\\n"
                       }
                     }
                   },
@@ -4487,6 +4487,14 @@
           ]
         }
       ]
+    },
+    "string": {
+      "type": "SYMBOL",
+      "name": "_string"
+    },
+    "jsx_string": {
+      "type": "SYMBOL",
+      "name": "_string"
     },
     "escape_sequence": {
       "type": "IMMEDIATE_TOKEN",
@@ -5981,7 +5989,8 @@
     "_jsx_attribute_name",
     "_jsx_attribute_value",
     "_jsx_identifier",
-    "_lhs_expression"
+    "_lhs_expression",
+    "_string"
   ],
   "supertypes": [
     "_statement",

@@ -61,6 +61,7 @@ module.exports = grammar({
     $._jsx_attribute_value,
     $._jsx_identifier,
     $._lhs_expression,
+    $._string,
   ],
 
   conflicts: $ => [
@@ -568,7 +569,7 @@ module.exports = grammar({
     ),
 
     _jsx_attribute_value: $ => choice(
-      $.string,
+      $.jsx_string,
       $.jsx_expression,
       $._jsx_element,
       $.jsx_fragment
@@ -804,11 +805,17 @@ module.exports = grammar({
     // Primitives
     //
 
-    string: $ => choice(
+    // Here we tolerate unescaped newlines in double-quoted and
+    // single-quoted string literals.
+    // This is legal in typescript as jsx/tsx attribute values (as of
+    // 2020), and perhaps will be valid in javascript as well in the
+    // future.
+    //
+    _string: $ => choice(
       seq(
         '"',
         repeat(choice(
-          token.immediate(prec(PREC.STRING, /[^"\\\n]+|\\\r?\n/)),
+          token.immediate(prec(PREC.STRING, /[^"\\\n]+|\\?\r?\n/)),
           $.escape_sequence
         )),
         '"'
@@ -816,12 +823,15 @@ module.exports = grammar({
       seq(
         "'",
         repeat(choice(
-          token.immediate(prec(PREC.STRING, /[^'\\\n]+|\\\r?\n/)),
+          token.immediate(prec(PREC.STRING, /[^'\\\n]+|\\?\r?\n/)),
           $.escape_sequence
         )),
         "'"
       )
     ),
+
+    string: $ => $._string,
+    jsx_string: $ => $._string,
 
     escape_sequence: $ => token.immediate(seq(
       '\\',
