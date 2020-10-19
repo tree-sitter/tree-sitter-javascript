@@ -61,7 +61,6 @@ module.exports = grammar({
     $._jsx_attribute_value,
     $._jsx_identifier,
     $._lhs_expression,
-    $._string,
   ],
 
   conflicts: $ => [
@@ -569,7 +568,7 @@ module.exports = grammar({
     ),
 
     _jsx_attribute_value: $ => choice(
-      $.jsx_string,
+      $.string,
       $.jsx_expression,
       $._jsx_element,
       $.jsx_fragment
@@ -811,7 +810,7 @@ module.exports = grammar({
     // 2020), and perhaps will be valid in javascript as well in the
     // future.
     //
-    _string: $ => choice(
+    string: $ => choice(
       seq(
         '"',
         repeat(choice(
@@ -829,9 +828,6 @@ module.exports = grammar({
         "'"
       )
     ),
-
-    string: $ => $._string,
-    jsx_string: $ => $._string,
 
     escape_sequence: $ => token.immediate(seq(
       '\\',

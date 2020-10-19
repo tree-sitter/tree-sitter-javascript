@@ -108,14 +108,14 @@ JSX strings with unescaped newlines
     (jsx_element
       (jsx_opening_element
         (identifier)
-        (jsx_attribute (property_identifier) (jsx_string)))
+        (jsx_attribute (property_identifier) (string)))
       (jsx_closing_element
         (identifier))))
  (expression_statement
    (jsx_element
      (jsx_opening_element
        (identifier)
-       (jsx_attribute (property_identifier) (jsx_string)))
+       (jsx_attribute (property_identifier) (string)))
      (jsx_closing_element
        (identifier)))))
 
@@ -1188,7 +1188,7 @@ b = <Foo.Bar.Baz.Baz></Foo.Bar.Baz.Baz>;
     (identifier)
     (jsx_self_closing_element
       (identifier)
-      (jsx_attribute (property_identifier) (jsx_string))
+      (jsx_attribute (property_identifier) (string))
       (jsx_attribute (property_identifier) (jsx_expression (number))))))
   (expression_statement (assignment_expression
     (identifier)
@@ -1374,9 +1374,9 @@ i = <Foo:Bar bar={}>{...children}</Foo:Bar>
   (expression_statement (assignment_expression (identifier)
     (jsx_self_closing_element
       (identifier)
-      (jsx_attribute (property_identifier) (jsx_string))
+      (jsx_attribute (property_identifier) (string))
       (jsx_attribute (property_identifier) (jsx_expression (number)))
-      (jsx_attribute (property_identifier) (jsx_string))
+      (jsx_attribute (property_identifier) (string))
       (jsx_attribute (property_identifier)))))
   (expression_statement (assignment_expression (identifier)
     (jsx_self_closing_element
