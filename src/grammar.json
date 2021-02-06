@@ -5521,8 +5521,8 @@
                     "type": "CHOICE",
                     "members": [
                       {
-                        "type": "STRING",
-                        "value": ";"
+                        "type": "SYMBOL",
+                        "name": "empty_statement"
                       },
                       {
                         "type": "BLANK"
