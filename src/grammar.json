@@ -4441,7 +4441,7 @@
                       "value": 2,
                       "content": {
                         "type": "PATTERN",
-                        "value": "[^\"\\\\\\n]+|\\\\?\\r?\\n"
+                        "value": "[^\"\\\\]+"
                       }
                     }
                   },
@@ -4477,7 +4477,7 @@
                       "value": 2,
                       "content": {
                         "type": "PATTERN",
-                        "value": "[^'\\\\\\n]+|\\\\?\\r?\\n"
+                        "value": "[^'\\\\]+"
                       }
                     }
                   },
