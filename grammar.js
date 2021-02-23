@@ -50,8 +50,8 @@ module.exports = grammar({
     $._statement,
     $._expressions,
     $._semicolon,
-    $._formal_parameter,
-    $._destructuring_pattern,
+    // $._pattern,
+    // $._destructuring_pattern,
     $._reserved_identifier,
     $._jsx_attribute,
     $._jsx_element_name,
@@ -70,6 +70,13 @@ module.exports = grammar({
     [$._expression, $.method_definition],
     [$._expression, $.formal_parameters],
     [$._expression, $.rest_parameter],
+    [$._expression, $._pattern],
+    [$.object, $.object_pattern],
+    [$.array, $.array_pattern],
+    [$.assignment_expression, $._pattern],
+    [$.assignment_expression, $.rest_parameter],
+    [$.assignment_expression, $._expression],
+    [$.assignment_expression, $.object_assignment_pattern],
     [$.labeled_statement, $._property_name],
     [$.assignment_pattern, $.assignment_expression],
     [$.computed_property_name, $.array],
@@ -455,7 +462,6 @@ module.exports = grammar({
         $.pair,
         $.spread_element,
         $.method_definition,
-        $.assignment_pattern,
         alias(
           choice($.identifier, $._reserved_identifier),
           $.shorthand_property_identifier
@@ -464,9 +470,29 @@ module.exports = grammar({
       '}'
     )),
 
+    object_pattern: $ => prec(PREC.OBJECT, seq(
+      '{',
+      commaSep(optional(choice(
+        $.pair_pattern,
+        $.rest_parameter,
+        $.object_assignment_pattern,
+        alias(
+          choice($.identifier, $._reserved_identifier),
+          $.shorthand_property_identifier_pattern
+        )
+      ))),
+      '}'
+    )),
+
     assignment_pattern: $ => seq(
+      field('left', $._pattern),
+      '=',
+      field('right', $._expression)
+    ),
+
+    object_assignment_pattern: $ => seq(
       field('left', choice(
-        alias(choice($._reserved_identifier, $.identifier), $.shorthand_property_identifier),
+        alias(choice($._reserved_identifier, $.identifier), $.shorthand_property_identifier_pattern),
         $._destructuring_pattern
       )),
       '=',
@@ -478,6 +504,14 @@ module.exports = grammar({
       commaSep(optional(choice(
         $._expression,
         $.spread_element
+      ))),
+      ']'
+    ),
+
+    array_pattern: $ => seq(
+      '[',
+      commaSep(optional(choice(
+        $._pattern
       ))),
       ']'
     ),
@@ -719,8 +753,10 @@ module.exports = grammar({
     ),
 
     _destructuring_pattern: $ => choice(
-      alias($.object, $.object_pattern),
-      alias($.array, $.array_pattern)
+      // alias($.object, $.object_pattern),
+      $.object_pattern,
+      // alias($.array, $.array_pattern)
+      $.array_pattern
     ),
 
     spread_element: $ => seq('...', $._expression),
@@ -997,13 +1033,13 @@ module.exports = grammar({
     formal_parameters: $ => seq(
       '(',
       optional(seq(
-        commaSep1($._formal_parameter),
+        commaSep1($._pattern),
         optional(',')
       )),
       ')'
     ),
 
-    _formal_parameter: $ => choice(
+    _pattern: $ => choice(
       $.identifier,
       alias($._reserved_identifier, $.identifier),
       $._destructuring_pattern,
@@ -1033,6 +1069,12 @@ module.exports = grammar({
       field('key', $._property_name),
       ':',
       field('value', $._expression)
+    ),
+
+    pair_pattern: $ => seq(
+      field('key', $._property_name),
+      ':',
+      field('value', $._pattern)
     ),
 
     _property_name: $ => choice(
