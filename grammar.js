@@ -41,7 +41,7 @@ module.exports = grammar({
     $._statement,
     $._declaration,
     $._expression,
-    $._destructuring_pattern,
+    $._pattern,
   ],
 
   inline: $ => [
@@ -50,8 +50,6 @@ module.exports = grammar({
     $._statement,
     $._expressions,
     $._semicolon,
-    // $._pattern,
-    // $._destructuring_pattern,
     $._reserved_identifier,
     $._jsx_attribute,
     $._jsx_element_name,

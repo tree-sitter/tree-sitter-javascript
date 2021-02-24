@@ -6253,7 +6253,7 @@
     "_statement",
     "_declaration",
     "_expression",
-    "_destructuring_pattern"
+    "_pattern"
   ]
 }
 

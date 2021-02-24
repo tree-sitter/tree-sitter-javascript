@@ -26,20 +26,6 @@
     ]
   },
   {
-    "type": "_destructuring_pattern",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "array_pattern",
-        "named": true
-      },
-      {
-        "type": "object_pattern",
-        "named": true
-      }
-    ]
-  },
-  {
     "type": "_expression",
     "named": true,
     "subtypes": [
@@ -186,6 +172,32 @@
     ]
   },
   {
+    "type": "_pattern",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "array_pattern",
+        "named": true
+      },
+      {
+        "type": "assignment_pattern",
+        "named": true
+      },
+      {
+        "type": "identifier",
+        "named": true
+      },
+      {
+        "type": "object_pattern",
+        "named": true
+      },
+      {
+        "type": "rest_parameter",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "_statement",
     "named": true,
     "subtypes": [
@@ -318,19 +330,7 @@
       "required": false,
       "types": [
         {
-          "type": "_destructuring_pattern",
-          "named": true
-        },
-        {
-          "type": "assignment_pattern",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "rest_parameter",
+          "type": "_pattern",
           "named": true
         }
       ]
@@ -385,7 +385,7 @@
         "required": true,
         "types": [
           {
-            "type": "_destructuring_pattern",
+            "type": "array_pattern",
             "named": true
           },
           {
@@ -394,6 +394,10 @@
           },
           {
             "type": "member_expression",
+            "named": true
+          },
+          {
+            "type": "object_pattern",
             "named": true
           },
           {
@@ -427,19 +431,7 @@
         "required": true,
         "types": [
           {
-            "type": "_destructuring_pattern",
-            "named": true
-          },
-          {
-            "type": "assignment_pattern",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "rest_parameter",
+            "type": "_pattern",
             "named": true
           }
         ]
@@ -706,11 +698,15 @@
         "required": false,
         "types": [
           {
-            "type": "_destructuring_pattern",
+            "type": "array_pattern",
             "named": true
           },
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "object_pattern",
             "named": true
           }
         ]
@@ -1100,7 +1096,7 @@
         "required": true,
         "types": [
           {
-            "type": "_destructuring_pattern",
+            "type": "array_pattern",
             "named": true
           },
           {
@@ -1109,6 +1105,10 @@
           },
           {
             "type": "member_expression",
+            "named": true
+          },
+          {
+            "type": "object_pattern",
             "named": true
           },
           {
@@ -1212,19 +1212,7 @@
       "required": false,
       "types": [
         {
-          "type": "_destructuring_pattern",
-          "named": true
-        },
-        {
-          "type": "assignment_pattern",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "rest_parameter",
+          "type": "_pattern",
           "named": true
         }
       ]
@@ -2079,7 +2067,11 @@
         "required": true,
         "types": [
           {
-            "type": "_destructuring_pattern",
+            "type": "array_pattern",
+            "named": true
+          },
+          {
+            "type": "object_pattern",
             "named": true
           },
           {
@@ -2196,19 +2188,7 @@
         "required": true,
         "types": [
           {
-            "type": "_destructuring_pattern",
-            "named": true
-          },
-          {
-            "type": "assignment_pattern",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "rest_parameter",
+            "type": "_pattern",
             "named": true
           }
         ]
@@ -2326,11 +2306,15 @@
       "required": true,
       "types": [
         {
-          "type": "_destructuring_pattern",
+          "type": "array_pattern",
           "named": true
         },
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "object_pattern",
           "named": true
         }
       ]
@@ -2783,11 +2767,15 @@
         "required": true,
         "types": [
           {
-            "type": "_destructuring_pattern",
+            "type": "array_pattern",
             "named": true
           },
           {
             "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "object_pattern",
             "named": true
           }
         ]
