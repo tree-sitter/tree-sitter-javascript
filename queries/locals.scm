@@ -19,8 +19,8 @@
       (identifier) @local.definition)
     (object_pattern
       [
-        (pair value: (identifier) @local.definition)
-        (shorthand_property_identifier) @local.definition
+        (pair_pattern value: (identifier) @local.definition)
+        (shorthand_property_identifier_pattern) @local.definition
       ])
   ])
 
