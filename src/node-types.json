@@ -172,32 +172,6 @@
     ]
   },
   {
-    "type": "_pattern",
-    "named": true,
-    "subtypes": [
-      {
-        "type": "array_pattern",
-        "named": true
-      },
-      {
-        "type": "assignment_pattern",
-        "named": true
-      },
-      {
-        "type": "identifier",
-        "named": true
-      },
-      {
-        "type": "object_pattern",
-        "named": true
-      },
-      {
-        "type": "rest_parameter",
-        "named": true
-      }
-    ]
-  },
-  {
     "type": "_statement",
     "named": true,
     "subtypes": [
@@ -284,6 +258,32 @@
     ]
   },
   {
+    "type": "pattern",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "array_pattern",
+        "named": true
+      },
+      {
+        "type": "assignment_pattern",
+        "named": true
+      },
+      {
+        "type": "identifier",
+        "named": true
+      },
+      {
+        "type": "object_pattern",
+        "named": true
+      },
+      {
+        "type": "rest_parameter",
+        "named": true
+      }
+    ]
+  },
+  {
     "type": "arguments",
     "named": true,
     "fields": {},
@@ -330,7 +330,7 @@
       "required": false,
       "types": [
         {
-          "type": "_pattern",
+          "type": "pattern",
           "named": true
         }
       ]
@@ -431,7 +431,7 @@
         "required": true,
         "types": [
           {
-            "type": "_pattern",
+            "type": "pattern",
             "named": true
           }
         ]
@@ -1212,7 +1212,7 @@
       "required": false,
       "types": [
         {
-          "type": "_pattern",
+          "type": "pattern",
           "named": true
         }
       ]
@@ -2188,7 +2188,7 @@
         "required": true,
         "types": [
           {
-            "type": "_pattern",
+            "type": "pattern",
             "named": true
           }
         ]

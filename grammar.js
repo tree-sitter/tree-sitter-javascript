@@ -41,7 +41,7 @@ module.exports = grammar({
     $._statement,
     $._declaration,
     $._expression,
-    $._pattern,
+    $.pattern,
   ],
 
   inline: $ => [
@@ -68,10 +68,10 @@ module.exports = grammar({
     [$._expression, $.method_definition],
     [$._expression, $.formal_parameters],
     [$._expression, $.rest_parameter],
-    [$._expression, $._pattern],
+    [$._expression, $.pattern],
     [$.object, $.object_pattern],
     [$.array, $.array_pattern],
-    [$.assignment_expression, $._pattern],
+    [$.assignment_expression, $.pattern],
     [$.assignment_expression, $.rest_parameter],
     [$.assignment_expression, $._expression],
     [$.assignment_expression, $.object_assignment_pattern],
@@ -483,7 +483,7 @@ module.exports = grammar({
     )),
 
     assignment_pattern: $ => seq(
-      field('left', $._pattern),
+      field('left', $.pattern),
       '=',
       field('right', $._expression)
     ),
@@ -509,7 +509,7 @@ module.exports = grammar({
     array_pattern: $ => seq(
       '[',
       commaSep(optional(choice(
-        $._pattern
+        $.pattern
       ))),
       ']'
     ),
@@ -1031,13 +1031,13 @@ module.exports = grammar({
     formal_parameters: $ => seq(
       '(',
       optional(seq(
-        commaSep1($._pattern),
+        commaSep1($.pattern),
         optional(',')
       )),
       ')'
     ),
 
-    _pattern: $ => choice(
+    pattern: $ => choice(
       $.identifier,
       alias($._reserved_identifier, $.identifier),
       $._destructuring_pattern,
@@ -1072,7 +1072,7 @@ module.exports = grammar({
     pair_pattern: $ => seq(
       field('key', $._property_name),
       ':',
-      field('value', $._pattern)
+      field('value', $.pattern)
     ),
 
     _property_name: $ => choice(

@@ -12,7 +12,7 @@
 ; Definitions
 ;------------
 
-(_pattern/identifier)@local.definition
+(pattern/identifier)@local.definition
 
 (variable_declarator
   name: (identifier) @local.definition)
