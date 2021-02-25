@@ -12,17 +12,7 @@
 ; Definitions
 ;------------
 
-(formal_parameters
-  [
-    (identifier) @local.definition
-    (array_pattern
-      (identifier) @local.definition)
-    (object_pattern
-      [
-        (pair_pattern value: (identifier) @local.definition)
-        (shorthand_property_identifier_pattern) @local.definition
-      ])
-  ])
+(_pattern/identifier)@local.definition
 
 (variable_declarator
   name: (identifier) @local.definition)
