@@ -30,14 +30,6 @@
     "named": true,
     "subtypes": [
       {
-        "type": "array",
-        "named": true
-      },
-      {
-        "type": "arrow_function",
-        "named": true
-      },
-      {
         "type": "assignment_expression",
         "named": true
       },
@@ -54,34 +46,6 @@
         "named": true
       },
       {
-        "type": "call_expression",
-        "named": true
-      },
-      {
-        "type": "class",
-        "named": true
-      },
-      {
-        "type": "false",
-        "named": true
-      },
-      {
-        "type": "function",
-        "named": true
-      },
-      {
-        "type": "generator_function",
-        "named": true
-      },
-      {
-        "type": "identifier",
-        "named": true
-      },
-      {
-        "type": "import",
-        "named": true
-      },
-      {
         "type": "jsx_element",
         "named": true
       },
@@ -94,51 +58,11 @@
         "named": true
       },
       {
-        "type": "member_expression",
-        "named": true
-      },
-      {
-        "type": "meta_property",
-        "named": true
-      },
-      {
         "type": "new_expression",
         "named": true
       },
       {
-        "type": "null",
-        "named": true
-      },
-      {
-        "type": "number",
-        "named": true
-      },
-      {
-        "type": "object",
-        "named": true
-      },
-      {
-        "type": "parenthesized_expression",
-        "named": true
-      },
-      {
-        "type": "regex",
-        "named": true
-      },
-      {
-        "type": "string",
-        "named": true
-      },
-      {
-        "type": "subscript_expression",
-        "named": true
-      },
-      {
-        "type": "super",
-        "named": true
-      },
-      {
-        "type": "template_string",
+        "type": "primary_expression",
         "named": true
       },
       {
@@ -146,19 +70,7 @@
         "named": true
       },
       {
-        "type": "this",
-        "named": true
-      },
-      {
-        "type": "true",
-        "named": true
-      },
-      {
         "type": "unary_expression",
-        "named": true
-      },
-      {
-        "type": "undefined",
         "named": true
       },
       {
@@ -279,6 +191,104 @@
       },
       {
         "type": "rest_parameter",
+        "named": true
+      }
+    ]
+  },
+  {
+    "type": "primary_expression",
+    "named": true,
+    "subtypes": [
+      {
+        "type": "array",
+        "named": true
+      },
+      {
+        "type": "arrow_function",
+        "named": true
+      },
+      {
+        "type": "call_expression",
+        "named": true
+      },
+      {
+        "type": "class",
+        "named": true
+      },
+      {
+        "type": "false",
+        "named": true
+      },
+      {
+        "type": "function",
+        "named": true
+      },
+      {
+        "type": "generator_function",
+        "named": true
+      },
+      {
+        "type": "identifier",
+        "named": true
+      },
+      {
+        "type": "import",
+        "named": true
+      },
+      {
+        "type": "member_expression",
+        "named": true
+      },
+      {
+        "type": "meta_property",
+        "named": true
+      },
+      {
+        "type": "null",
+        "named": true
+      },
+      {
+        "type": "number",
+        "named": true
+      },
+      {
+        "type": "object",
+        "named": true
+      },
+      {
+        "type": "parenthesized_expression",
+        "named": true
+      },
+      {
+        "type": "regex",
+        "named": true
+      },
+      {
+        "type": "string",
+        "named": true
+      },
+      {
+        "type": "subscript_expression",
+        "named": true
+      },
+      {
+        "type": "super",
+        "named": true
+      },
+      {
+        "type": "template_string",
+        "named": true
+      },
+      {
+        "type": "this",
+        "named": true
+      },
+      {
+        "type": "true",
+        "named": true
+      },
+      {
+        "type": "undefined",
         "named": true
       }
     ]
@@ -673,6 +683,14 @@
         "types": [
           {
             "type": "_expression",
+            "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "member_expression",
             "named": true
           }
         ]
@@ -1790,6 +1808,14 @@
           {
             "type": "_expression",
             "named": true
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "member_expression",
+            "named": true
           }
         ]
       },
@@ -1936,95 +1962,7 @@
         "required": true,
         "types": [
           {
-            "type": "array",
-            "named": true
-          },
-          {
-            "type": "arrow_function",
-            "named": true
-          },
-          {
-            "type": "call_expression",
-            "named": true
-          },
-          {
-            "type": "class",
-            "named": true
-          },
-          {
-            "type": "false",
-            "named": true
-          },
-          {
-            "type": "function",
-            "named": true
-          },
-          {
-            "type": "generator_function",
-            "named": true
-          },
-          {
-            "type": "identifier",
-            "named": true
-          },
-          {
-            "type": "import",
-            "named": true
-          },
-          {
-            "type": "member_expression",
-            "named": true
-          },
-          {
-            "type": "meta_property",
-            "named": true
-          },
-          {
-            "type": "null",
-            "named": true
-          },
-          {
-            "type": "number",
-            "named": true
-          },
-          {
-            "type": "object",
-            "named": true
-          },
-          {
-            "type": "parenthesized_expression",
-            "named": true
-          },
-          {
-            "type": "regex",
-            "named": true
-          },
-          {
-            "type": "string",
-            "named": true
-          },
-          {
-            "type": "subscript_expression",
-            "named": true
-          },
-          {
-            "type": "super",
-            "named": true
-          },
-          {
-            "type": "template_string",
-            "named": true
-          },
-          {
-            "type": "this",
-            "named": true
-          },
-          {
-            "type": "true",
-            "named": true
-          },
-          {
-            "type": "undefined",
+            "type": "primary_expression",
             "named": true
           }
         ]

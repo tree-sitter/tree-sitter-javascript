@@ -41,12 +41,12 @@ module.exports = grammar({
     $._statement,
     $._declaration,
     $._expression,
+    $.primary_expression,
     $.pattern,
   ],
 
   inline: $ => [
     $._call_signature,
-    $._primary_expression,
     $._statement,
     $._expressions,
     $._semicolon,
@@ -62,23 +62,22 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
-    [$._expression, $._property_name],
-    [$._expression, $._property_name, $.arrow_function],
-    [$._expression, $.arrow_function],
-    [$._expression, $.method_definition],
-    [$._expression, $.formal_parameters],
-    [$._expression, $.rest_parameter],
-    [$._expression, $.pattern],
+    [$.primary_expression, $._property_name],
+    [$.primary_expression, $._property_name, $.arrow_function],
+    [$.primary_expression, $.arrow_function],
+    [$.primary_expression, $.method_definition],
+    [$.primary_expression, $.rest_parameter],
+    [$.primary_expression, $.pattern],
+    [$.primary_expression, $.assignment_expression, ],
+    [$.primary_expression, $._for_header],
     [$.object, $.object_pattern],
     [$.array, $.array_pattern],
     [$.assignment_expression, $.pattern],
     [$.assignment_expression, $.rest_parameter],
-    [$.assignment_expression, $._expression],
     [$.assignment_expression, $.object_assignment_pattern],
+    [$.assignment_expression, $.assignment_pattern],
     [$.labeled_statement, $._property_name],
-    [$.assignment_pattern, $.assignment_expression],
     [$.computed_property_name, $.array],
-    [$._for_header, $._expression],
   ],
 
   word: $ => $.identifier,
@@ -406,7 +405,7 @@ module.exports = grammar({
     ),
 
     _expression: $ => choice(
-      $._primary_expression,
+      $.primary_expression,
       $._jsx_element,
       $.jsx_fragment,
       $.assignment_expression,
@@ -420,7 +419,7 @@ module.exports = grammar({
       $.yield_expression,
     ),
 
-    _primary_expression: $ => choice(
+    primary_expression: $ => choice(
       $.this,
       $.super,
       $.identifier,
@@ -687,7 +686,7 @@ module.exports = grammar({
         field('arguments', choice($.arguments, $.template_string))
       )),
       prec(PREC.MEMBER, seq(
-        field('function', $._primary_expression),
+        field('function', $.primary_expression),
         '?.',
         field('arguments', $.arguments)
       ))
@@ -695,7 +694,7 @@ module.exports = grammar({
 
     new_expression: $ => prec.right(PREC.NEW, seq(
       'new',
-      field('constructor', $._primary_expression),
+      field('constructor', $.primary_expression),
       field('arguments', optional(prec.dynamic(1, $.arguments)))
     )),
 
@@ -705,13 +704,13 @@ module.exports = grammar({
     ),
 
     member_expression: $ => prec(PREC.MEMBER, seq(
-      field('object', choice($._expression, $._primary_expression)),
+      field('object', choice($._expression, $.primary_expression)),
       choice('.', '?.'),
       field('property', alias($.identifier, $.property_identifier))
     )),
 
     subscript_expression: $ => prec.right(PREC.MEMBER, seq(
-      field('object', choice($._expression, $._primary_expression)),
+      field('object', choice($._expression, $.primary_expression)),
       optional('?.'),
       '[', field('index', $._expressions), ']'
     )),

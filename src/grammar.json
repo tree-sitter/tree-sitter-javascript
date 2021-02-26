@@ -1495,7 +1495,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "_primary_expression"
+          "name": "primary_expression"
         },
         {
           "type": "SYMBOL",
@@ -1543,7 +1543,7 @@
         }
       ]
     },
-    "_primary_expression": {
+    "primary_expression": {
       "type": "CHOICE",
       "members": [
         {
@@ -3057,7 +3057,7 @@
                 "name": "function",
                 "content": {
                   "type": "SYMBOL",
-                  "name": "_primary_expression"
+                  "name": "primary_expression"
                 }
               },
               {
@@ -3092,7 +3092,7 @@
             "name": "constructor",
             "content": {
               "type": "SYMBOL",
-              "name": "_primary_expression"
+              "name": "primary_expression"
             }
           },
           {
@@ -3149,7 +3149,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "_primary_expression"
+                  "name": "primary_expression"
                 }
               ]
             }
@@ -3201,7 +3201,7 @@
                 },
                 {
                   "type": "SYMBOL",
-                  "name": "_primary_expression"
+                  "name": "primary_expression"
                 }
               ]
             }
@@ -6154,33 +6154,37 @@
   ],
   "conflicts": [
     [
-      "_expression",
+      "primary_expression",
       "_property_name"
     ],
     [
-      "_expression",
+      "primary_expression",
       "_property_name",
       "arrow_function"
     ],
     [
-      "_expression",
+      "primary_expression",
       "arrow_function"
     ],
     [
-      "_expression",
+      "primary_expression",
       "method_definition"
     ],
     [
-      "_expression",
-      "formal_parameters"
-    ],
-    [
-      "_expression",
+      "primary_expression",
       "rest_parameter"
     ],
     [
-      "_expression",
+      "primary_expression",
       "pattern"
+    ],
+    [
+      "primary_expression",
+      "assignment_expression"
+    ],
+    [
+      "primary_expression",
+      "_for_header"
     ],
     [
       "object",
@@ -6200,29 +6204,22 @@
     ],
     [
       "assignment_expression",
-      "_expression"
+      "object_assignment_pattern"
     ],
     [
       "assignment_expression",
-      "object_assignment_pattern"
+      "assignment_pattern"
     ],
     [
       "labeled_statement",
       "_property_name"
     ],
     [
-      "assignment_pattern",
-      "assignment_expression"
-    ],
-    [
       "computed_property_name",
       "array"
-    ],
-    [
-      "_for_header",
-      "_expression"
     ]
   ],
+  "precedences": [],
   "externals": [
     {
       "type": "SYMBOL",
@@ -6235,7 +6232,6 @@
   ],
   "inline": [
     "_call_signature",
-    "_primary_expression",
     "_statement",
     "_expressions",
     "_semicolon",
@@ -6253,6 +6249,7 @@
     "_statement",
     "_declaration",
     "_expression",
+    "primary_expression",
     "pattern"
   ]
 }
