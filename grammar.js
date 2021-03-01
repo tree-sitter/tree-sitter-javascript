@@ -750,9 +750,7 @@ module.exports = grammar({
     ),
 
     _destructuring_pattern: $ => choice(
-      // alias($.object, $.object_pattern),
       $.object_pattern,
-      // alias($.array, $.array_pattern)
       $.array_pattern
     ),
 
