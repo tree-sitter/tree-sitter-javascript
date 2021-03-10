@@ -116,6 +116,18 @@
               "type": "CHOICE",
               "members": [
                 {
+                  "type": "STRING",
+                  "value": "default"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
                   "type": "FIELD",
                   "name": "declaration",
                   "content": {
@@ -126,10 +138,6 @@
                 {
                   "type": "SEQ",
                   "members": [
-                    {
-                      "type": "STRING",
-                      "value": "default"
-                    },
                     {
                       "type": "FIELD",
                       "name": "value",
@@ -6244,6 +6252,20 @@
     [
       "computed_property_name",
       "array"
+    ],
+    [
+      "export_clause",
+      "object",
+      "object_pattern"
+    ],
+    [
+      "_import_export_specifier",
+      "object",
+      "object_pattern"
+    ],
+    [
+      "export_statement",
+      "_property_name"
     ]
   ],
   "precedences": [
@@ -6397,6 +6419,16 @@
       {
         "type": "SYMBOL",
         "name": "primary_expression"
+      }
+    ],
+    [
+      {
+        "type": "SYMBOL",
+        "name": "export_clause"
+      },
+      {
+        "type": "SYMBOL",
+        "name": "object"
       }
     ]
   ],
