@@ -2243,6 +2243,40 @@ static inline bool sym_identifier_character_set_1(int32_t c) {
         : c <= 65279)))));
 }
 
+static inline bool sym_identifier_character_set_2(int32_t c) {
+  return (c < '`'
+    ? (c < '%'
+      ? (c < 0
+        ? c == 0
+        : c <= '#')
+      : (c <= '/' || (c < '['
+        ? (c >= ':' && c <= '@')
+        : c <= '^')))
+    : (c <= '~' || (c < 8288
+      ? (c < 8203
+        ? c == 160
+        : c <= 8203)
+      : (c <= 8288 || c == 65279))));
+}
+
+static inline bool sym_identifier_character_set_3(int32_t c) {
+  return (c < '`'
+    ? (c < '%'
+      ? (c < 0
+        ? c == 0
+        : c <= '#')
+      : (c <= '/' || (c < '['
+        ? (c >= ':' && c <= '@')
+        : c <= '^')))
+    : (c <= '`' || (c < 8203
+      ? (c < 160
+        ? (c >= '|' && c <= '~')
+        : c <= 160)
+      : (c <= 8203 || (c < 65279
+        ? c == 8288
+        : c <= 65279)))));
+}
+
 static bool ts_lex(TSLexer *lexer, TSStateId state) {
   START_LEXER();
   eof = lexer->eof(lexer);
@@ -3444,16 +3478,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       ACCEPT_TOKEN(sym_regex_flags);
       if (lookahead == '\\') ADVANCE(23);
       if (('a' <= lookahead && lookahead <= 'z')) ADVANCE(175);
-      if (lookahead != 0 &&
-          lookahead > '#' &&
-          (lookahead < '%' || '/' < lookahead) &&
-          (lookahead < ':' || '@' < lookahead) &&
-          (lookahead < '[' || '^' < lookahead) &&
-          (lookahead < '`' || '~' < lookahead) &&
-          lookahead != 160 &&
-          lookahead != 8203 &&
-          lookahead != 8288 &&
-          lookahead != 65279) ADVANCE(188);
+      if (!sym_identifier_character_set_2(lookahead)) ADVANCE(188);
       END_STATE();
     case 176:
       ACCEPT_TOKEN(sym_number);
@@ -3548,17 +3573,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
       ACCEPT_TOKEN(sym_identifier);
       if (lookahead == '\\') ADVANCE(23);
       if (lookahead == '{') ADVANCE(171);
-      if (lookahead != 0 &&
-          lookahead > '#' &&
-          (lookahead < '%' || '/' < lookahead) &&
-          (lookahead < ':' || '@' < lookahead) &&
-          (lookahead < '[' || '^' < lookahead) &&
-          lookahead != '`' &&
-          (lookahead < '|' || '~' < lookahead) &&
-          lookahead != 160 &&
-          lookahead != 8203 &&
-          lookahead != 8288 &&
-          lookahead != 65279) ADVANCE(188);
+      if (!sym_identifier_character_set_3(lookahead)) ADVANCE(188);
       END_STATE();
     case 188:
       ACCEPT_TOKEN(sym_identifier);
