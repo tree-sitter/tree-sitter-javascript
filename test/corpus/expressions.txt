@@ -162,7 +162,7 @@ false;
 (program
   (expression_statement (this))
   (expression_statement (null))
-  (expression_statement (undefined))
+  (expression_statement (identifier))
   (expression_statement (true))
   (expression_statement (false)))
 
