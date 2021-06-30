@@ -452,7 +452,6 @@ module.exports = grammar({
       $.true,
       $.false,
       $.null,
-      $.undefined,
       $.import,
       $.object,
       $.array,
@@ -998,7 +997,6 @@ module.exports = grammar({
     true: $ => 'true',
     false: $ => 'false',
     null: $ => 'null',
-    undefined: $ => 'undefined',
 
     //
     // Expression components
