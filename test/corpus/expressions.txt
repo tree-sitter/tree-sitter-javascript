@@ -1168,6 +1168,7 @@ a.b = c ? d : e;
 a && b(c) && d;
 a && new b(c) && d;
 typeof a == b && c instanceof d
+a && b | c;
 
 ---
 
@@ -1192,6 +1193,9 @@ typeof a == b && c instanceof d
     (binary_expression
       (unary_expression (identifier))
       (identifier))
+    (binary_expression (identifier) (identifier))))
+  (expression_statement (binary_expression
+    (identifier)
     (binary_expression (identifier) (identifier)))))
 
 ==============================================
