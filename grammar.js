@@ -42,7 +42,6 @@ module.exports = grammar({
       'member',
       'call',
       $.update_expression,
-      'unary_not',
       'unary_void',
       'binary_exp',
       'binary_times',
@@ -57,7 +56,6 @@ module.exports = grammar({
       'logical_and',
       'logical_or',
       'ternary',
-      $.await_expression,
       $.sequence_expression,
       $.arrow_function
     ],
@@ -720,10 +718,10 @@ module.exports = grammar({
       field('arguments', optional(prec.dynamic(1, $.arguments)))
     )),
 
-    await_expression: $ => seq(
+    await_expression: $ => prec('unary_void', seq(
       'await',
       $.expression
-    ),
+    )),
 
     member_expression: $ => prec('member', seq(
       field('object', choice($.expression, $.primary_expression)),
@@ -824,19 +822,9 @@ module.exports = grammar({
       )
     ),
 
-    unary_expression: $ => choice(...[
-      ['!', 'unary_not'],
-      ['~', 'unary_not'],
-      ['-', 'unary_not'],
-      ['+', 'unary_not'],
-      ['typeof', 'unary_void'],
-      ['void', 'unary_void'],
-      ['delete', 'unary_void'],
-    ].map(([operator, precedence]) =>
-      prec.left(precedence, seq(
-        field('operator', operator),
-        field('argument', $.expression)
-      ))
+    unary_expression: $ => prec.left('unary_void', seq(
+      field('operator', choice('!', '~', '-', '+', 'typeof', 'void', 'delete')),
+      field('argument', $.expression)
     )),
 
     update_expression: $ => prec.left(choice(

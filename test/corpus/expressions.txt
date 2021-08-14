@@ -1171,6 +1171,7 @@ typeof a == b && c instanceof d
 a && b | c;
 a - b << c;
 a in b != c in d;
+await a || b;
 
 ---
 
@@ -1204,7 +1205,10 @@ a in b != c in d;
     (identifier)))
   (expression_statement (binary_expression
     (binary_expression (identifier) (identifier))
-    (binary_expression (identifier) (identifier)))))
+    (binary_expression (identifier) (identifier))))
+  (expression_statement (binary_expression
+    (await_expression (identifier))
+    (identifier))))
 
 ==============================================
 Simple JSX elements
