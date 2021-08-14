@@ -1170,6 +1170,7 @@ a && new b(c) && d;
 typeof a == b && c instanceof d
 a && b | c;
 a - b << c;
+a in b != c in d;
 
 ---
 
@@ -1200,7 +1201,10 @@ a - b << c;
     (binary_expression (identifier) (identifier))))
   (expression_statement (binary_expression
     (binary_expression (identifier) (identifier))
-    (identifier))))
+    (identifier)))
+  (expression_statement (binary_expression
+    (binary_expression (identifier) (identifier))
+    (binary_expression (identifier) (identifier)))))
 
 ==============================================
 Simple JSX elements
