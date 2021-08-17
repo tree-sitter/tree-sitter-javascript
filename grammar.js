@@ -64,6 +64,7 @@ module.exports = grammar({
     [$.primary_expression, $.statement_block, 'object'],
     [$.import_statement, $.import],
     [$.export_statement, $.primary_expression],
+    [$.primary_expression, $.await_expression],
   ],
 
   conflicts: $ => [
@@ -1143,6 +1144,7 @@ module.exports = grammar({
       'get',
       'set',
       'async',
+      'await',
       'static',
       'export'
     ),
