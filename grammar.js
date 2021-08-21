@@ -89,7 +89,7 @@ module.exports = grammar({
   rules: {
     program: $ => seq(
       optional($.hash_bang_line),
-      repeat($.statement)
+      repeat(field('statement', $.statement))
     ),
 
     hash_bang_line: $ => /#!.*/,
@@ -185,7 +185,7 @@ module.exports = grammar({
     ),
 
     namespace_import: $ => seq(
-      "*", "as", $.identifier
+      "*", "as", field('local', $.identifier)
     ),
 
     named_imports: $ => seq(
@@ -225,7 +225,7 @@ module.exports = grammar({
     ),
 
     expression_statement: $ => seq(
-      $._expressions,
+      field('expression', $._expressions),
       $._semicolon
     ),
 
@@ -248,12 +248,12 @@ module.exports = grammar({
 
     statement_block: $ => prec.right(seq(
       '{',
-      repeat($.statement),
+      repeat(field('statement', $.statement)),
       '}',
       optional($._automatic_semicolon)
     )),
 
-    else_clause: $ => seq('else', $.statement),
+    else_clause: $ => seq('else', field('body', $.statement)),
 
     if_statement: $ => prec.right(seq(
       'if',
@@ -359,13 +359,13 @@ module.exports = grammar({
 
     return_statement: $ => seq(
       'return',
-      optional($._expressions),
+      optional(field('argument', $._expressions)),
       $._semicolon
     ),
 
     throw_statement: $ => seq(
       'throw',
-      $._expressions,
+      field('argument', $._expressions),
       $._semicolon
     ),
 
@@ -383,7 +383,7 @@ module.exports = grammar({
 
     switch_body: $ => seq(
       '{',
-      repeat(choice($.switch_case, $.switch_default)),
+      repeat(field('case', choice($.switch_case, $.switch_default))),
       '}'
     ),
 
@@ -413,7 +413,7 @@ module.exports = grammar({
 
     parenthesized_expression: $ => seq(
       '(',
-      $._expressions,
+      field('expression', $._expressions),
       ')'
     ),
 
@@ -470,12 +470,12 @@ module.exports = grammar({
       'yield',
       choice(
         seq('*', $.expression),
-        optional($.expression)
+        optional(field('argument', $.expression))
       ))),
 
     object: $ => prec('object', seq(
       '{',
-      commaSep(optional(choice(
+      commaSep(optional(field('property', choice(
         $.pair,
         $.spread_element,
         $.method_definition,
@@ -483,13 +483,13 @@ module.exports = grammar({
           choice($.identifier, $._reserved_identifier),
           $.shorthand_property_identifier
         )
-      ))),
+      )))),
       '}'
     )),
 
     object_pattern: $ => prec('object', seq(
       '{',
-      commaSep(optional(choice(
+      commaSep(optional(field('property', choice(
         $.pair_pattern,
         $.rest_pattern,
         $.object_assignment_pattern,
@@ -497,7 +497,7 @@ module.exports = grammar({
           choice($.identifier, $._reserved_identifier),
           $.shorthand_property_identifier_pattern
         )
-      ))),
+      )))),
       '}'
     )),
 
@@ -642,7 +642,7 @@ module.exports = grammar({
       optional($._automatic_semicolon)
     )),
 
-    class_heritage: $ => seq('extends', $.expression),
+    class_heritage: $ => seq('extends', field('super_class', $.expression)),
 
     function: $ => prec('literal', seq(
       optional('async'),
@@ -720,7 +720,7 @@ module.exports = grammar({
 
     await_expression: $ => prec('unary_void', seq(
       'await',
-      $.expression
+      field('argument', $.expression)
     )),
 
     member_expression: $ => prec('member', seq(
@@ -776,7 +776,10 @@ module.exports = grammar({
       $.array_pattern
     ),
 
-    spread_element: $ => seq('...', $.expression),
+    spread_element: $ => seq(
+      '...',
+      field('argument', $.expression)
+    ),
 
     ternary_expression: $ => prec.right('ternary', seq(
       field('condition', $.expression),
@@ -917,7 +920,7 @@ module.exports = grammar({
 
     template_substitution: $ => seq(
       '${',
-      $._expressions,
+      field('expression', $._expressions),
       '}'
     ),
 
@@ -1004,7 +1007,11 @@ module.exports = grammar({
       return token(seq('#', alpha, repeat(alphanumeric)))
     },
 
-    meta_property: $ => seq('new', '.', 'target'),
+    meta_property: $ => seq(
+      field('meta', 'new'),
+      '.',
+      field('property', 'target')
+    ),
 
     this: $ => 'this',
     super: $ => 'super',
@@ -1019,7 +1026,7 @@ module.exports = grammar({
 
     arguments: $ => seq(
       '(',
-      commaSep(optional(choice($.expression, $.spread_element))),
+      commaSep(optional(field('argument', choice($.expression, $.spread_element)))),
       ')'
     ),
 
@@ -1068,7 +1075,7 @@ module.exports = grammar({
     formal_parameters: $ => seq(
       '(',
       optional(seq(
-        commaSep1($._formal_parameter),
+        commaSep1(field('parameter', $._formal_parameter)),
         optional(',')
       )),
       ')'
@@ -1086,10 +1093,10 @@ module.exports = grammar({
 
     rest_pattern: $ => seq(
       '...',
-      choice(
+      field('argument', choice(
         $.identifier,
         $._destructuring_pattern,
-      )
+      ))
     ),
 
     method_definition: $ => seq(
@@ -1127,7 +1134,7 @@ module.exports = grammar({
 
     computed_property_name: $ => seq(
       '[',
-      $.expression,
+      field('expression', $.expression),
       ']'
     ),
 
