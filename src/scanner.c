@@ -145,6 +145,11 @@ static bool scan_automatic_semicolon(TSLexer *lexer) {
 }
 
 static bool scan_ternary_qmark(TSLexer *lexer) {
+  for(;;) {
+    if (!iswspace(lexer->lookahead)) break;
+    skip(lexer);
+  }
+
   if (lexer->lookahead == '?') {
     advance(lexer);
 
