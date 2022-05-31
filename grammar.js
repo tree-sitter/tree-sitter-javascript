@@ -12,6 +12,21 @@ module.exports = grammar({
     /[\s\p{Zs}\uFEFF\u2060\u200B]/,
   ],
 
+  reserved: $ => [
+    'const',
+    'do',
+    'else',
+    'finally',
+    'for',
+    'function',
+    'if',
+    'let',
+    'return',
+    'throw',
+    'var',
+    'while',
+  ],
+
   supertypes: $ => [
     $.statement,
     $.declaration,
@@ -488,10 +503,10 @@ module.exports = grammar({
         $.pair,
         $.spread_element,
         $.method_definition,
-        alias(
+        reserved([], alias(
           choice($.identifier, $._reserved_identifier),
           $.shorthand_property_identifier
-        )
+        ))
       ))),
       '}'
     )),
@@ -502,10 +517,10 @@ module.exports = grammar({
         $.pair_pattern,
         $.rest_pattern,
         $.object_assignment_pattern,
-        alias(
+        reserved([], alias(
           choice($.identifier, $._reserved_identifier),
           $.shorthand_property_identifier_pattern
-        )
+        ))
       ))),
       '}'
     )),
@@ -517,10 +532,13 @@ module.exports = grammar({
     ),
 
     object_assignment_pattern: $ => seq(
-      field('left', choice(
-        alias(choice($._reserved_identifier, $.identifier), $.shorthand_property_identifier_pattern),
-        $._destructuring_pattern
-      )),
+      field('left', reserved([], choice(
+        $._destructuring_pattern,
+        alias(
+          choice($._reserved_identifier, $.identifier),
+          $.shorthand_property_identifier_pattern
+        ),
+      ))),
       '=',
       field('right', $.expression)
     ),
@@ -737,7 +755,7 @@ module.exports = grammar({
       choice('.', '?.'),
       field('property', choice(
         $.private_property_identifier,
-        alias($.identifier, $.property_identifier)))
+        reserved([], alias($.identifier, $.property_identifier))))
     )),
 
     subscript_expression: $ => prec.right('member', seq(
@@ -1118,7 +1136,7 @@ module.exports = grammar({
       field('value', choice($.pattern, $.assignment_pattern))
     ),
 
-    _property_name: $ => choice(
+    _property_name: $ => reserved([], choice(
       alias(choice(
         $.identifier,
         $._reserved_identifier
@@ -1127,7 +1145,7 @@ module.exports = grammar({
       $.string,
       $.number,
       $.computed_property_name
-    ),
+    )),
 
     computed_property_name: $ => seq(
       '[',
