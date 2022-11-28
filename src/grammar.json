@@ -5975,6 +5975,14 @@
               },
               {
                 "type": "FIELD",
+                "name": "member",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "class_static_block"
+                }
+              },
+              {
+                "type": "FIELD",
                 "name": "template",
                 "content": {
                   "type": "SYMBOL",
@@ -6098,6 +6106,30 @@
         {
           "type": "STRING",
           "value": ")"
+        }
+      ]
+    },
+    "class_static_block": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "static"
+        },
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SYMBOL",
+            "name": "statement"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "}"
         }
       ]
     },

@@ -874,6 +874,10 @@
         "required": false,
         "types": [
           {
+            "type": "class_static_block",
+            "named": true
+          },
+          {
             "type": "field_definition",
             "named": true
           },
@@ -951,6 +955,21 @@
       "types": [
         {
           "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "class_static_block",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "statement",
           "named": true
         }
       ]
