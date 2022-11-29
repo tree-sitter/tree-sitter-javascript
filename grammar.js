@@ -1127,9 +1127,7 @@ module.exports = grammar({
 
     class_static_block: $ => seq(
       'static',
-      '{',
-      repeat($.statement),
-      '}',
+      field('body', $.statement_block)
     ),
 
     // This negative dynamic precedence ensures that during error recovery,

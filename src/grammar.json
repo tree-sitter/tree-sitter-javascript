@@ -6117,19 +6117,12 @@
           "value": "static"
         },
         {
-          "type": "STRING",
-          "value": "{"
-        },
-        {
-          "type": "REPEAT",
+          "type": "FIELD",
+          "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "statement"
+            "name": "statement_block"
           }
-        },
-        {
-          "type": "STRING",
-          "value": "}"
         }
       ]
     },

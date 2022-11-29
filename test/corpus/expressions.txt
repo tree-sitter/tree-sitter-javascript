@@ -408,13 +408,14 @@ class Foo extends require('another-class') {
         (statement_block
           (expression_statement (call_expression (super) (arguments)))))
       (class_static_block
-        (expression_statement
-          (assignment_expression
-            (member_expression
-              (this)
-              (private_property_identifier))
-            (string
-              (string_fragment)))))
+        (statement_block
+          (expression_statement
+            (assignment_expression
+              (member_expression
+                (this)
+                (private_property_identifier))
+              (string
+                (string_fragment))))))
       (method_definition
         (property_identifier)
         (formal_parameters)
