@@ -46,6 +46,7 @@ import defaultMember, { member1, member2 as alias2 } from "module-name";
 import defaultMember, * as name from "module-name";
 import "module-name";
 import { member1 , member2 as alias2, } from "module-name";
+import pkg from "./package.json" assert { type: "json" };
 import("a");
 import("a").then((m) => {});
 import.meta.url;
@@ -73,6 +74,10 @@ import.meta.url;
     (string (string_fragment)))
   (import_statement
     (import_clause (named_imports (import_specifier (identifier)) (import_specifier (identifier) (identifier)))) (string (string_fragment)))
+  (import_statement
+    (import_clause (identifier)) (string (string_fragment))
+    (import_assertion (object
+      (pair (property_identifier) (string (string_fragment))))))
   (expression_statement
     (call_expression
       (import)

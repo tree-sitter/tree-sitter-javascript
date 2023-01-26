@@ -173,7 +173,13 @@ module.exports = grammar({
         seq($.import_clause, $._from_clause),
         field('source', $.string)
       ),
+      optional($.import_assertion),
       $._semicolon
+    ),
+
+    import_assertion: $ => seq(
+      "assert",
+      $.object
     ),
 
     import_clause: $ => choice(

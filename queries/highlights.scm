@@ -203,3 +203,5 @@
   "with"
   "yield"
 ] @keyword
+
+(import_assertion "assert" @keyword)
