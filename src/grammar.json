@@ -5635,6 +5635,14 @@
                 "value": "n"
               }
             ]
+          },
+          {
+            "type": "STRING",
+            "value": "Infinity"
+          },
+          {
+            "type": "STRING",
+            "value": "NaN"
           }
         ]
       }

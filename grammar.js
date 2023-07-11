@@ -1038,6 +1038,8 @@ module.exports = grammar({
         binary_literal,
         octal_literal,
         bigint_literal,
+        'Infinity',
+        'NaN',
       ))
     },
 

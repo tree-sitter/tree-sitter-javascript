@@ -16,10 +16,14 @@ Numbers
 0b1_000_000n
 01
 00000123
+Infinity
+NaN
 
 ---
 
 (program
+  (expression_statement (number))
+  (expression_statement (number))
   (expression_statement (number))
   (expression_statement (number))
   (expression_statement (number))
