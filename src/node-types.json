@@ -2056,7 +2056,7 @@
     "fields": {
       "object": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "expression",
@@ -2076,7 +2076,7 @@
       },
       "property": {
         "multiple": false,
-        "required": false,
+        "required": true,
         "types": [
           {
             "type": "private_property_identifier",
@@ -2088,24 +2088,6 @@
           }
         ]
       }
-    },
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "member_expression",
-          "named": true
-        },
-        {
-          "type": "property_identifier",
-          "named": true
-        }
-      ]
     }
   },
   {
