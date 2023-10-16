@@ -460,13 +460,25 @@ class Foo {
 	static foo = 2
 }
 
+class Bar {
+  static get
+  baz() { return 1; }
+}
+
 ---
 
 (program
   (class_declaration
     (identifier)
     (class_body
-      (field_definition (property_identifier) (number)))))
+      (field_definition (property_identifier) (number))))
+  (class_declaration
+    (identifier)
+    (class_body
+      (method_definition
+        (property_identifier)
+        (formal_parameters)
+        (statement_block (return_statement (number)))))))
 
 ============================================
 Private Class Property Fields
@@ -476,13 +488,27 @@ class Foo {
 	static #FOO = 2
 }
 
+class Bar {
+  #BAZ; static foo(quux) { return #BAZ in quux; }
+}
+
 ---
 
 (program
   (class_declaration
     (identifier)
     (class_body
-      (field_definition (private_property_identifier) (number)))))
+      (field_definition (private_property_identifier) (number))))
+  (class_declaration
+    (identifier)
+    (class_body
+      (field_definition (private_property_identifier))
+      (method_definition
+        (property_identifier)
+        (formal_parameters (identifier))
+        (statement_block
+          (return_statement
+            (binary_expression (private_property_identifier) (identifier))))))))
 
 ============================================
 Class Decorators
@@ -1280,15 +1306,15 @@ b = <Foo.Bar.Baz.Baz></Foo.Bar.Baz.Baz>;
   (expression_statement (assignment_expression
     (identifier)
     (jsx_element
-      (jsx_opening_element (nested_identifier (identifier) (identifier)))
+      (jsx_opening_element (member_expression (identifier) (property_identifier)))
       (jsx_text)
       (jsx_element
         (jsx_opening_element (identifier))
         (jsx_text)
         (jsx_closing_element (identifier)))
       (jsx_text)
-      (jsx_closing_element (nested_identifier (identifier) (identifier))))))
-  (expression_statement (assignment_expression (identifier) (jsx_element (jsx_opening_element (nested_identifier (nested_identifier (nested_identifier (identifier) (identifier)) (identifier)) (identifier))) (jsx_closing_element (nested_identifier (nested_identifier (nested_identifier (identifier) (identifier)) (identifier)) (identifier)))))))
+      (jsx_closing_element (member_expression (identifier) (property_identifier))))))
+  (expression_statement (assignment_expression (identifier) (jsx_element (jsx_opening_element (member_expression (member_expression (member_expression (identifier) (property_identifier)) (property_identifier)) (property_identifier))) (jsx_closing_element (member_expression (member_expression (member_expression (identifier) (property_identifier)) (property_identifier)) (property_identifier)))))))
 
 ==============================================
 Anonymous JSX element
@@ -1303,13 +1329,17 @@ a = <E><></></E>;
   (expression_statement
     (assignment_expression
       (identifier)
-      (jsx_fragment)))
+      (jsx_element
+        (jsx_opening_element)
+        (jsx_closing_element))))
   (expression_statement
     (assignment_expression
       (identifier)
       (jsx_element
         (jsx_opening_element (identifier))
-        (jsx_fragment)
+        (jsx_element
+          (jsx_opening_element)
+          (jsx_closing_element))
         (jsx_closing_element (identifier))))))
 
 ==============================================
@@ -1448,16 +1478,14 @@ i = <Foo:Bar bar={}>{...children}</Foo:Bar>
     (jsx_element (jsx_opening_element (identifier)) (jsx_closing_element (identifier)))))
   (expression_statement (assignment_expression (identifier)
     (jsx_element
-      (jsx_opening_element (nested_identifier (identifier) (identifier)))
-      (jsx_closing_element (nested_identifier (identifier) (identifier))))))
+      (jsx_opening_element (member_expression (identifier) (property_identifier)))
+      (jsx_closing_element (member_expression (identifier) (property_identifier))))))
   (expression_statement (assignment_expression (identifier)
-    (jsx_fragment (jsx_text) (jsx_self_closing_element (identifier)) (jsx_text))))
+    (jsx_element (jsx_opening_element) (jsx_self_closing_element (identifier)) (jsx_closing_element))))
   (expression_statement (assignment_expression (identifier)
     (jsx_element
       (jsx_opening_element (identifier))
-      (jsx_text)
       (jsx_self_closing_element (identifier))
-      (jsx_text)
       (jsx_closing_element (identifier)))))
   (expression_statement (assignment_expression (identifier)
     (jsx_self_closing_element (identifier) (jsx_attribute (property_identifier)))))
@@ -1491,7 +1519,6 @@ i = <Foo:Bar bar={}>{...children}</Foo:Bar>
                 (member_expression
                   (member_expression (this) (property_identifier))
                   (property_identifier)))))))
-          (jsx_text)
           (jsx_closing_element (identifier)))))
   (expression_statement (assignment_expression (identifier)
     (jsx_element
