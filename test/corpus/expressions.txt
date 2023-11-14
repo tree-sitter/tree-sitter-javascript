@@ -60,32 +60,49 @@ Template strings
 ----
 
 (program
-  (expression_statement (template_string))
-  (expression_statement (template_string))
   (expression_statement (template_string
+    (template_chars)))
+  (expression_statement (template_string
+    (template_chars)))
+  (expression_statement (template_string
+    (template_chars)
     (template_substitution
       (binary_expression (number) (number)))
+    (template_chars)
     (template_substitution (sequence_expression
       (binary_expression (number) (number))
-      (binary_expression (number) (number))))))
-  (expression_statement (template_string))
+      (binary_expression (number) (number))))
+    (template_chars)))
   (expression_statement (template_string
+    (template_chars)))
+  (expression_statement (template_string
+    (template_chars)
     (template_substitution (number))))
-	(expression_statement (template_string))
-	(expression_statement (template_string))
   (expression_statement (template_string
+    (template_chars)))
+  (expression_statement (template_string
+    (template_chars)))
+  (expression_statement (template_string
+    (template_chars)
     (template_substitution (string (string_fragment)))
-    (template_substitution (string (string_fragment)))))
+    (template_chars)
+    (template_substitution (string (string_fragment)))
+    (template_chars)))
   (expression_statement (template_string (escape_sequence)))
   (expression_statement (template_string
+    (template_chars)
     (escape_sequence)
+    (template_chars)
     (template_substitution (call_expression
       (member_expression (identifier) (property_identifier))
       (arguments (string (string_fragment)))))
     (escape_sequence)
-    (template_substitution (identifier))))
+    (template_chars)
+    (template_substitution (identifier))
+    (template_chars)))
   (expression_statement (template_string (escape_sequence)))
-  (expression_statement (template_string)))
+  (expression_statement (template_string
+    (template_chars))))
 
 ============================================
 Function calls with template strings
@@ -96,7 +113,8 @@ f `hello`;
 ---
 
 (program
-  (expression_statement (call_expression (identifier) (template_string))))
+  (expression_statement (call_expression (identifier) (template_string
+    (template_chars)))))
 
 ============================================
 Numbers

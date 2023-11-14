@@ -5002,7 +5002,7 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "_template_chars"
+                "name": "template_chars"
               },
               {
                 "type": "SYMBOL",
@@ -6689,7 +6689,7 @@
     },
     {
       "type": "SYMBOL",
-      "name": "_template_chars"
+      "name": "template_chars"
     },
     {
       "type": "SYMBOL",

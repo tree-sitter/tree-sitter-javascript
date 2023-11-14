@@ -2771,6 +2771,10 @@
           "named": true
         },
         {
+          "type": "template_chars",
+          "named": true
+        },
+        {
           "type": "template_substitution",
           "named": true
         }
@@ -3518,6 +3522,10 @@
   {
     "type": "target",
     "named": false
+  },
+  {
+    "type": "template_chars",
+    "named": true
   },
   {
     "type": "this",
