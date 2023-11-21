@@ -185,6 +185,7 @@ module.exports = grammar({
         seq($.import_clause, $._from_clause),
         field('source', $.string),
       ),
+      optional($.import_attribute),
       $._semicolon,
     ),
 
@@ -225,6 +226,11 @@ module.exports = grammar({
         'as',
         field('alias', $.identifier),
       ),
+    ),
+
+    import_attribute: $ => seq(
+      "with",
+      $.object
     ),
 
     //
