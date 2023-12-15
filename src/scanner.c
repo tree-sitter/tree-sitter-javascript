@@ -82,12 +82,14 @@ static bool scan_automatic_semicolon(TSLexer *lexer) {
     if (lexer->lookahead == 0) return true;
     if (lexer->lookahead == '}') return true;
     if (lexer->is_at_included_range_start(lexer)) return true;
-    if (lexer->lookahead == '\n' || lexer->lookahead == 0x2028 || lexer->lookahead == 0x2029) break;
+    if (lexer->lookahead == '/') break;
+    if (lexer->lookahead == '\n' || lexer->lookahead == 0x2028 || lexer->lookahead == 0x2029) {
+      skip(lexer);
+      break;
+    }
     if (!iswspace(lexer->lookahead)) return false;
     skip(lexer);
   }
-
-  skip(lexer);
 
   if (!scan_whitespace_and_comments(lexer)) return false;
 
