@@ -1416,7 +1416,7 @@ if (foo - bar) /baz/;
       (parenthesized_expression (binary_expression (identifier) (identifier)))
       (identifier)))
   (if_statement
-    (parenthesized_expression (binary_expression (identifier) (identifier)))
+    (condition (binary_expression (identifier) (identifier)))
     (expression_statement (regex (regex_pattern))))
   (expression_statement
     (binary_expression

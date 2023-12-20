@@ -277,6 +277,8 @@ module.exports = grammar({
       field('name', choice($.identifier, $._destructuring_pattern)),
       optional($._initializer),
     ),
+    
+    condition: $ => seq('(', $.expression, ')'),
 
     statement_block: $ => prec.right(seq(
       '{',
@@ -289,10 +291,11 @@ module.exports = grammar({
 
     if_statement: $ => prec.right(seq(
       'if',
-      field('condition', $.parenthesized_expression),
+      field('condition', $.condition),
       field('consequence', $.statement),
       optional(field('alternative', $.else_clause)),
     )),
+
 
     switch_statement: $ => seq(
       'switch',
@@ -355,7 +358,7 @@ module.exports = grammar({
 
     while_statement: $ => seq(
       'while',
-      field('condition', $.parenthesized_expression),
+      field('condition', $.condition),
       field('body', $.statement),
     ),
 

@@ -368,7 +368,7 @@ if (a.b) {
 
 (program
   (if_statement
-    condition: (parenthesized_expression
+    condition: (condition
       (identifier))
     consequence: (expression_statement
       (call_expression
@@ -376,7 +376,7 @@ if (a.b) {
         arguments: (arguments
           (identifier)))))
   (if_statement
-    condition: (parenthesized_expression
+    condition: (condition
       (member_expression
         object: (identifier)
         property: (property_identifier)))
@@ -409,18 +409,18 @@ if (a) {
 
 (program
   (if_statement
-    condition: (parenthesized_expression
+    condition: (condition
       (identifier))
     consequence: (expression_statement
       (identifier))
     alternative: (else_clause
       (if_statement
-        condition: (parenthesized_expression
+        condition: (condition
           (identifier))
         consequence: (expression_statement
           (identifier)))))
   (if_statement
-    condition: (parenthesized_expression
+    condition: (condition
       (identifier))
     consequence: (statement_block
       (expression_statement
@@ -701,14 +701,14 @@ while (a) {
 
 (program
   (while_statement
-    condition: (parenthesized_expression
+    condition: (condition
       (identifier))
     body: (expression_statement
       (call_expression
         function: (identifier)
         arguments: (arguments))))
   (while_statement
-    condition: (parenthesized_expression
+    condition: (condition
       (identifier))
     body: (statement_block)))
 
@@ -1127,7 +1127,7 @@ if (true) {} else {}
 
 (program
   (if_statement
-    (parenthesized_expression
+    (condition
       (true))
     (statement_block
       (empty_statement)))
@@ -1135,7 +1135,7 @@ if (true) {} else {}
   (empty_statement)
   (empty_statement)
   (if_statement
-    (parenthesized_expression
+    (condition
       (true))
     (statement_block)
     (else_clause
@@ -1174,7 +1174,7 @@ while (true) {
       condition: (empty_statement)
       body: (statement_block
         (if_statement
-          condition: (parenthesized_expression
+          condition: (condition
             (identifier))
           consequence: (statement_block
             (break_statement
@@ -1191,7 +1191,7 @@ while (true) {
   (labeled_statement
     label: (statement_identifier)
     body: (while_statement
-      condition: (parenthesized_expression
+      condition: (condition
         (true))
       body: (statement_block
         (continue_statement

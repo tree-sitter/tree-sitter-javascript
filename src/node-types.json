@@ -992,6 +992,21 @@
     }
   },
   {
+    "type": "condition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "continue_statement",
     "named": true,
     "fields": {
@@ -1667,7 +1682,7 @@
         "required": true,
         "types": [
           {
-            "type": "parenthesized_expression",
+            "type": "condition",
             "named": true
           }
         ]
@@ -3035,7 +3050,7 @@
         "required": true,
         "types": [
           {
-            "type": "parenthesized_expression",
+            "type": "condition",
             "named": true
           }
         ]

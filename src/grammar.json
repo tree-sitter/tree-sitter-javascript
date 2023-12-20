@@ -768,6 +768,23 @@
         }
       ]
     },
+    "condition": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "("
+        },
+        {
+          "type": "SYMBOL",
+          "name": "expression"
+        },
+        {
+          "type": "STRING",
+          "value": ")"
+        }
+      ]
+    },
     "statement_block": {
       "type": "PREC_RIGHT",
       "value": 0,
@@ -832,7 +849,7 @@
             "name": "condition",
             "content": {
               "type": "SYMBOL",
-              "name": "parenthesized_expression"
+              "name": "condition"
             }
           },
           {
@@ -1156,7 +1173,7 @@
           "name": "condition",
           "content": {
             "type": "SYMBOL",
-            "name": "parenthesized_expression"
+            "name": "condition"
           }
         },
         {
