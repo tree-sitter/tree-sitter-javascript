@@ -1865,6 +1865,10 @@
           "named": true
         },
         {
+          "type": "jsx_html_character_reference",
+          "named": true
+        },
+        {
           "type": "jsx_self_closing_element",
           "named": true
         },
@@ -2618,6 +2622,10 @@
       "types": [
         {
           "type": "escape_sequence",
+          "named": true
+        },
+        {
+          "type": "jsx_html_character_reference",
           "named": true
         },
         {
@@ -3434,6 +3442,10 @@
   {
     "type": "instanceof",
     "named": false
+  },
+  {
+    "type": "jsx_html_character_reference",
+    "named": true
   },
   {
     "type": "let",

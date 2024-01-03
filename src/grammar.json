@@ -2442,13 +2442,17 @@
       "members": [
         {
           "type": "PATTERN",
-          "value": "[^{}<>\\n ]([^{}<>\\n]*[^{}<>\\n ])?"
+          "value": "[^{}<>\\n& ]([^{}<>\\n&]*[^{}<>\\n& ])?"
         },
         {
           "type": "PATTERN",
           "value": "\\/\\/[^\\n]*"
         }
       ]
+    },
+    "jsx_html_character_reference": {
+      "type": "PATTERN",
+      "value": "&(#([xX][0-9a-fA-F]{1,6}|[0-9]{1,5})|[A-Za-z]{1,30});"
     },
     "jsx_expression": {
       "type": "SEQ",
@@ -2494,6 +2498,10 @@
         {
           "type": "SYMBOL",
           "name": "jsx_text"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "jsx_html_character_reference"
         },
         {
           "type": "SYMBOL",
@@ -2777,12 +2785,112 @@
         }
       ]
     },
+    "jsx_attribute_string": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "\""
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "unescaped_double_jsx_attribute_string_fragment"
+                    },
+                    "named": true,
+                    "value": "string_fragment"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "jsx_html_character_reference"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "STRING",
+              "value": "\""
+            }
+          ]
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "'"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "ALIAS",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "unescaped_single_jsx_attribute_string_fragment"
+                    },
+                    "named": true,
+                    "value": "string_fragment"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "jsx_html_character_reference"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "STRING",
+              "value": "'"
+            }
+          ]
+        }
+      ]
+    },
+    "unescaped_double_jsx_attribute_string_fragment": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "PATTERN",
+          "value": "[^\"&]+"
+        }
+      }
+    },
+    "unescaped_single_jsx_attribute_string_fragment": {
+      "type": "IMMEDIATE_TOKEN",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "PATTERN",
+          "value": "[^'&]+"
+        }
+      }
+    },
     "_jsx_attribute_value": {
       "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "string"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "jsx_attribute_string"
+          },
+          "named": true,
+          "value": "string"
         },
         {
           "type": "SYMBOL",
@@ -4872,7 +4980,7 @@
         "value": 1,
         "content": {
           "type": "PATTERN",
-          "value": "[^\"\\\\]+"
+          "value": "[^\"\\\\\\n]+"
         }
       }
     },
@@ -4883,7 +4991,7 @@
         "value": 1,
         "content": {
           "type": "PATTERN",
-          "value": "[^'\\\\]+"
+          "value": "[^'\\\\\\n]+"
         }
       }
     },
