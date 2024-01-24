@@ -8,9 +8,10 @@ extern "C" {
 #endif
 
 extern TSLanguage *tree_sitter_javascript();
+extern TSLanguage *tree_sitter_jsx();
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif // TREE_SITTER_JAVASCRIPT_H_ 
+#endif // TREE_SITTER_JAVASCRIPT_H_

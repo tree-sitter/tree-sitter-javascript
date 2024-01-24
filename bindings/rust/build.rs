@@ -1,19 +1,29 @@
-use std::path::Path;
-extern crate cc;
-
 fn main() {
-    let src_dir = Path::new("src");
+    let root_dir = std::path::Path::new(".");
+    let javascript_dir = root_dir.join("javascript").join("src");
+    let jsx_dir = root_dir.join("jsx").join("src");
 
-    let mut c_config = cc::Build::new();
-    c_config.include(src_dir);
-    c_config
+    let mut config = cc::Build::new();
+    config.include(&javascript_dir);
+    config
         .flag_if_supported("-Wno-unused-parameter")
         .flag_if_supported("-Wno-unused-but-set-variable")
         .flag_if_supported("-Wno-trigraphs");
-    let parser_path = src_dir.join("parser.c");
-    c_config.file(&parser_path);
-    let scanner_path = src_dir.join("scanner.c");
-    c_config.file(&scanner_path);
-    println!("cargo:rerun-if-changed={}", parser_path.to_str().unwrap());
-    c_config.compile("parser-scanner");
+
+    for path in &[
+        javascript_dir.join("parser.c"),
+        javascript_dir.join("scanner.c"),
+        jsx_dir.join("parser.c"),
+        jsx_dir.join("scanner.c"),
+    ] {
+        config.file(&path);
+        println!("cargo:rerun-if-changed={}", path.to_str().unwrap());
+    }
+
+    println!(
+        "cargo:rerun-if-changed={}",
+        root_dir.join("common").join("scanner.h").to_str().unwrap()
+    );
+
+    config.compile("parser-scanner");
 }

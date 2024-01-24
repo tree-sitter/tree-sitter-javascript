@@ -18,7 +18,9 @@
 //!     }
 //! "#;
 //! let mut parser = Parser::new();
-//! parser.set_language(tree_sitter_javascript::language()).expect("Error loading JavaScript grammar");
+//! parser
+//!     .set_language(tree_sitter_javascript::language_javascript())
+//!     .expect("Error loading JavaScript grammar");
 //! let parsed = parser.parse(code, None);
 //! # let parsed = parsed.unwrap();
 //! # let root = parsed.root_node();
@@ -34,17 +36,26 @@ use tree_sitter::Language;
 
 extern "C" {
     fn tree_sitter_javascript() -> Language;
+    fn tree_sitter_jsx() -> Language;
 }
 
-/// Returns the tree-sitter [Language][] for this grammar.
+/// Returns the tree-sitter [Language][] for this JavaScript.
 ///
 /// [Language]: https://docs.rs/tree-sitter/*/tree_sitter/struct.Language.html
-pub fn language() -> Language {
+pub fn language_javascript() -> Language {
     unsafe { tree_sitter_javascript() }
 }
 
+/// Returns the tree-sitter [Language][] for JSX.
+///
+/// [Language]: https://docs.rs/tree-sitter/*/tree_sitter/struct.Language.html
+pub fn language_jsx() -> Language {
+    unsafe { tree_sitter_jsx() }
+}
+
 /// The source of the JavaScript tree-sitter grammar description.
-pub const GRAMMAR: &str = include_str!("../../grammar.js");
+pub const JAVASCRIPT_GRAMMAR: &str = include_str!("../../javascript/grammar.js");
+pub const JSX_GRAMMAR: &str = include_str!("../../jsx/grammar.js");
 
 /// The syntax highlighting query for this language.
 pub const HIGHLIGHT_QUERY: &str = include_str!("../../queries/highlights.scm");
@@ -58,13 +69,14 @@ pub const JSX_HIGHLIGHT_QUERY: &str = include_str!("../../queries/highlights-jsx
 /// The local-variable syntax highlighting query for this language.
 pub const LOCALS_QUERY: &str = include_str!("../../queries/locals.scm");
 
+/// The symbol tagging query for this language.
+pub const TAGGING_QUERY: &str = include_str!("../../queries/tags.scm");
+
 /// The content of the [`node-types.json`][] file for this grammar.
 ///
 /// [`node-types.json`]: https://tree-sitter.github.io/tree-sitter/using-parsers#static-node-types
-pub const NODE_TYPES: &str = include_str!("../../src/node-types.json");
-
-/// The symbol tagging query for this language.
-pub const TAGGING_QUERY: &str = include_str!("../../queries/tags.scm");
+pub const JAVASCRIPT_NODE_TYPES: &str = include_str!("../../javascript/src/node-types.json");
+pub const JSX_NODE_TYPES: &str = include_str!("../../jsx/src/node-types.json");
 
 #[cfg(test)]
 mod tests {

@@ -15,5 +15,6 @@ try {
 }
 
 try {
-  module.exports.nodeTypeInfo = require("../../src/node-types.json");
+  module.exports.javascript.nodeTypeInfo = require("../../javascript/src/node-types.json");
+  module.exports.jsx.nodeTypeInfo = require("../../jsx/src/node-types.json");
 } catch (_) {}

@@ -14,25 +14,29 @@ let package = Package(
                     "binding.gyp",
                     "bindings",
                     "Cargo.toml",
-                    "corpus",
-                    "grammar.js",
+                    "test",
+                    "common/define-grammar.js",
                     "LICENSE",
                     "Makefile",
                     "package.json",
                     "README.md",
                     "script",
-                    "src/grammar.json",
-                    "src/node-types.json",
+                    "javascript/src/grammar.json",
+                    "javascript/src/node-types.json",
+                    "jsx/src/grammar.json",
+                    "jsx/src/node-types.json",
                     "*.wasm",
                 ],
                 sources: [
-                    "src/parser.c",
-                    "src/scanner.c",
+                    "javascript/src/parser.c",
+                    "javascript/src/scanner.c",
+                    "jsx/src/parser.c",
+                    "jsx/src/scanner.c",
                 ],
                 resources: [
                     .copy("queries")
                 ],
                 publicHeadersPath: "bindings/swift",
-                cSettings: [.headerSearchPath("src")])
+                cSettings: [.headerSearchPath("javascript/src")])
     ]
 )
