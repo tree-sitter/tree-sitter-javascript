@@ -1,3 +1,17 @@
 {
-  "main": "../bindings/node/javascript"
+  "main": "../bindings/node/javascript",
+  "tree-sitter": [
+    {
+      "scope": "source.js",
+      "file-types": ["js"],
+      "highlights": [
+        "../queries/highlights-params.scm",
+        "../queries/highlights.scm"
+      ],
+      "injections": "../queries/injections.scm",
+      "injection-regex": "^(js|javascript)$",
+      "locals": "../queries/locals.scm",
+      "tags": "../queries/tags.scm"
+    }
+  ]
 }

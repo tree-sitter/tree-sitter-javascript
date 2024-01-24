@@ -59,7 +59,7 @@
         "queries/highlights.scm"
       ],
       "injections": "queries/injections.scm",
-      "injection-regex": "^jsx$",
+      "injection-regex": "^(js|javascript|jsx)$",
       "locals": "queries/locals.scm",
       "tags": "queries/tags.scm"
     }
