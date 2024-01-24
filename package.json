@@ -6,7 +6,8 @@
   "keywords": [
     "parser",
     "lexer",
-	"javascript"
+    "javascript",
+    "jsx"
   ],
   "repository": {
     "type": "git",
@@ -23,24 +24,28 @@
     "tree-sitter-cli": "^0.20.8"
   },
   "scripts": {
-    "build": "tree-sitter generate && node-gyp build",
-    "lint": "eslint grammar.js",
+    "build": "npm run build-javascript && npm run build-jsx",
+    "build-javascript": "cd javascript && tree-sitter generate --no-bindings",
+    "build-jsx": "cd jsx && tree-sitter generate --no-bindings",
+    "lint": "eslint common/define-grammar.js",
     "parse": "tree-sitter parse",
-    "test": "tree-sitter test && script/parse-examples",
-    "test-windows": "tree-sitter test"
+    "test": "npm run test-javascript && npm run test-jsx && npm run test-load",
+    "test-examples": "script/parse-examples",
+    "test-load": "node -e \"console.log(require('./javascript').name, require('./jsx').name)\"",
+    "test-javascript": "cd javascript && tree-sitter test",
+    "test-jsx": "cd jsx && tree-sitter test"
   },
   "tree-sitter": [
     {
       "scope": "source.js",
-      "file-types": [
-        "js"
-      ],
+      "file-types": ["js"],
       "highlights": [
-        "queries/highlights-jsx.scm",
         "queries/highlights-params.scm",
         "queries/highlights.scm"
       ],
-      "injection-regex": "^(js|javascript)$"
+      "injections": "queries/injections.scm",
+      "injection-regex": "^(js|javascript)$",
+      "tags": "queries/tags.scm"
     }
   ]
 }
