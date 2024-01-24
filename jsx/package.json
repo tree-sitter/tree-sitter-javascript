@@ -1,17 +1,3 @@
 {
-  "main": "../bindings/node/jsx",
-  "tree-sitter": [
-    {
-      "scope": "source.jsx",
-      "file-types": ["js", "jsx"],
-      "highlights": [
-        "../queries/highlights-jsx.scm",
-        "../queries/highlights-params.scm",
-        "../queries/highlights.scm"
-      ],
-      "injections": "../queries/injections.scm",
-      "injection-regex": "^jsx$",
-      "tags": "../queries/tags.scm"
-    }
-  ]
+  "main": "../bindings/node/jsx"
 }

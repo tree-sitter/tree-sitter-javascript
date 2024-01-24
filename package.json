@@ -39,12 +39,28 @@
     {
       "scope": "source.js",
       "file-types": ["js"],
+      "path": "javascript",
       "highlights": [
         "queries/highlights-params.scm",
         "queries/highlights.scm"
       ],
       "injections": "queries/injections.scm",
       "injection-regex": "^(js|javascript)$",
+      "locals": "queries/locals.scm",
+      "tags": "queries/tags.scm"
+    },
+    {
+      "scope": "source.jsx",
+      "file-types": ["js", "jsx"],
+      "path": "jsx",
+      "highlights": [
+        "queries/highlights-jsx.scm",
+        "queries/highlights-params.scm",
+        "queries/highlights.scm"
+      ],
+      "injections": "queries/injections.scm",
+      "injection-regex": "^jsx$",
+      "locals": "queries/locals.scm",
       "tags": "queries/tags.scm"
     }
   ]
