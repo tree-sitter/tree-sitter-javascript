@@ -50,14 +50,6 @@
         "named": true
       },
       {
-        "type": "jsx_element",
-        "named": true
-      },
-      {
-        "type": "jsx_self_closing_element",
-        "named": true
-      },
-      {
         "type": "new_expression",
         "named": true
       },
@@ -2469,6 +2461,21 @@
     }
   },
   {
+    "type": "property_identifier",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "regex",
     "named": true,
     "fields": {
@@ -3461,10 +3468,6 @@
   },
   {
     "type": "private_property_identifier",
-    "named": true
-  },
-  {
-    "type": "property_identifier",
     "named": true
   },
   {

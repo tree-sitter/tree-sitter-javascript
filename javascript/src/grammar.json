@@ -1642,10 +1642,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "_jsx_element"
-        },
-        {
-          "type": "SYMBOL",
           "name": "assignment_expression"
         },
         {
@@ -6704,13 +6700,6 @@
     "_semicolon",
     "_identifier",
     "_reserved_identifier",
-    "_jsx_attribute",
-    "_jsx_element_name",
-    "_jsx_child",
-    "_jsx_element",
-    "_jsx_attribute_name",
-    "_jsx_attribute_value",
-    "_jsx_identifier",
     "_lhs_expression"
   ],
   "supertypes": [

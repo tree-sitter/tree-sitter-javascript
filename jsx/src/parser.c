@@ -1,4 +1,4 @@
-#include <tree_sitter/parser.h>
+#include "tree_sitter/parser.h"
 
 #if defined(__GNUC__) || defined(__clang__)
 #pragma GCC diagnostic push
@@ -24,7 +24,7 @@
 #define MAX_ALIAS_SEQUENCE_LENGTH 7
 #define PRODUCTION_ID_COUNT 107
 
-enum {
+enum ts_symbol_identifiers {
   sym_identifier = 1,
   sym_hash_bang_line = 2,
   anon_sym_export = 3,
@@ -1866,7 +1866,7 @@ static const TSSymbolMetadata ts_symbol_metadata[] = {
   },
 };
 
-enum {
+enum ts_field_identifiers {
   field_alias = 1,
   field_alternative = 2,
   field_argument = 3,
@@ -5396,6 +5396,7 @@ static inline bool sym_private_property_identifier_character_set_1(int32_t c) {
 
 static bool ts_lex(TSLexer *lexer, TSStateId state) {
   START_LEXER();
+  eof = lexer->eof(lexer);
   switch (state) {
     case 0:
       if (eof) ADVANCE(208);
@@ -9990,6 +9991,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
 
 static bool ts_lex_keywords(TSLexer *lexer, TSStateId state) {
   START_LEXER();
+  eof = lexer->eof(lexer);
   switch (state) {
     case 0:
       if (lookahead == 'b') ADVANCE(1);
@@ -13148,39 +13150,6 @@ static const TSLexMode ts_lex_modes[STATE_COUNT] = {
   [2778] = {.lex_state = 206},
   [2779] = {.lex_state = 206},
   [2780] = {.lex_state = 206},
-};
-
-enum {
-  ts_external_token__automatic_semicolon = 0,
-  ts_external_token__template_chars = 1,
-  ts_external_token__ternary_qmark = 2,
-};
-
-static const TSSymbol ts_external_scanner_symbol_map[EXTERNAL_TOKEN_COUNT] = {
-  [ts_external_token__automatic_semicolon] = sym__automatic_semicolon,
-  [ts_external_token__template_chars] = sym__template_chars,
-  [ts_external_token__ternary_qmark] = sym__ternary_qmark,
-};
-
-static const bool ts_external_scanner_states[6][EXTERNAL_TOKEN_COUNT] = {
-  [1] = {
-    [ts_external_token__automatic_semicolon] = true,
-    [ts_external_token__template_chars] = true,
-    [ts_external_token__ternary_qmark] = true,
-  },
-  [2] = {
-    [ts_external_token__ternary_qmark] = true,
-  },
-  [3] = {
-    [ts_external_token__automatic_semicolon] = true,
-    [ts_external_token__ternary_qmark] = true,
-  },
-  [4] = {
-    [ts_external_token__automatic_semicolon] = true,
-  },
-  [5] = {
-    [ts_external_token__template_chars] = true,
-  },
 };
 
 static const uint16_t ts_parse_table[LARGE_STATE_COUNT][SYMBOL_COUNT] = {
@@ -135309,20 +135278,53 @@ static const TSParseActionEntry ts_parse_actions[] = {
   [4462] = {.entry = {.count = 1, .reusable = true}}, SHIFT(2128),
 };
 
+enum ts_external_scanner_symbol_identifiers {
+  ts_external_token__automatic_semicolon = 0,
+  ts_external_token__template_chars = 1,
+  ts_external_token__ternary_qmark = 2,
+};
+
+static const TSSymbol ts_external_scanner_symbol_map[EXTERNAL_TOKEN_COUNT] = {
+  [ts_external_token__automatic_semicolon] = sym__automatic_semicolon,
+  [ts_external_token__template_chars] = sym__template_chars,
+  [ts_external_token__ternary_qmark] = sym__ternary_qmark,
+};
+
+static const bool ts_external_scanner_states[6][EXTERNAL_TOKEN_COUNT] = {
+  [1] = {
+    [ts_external_token__automatic_semicolon] = true,
+    [ts_external_token__template_chars] = true,
+    [ts_external_token__ternary_qmark] = true,
+  },
+  [2] = {
+    [ts_external_token__ternary_qmark] = true,
+  },
+  [3] = {
+    [ts_external_token__automatic_semicolon] = true,
+    [ts_external_token__ternary_qmark] = true,
+  },
+  [4] = {
+    [ts_external_token__automatic_semicolon] = true,
+  },
+  [5] = {
+    [ts_external_token__template_chars] = true,
+  },
+};
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-void *tree_sitter_javascript_external_scanner_create(void);
-void tree_sitter_javascript_external_scanner_destroy(void *);
-bool tree_sitter_javascript_external_scanner_scan(void *, TSLexer *, const bool *);
-unsigned tree_sitter_javascript_external_scanner_serialize(void *, char *);
-void tree_sitter_javascript_external_scanner_deserialize(void *, const char *, unsigned);
+void *tree_sitter_jsx_external_scanner_create(void);
+void tree_sitter_jsx_external_scanner_destroy(void *);
+bool tree_sitter_jsx_external_scanner_scan(void *, TSLexer *, const bool *);
+unsigned tree_sitter_jsx_external_scanner_serialize(void *, char *);
+void tree_sitter_jsx_external_scanner_deserialize(void *, const char *, unsigned);
 
 #ifdef _WIN32
 #define extern __declspec(dllexport)
 #endif
 
-extern const TSLanguage *tree_sitter_javascript(void) {
+extern const TSLanguage *tree_sitter_jsx(void) {
   static const TSLanguage language = {
     .version = LANGUAGE_VERSION,
     .symbol_count = SYMBOL_COUNT,
@@ -135353,11 +135355,11 @@ extern const TSLanguage *tree_sitter_javascript(void) {
     .external_scanner = {
       &ts_external_scanner_states[0][0],
       ts_external_scanner_symbol_map,
-      tree_sitter_javascript_external_scanner_create,
-      tree_sitter_javascript_external_scanner_destroy,
-      tree_sitter_javascript_external_scanner_scan,
-      tree_sitter_javascript_external_scanner_serialize,
-      tree_sitter_javascript_external_scanner_deserialize,
+      tree_sitter_jsx_external_scanner_create,
+      tree_sitter_jsx_external_scanner_destroy,
+      tree_sitter_jsx_external_scanner_scan,
+      tree_sitter_jsx_external_scanner_serialize,
+      tree_sitter_jsx_external_scanner_deserialize,
     },
     .primary_state_ids = ts_primary_state_ids,
   };
