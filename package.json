@@ -24,7 +24,7 @@
     "tree-sitter-cli": "^0.20.8"
   },
   "scripts": {
-    "build": "npm run build-javascript && npm run build-jsx",
+    "build": "npm run build-javascript && npm run build-jsx && node-gyp build",
     "build-javascript": "cd javascript && tree-sitter generate --no-bindings",
     "build-jsx": "cd jsx && tree-sitter generate --no-bindings",
     "lint": "eslint common/define-grammar.js",
