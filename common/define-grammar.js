@@ -37,23 +37,32 @@ module.exports = function defineGrammar(dialect) {
       $.pattern,
     ],
 
-    inline: $ => [
-      $._call_signature,
-      $._formal_parameter,
-      $.statement,
-      $._expressions,
-      $._semicolon,
-      $._identifier,
-      $._reserved_identifier,
-      $._jsx_attribute,
-      $._jsx_element_name,
-      $._jsx_child,
-      $._jsx_element,
-      $._jsx_attribute_name,
-      $._jsx_attribute_value,
-      $._jsx_identifier,
-      $._lhs_expression,
-    ],
+    inline: $ => {
+      const inline = [
+        $._call_signature,
+        $._formal_parameter,
+        $.statement,
+        $._expressions,
+        $._semicolon,
+        $._identifier,
+        $._reserved_identifier,
+        $._lhs_expression,
+      ];
+
+      if (dialect === 'jsx') {
+        inline.push(...[
+          $._jsx_attribute,
+          $._jsx_element_name,
+          $._jsx_child,
+          $._jsx_element,
+          $._jsx_attribute_name,
+          $._jsx_attribute_value,
+          $._jsx_identifier,
+        ]);
+      }
+
+      return inline;
+    },
 
     precedences: $ => [
       [
@@ -469,20 +478,27 @@ module.exports = function defineGrammar(dialect) {
         $.sequence_expression,
       ),
 
-      expression: $ => choice(
-        $.primary_expression,
-        $.glimmer_template,
-        $._jsx_element,
-        $.assignment_expression,
-        $.augmented_assignment_expression,
-        $.await_expression,
-        $.unary_expression,
-        $.binary_expression,
-        $.ternary_expression,
-        $.update_expression,
-        $.new_expression,
-        $.yield_expression,
-      ),
+      expression: $ => {
+        const choices = [
+          $.primary_expression,
+          $.glimmer_template,
+          $.assignment_expression,
+          $.augmented_assignment_expression,
+          $.await_expression,
+          $.unary_expression,
+          $.binary_expression,
+          $.ternary_expression,
+          $.update_expression,
+          $.new_expression,
+          $.yield_expression,
+        ];
+
+        if (dialect === 'jsx') {
+          choices.push($._jsx_element);
+        }
+
+        return choice(...choices);
+      },
 
       primary_expression: $ => choice(
         $.subscript_expression,
