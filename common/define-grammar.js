@@ -10,8 +10,13 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
-module.exports = grammar({
-  name: 'javascript',
+module.exports = function defineGrammar(dialect) {
+  if (dialect !== 'javascript' && dialect !== 'jsx') {
+    throw new Error(`Unknown dialect ${dialect}`);
+  }
+
+return grammar({
+  name: dialect,
 
   externals: $ => [
     $._automatic_semicolon,
@@ -1216,6 +1221,7 @@ module.exports = grammar({
     _semicolon: $ => choice($._automatic_semicolon, ';'),
   },
 });
+};
 
 /**
  * Creates a rule to match one or more of the rules separated by a comma
