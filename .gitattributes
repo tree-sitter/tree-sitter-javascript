@@ -1,6 +1,10 @@
 /examples/* linguist-vendored
 
-src/tree_sitter/* linguist-generated
-src/grammar.json linguist-generated
-src/node-types.json linguist-generated
-src/parser.c linguist-generated
+javascript/src/tree_sitter/* linguist-generated
+javascript/src/grammar.json linguist-generated
+javascript/src/node-types.json linguist-generated
+javascript/src/parser.c linguist-generated
+jsx/src/tree_sitter/* linguist-generated
+jsx/src/grammar.json linguist-generated
+jsx/src/node-types.json linguist-generated
+jsx/src/parser.c linguist-generated
