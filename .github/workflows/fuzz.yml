@@ -3,10 +3,10 @@ name: Fuzz Parser
 on:
   push:
     paths:
-      - src/scanner.c
+      - common/scanner.h
   pull_request:
     paths:
-      - src/scanner.c
+      - common/scanner.h
   workflow_dispatch:
 
 jobs:
@@ -18,5 +18,5 @@ jobs:
       - uses: vigoux/tree-sitter-fuzz-action@v1
         with:
           language: javascript
-          external-scanner: src/scanner.c
+          external-scanner: javascript/src/scanner.c
           time: 60
