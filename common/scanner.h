@@ -7,12 +7,6 @@ enum TokenType {
   TERNARY_QMARK,
 };
 
-void *tree_sitter_javascript_external_scanner_create() { return NULL; }
-void tree_sitter_javascript_external_scanner_destroy(void *p) {}
-void tree_sitter_javascript_external_scanner_reset(void *p) {}
-unsigned tree_sitter_javascript_external_scanner_serialize(void *p, char *buffer) { return 0; }
-void tree_sitter_javascript_external_scanner_deserialize(void *p, const char *b, unsigned n) {}
-
 static void advance(TSLexer *lexer) { lexer->advance(lexer, false); }
 static void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
 
@@ -169,8 +163,7 @@ static bool scan_ternary_qmark(TSLexer *lexer) {
   return false;
 }
 
-bool tree_sitter_javascript_external_scanner_scan(void *payload, TSLexer *lexer,
-                                                  const bool *valid_symbols) {
+static inline bool external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
   if (valid_symbols[TEMPLATE_CHARS]) {
     if (valid_symbols[AUTOMATIC_SEMICOLON]) return false;
     return scan_template_chars(lexer);
