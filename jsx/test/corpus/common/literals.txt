@@ -123,3 +123,31 @@ world';
 (program
   (expression_statement (string (string_fragment)))
   (expression_statement (string (string_fragment))))
+
+=========================================================
+JSX strings with unescaped newlines for TSX attributes
+=========================================================
+
+<Element Attribute="hello
+                    world"></Element>;
+
+<Element Attribute='hello
+                    world'></Element>;
+
+---
+
+(program
+  (expression_statement
+    (jsx_element
+      (jsx_opening_element
+        (identifier)
+        (jsx_attribute (property_identifier) (string (string_fragment))))
+      (jsx_closing_element
+        (identifier))))
+ (expression_statement
+   (jsx_element
+     (jsx_opening_element
+       (identifier)
+       (jsx_attribute (property_identifier) (string (string_fragment))))
+     (jsx_closing_element
+       (identifier)))))
