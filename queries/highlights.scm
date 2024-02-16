@@ -1,24 +1,12 @@
-; Special identifiers
-;--------------------
+; Variables
+;----------
 
-([
-    (identifier)
-    (shorthand_property_identifier)
-    (shorthand_property_identifier_pattern)
- ] @constant
- (#match? @constant "^[A-Z_][A-Z\\d_]+$"))
+(identifier) @variable
 
+; Properties
+;-----------
 
-((identifier) @constructor
- (#match? @constructor "^[A-Z]"))
-
-((identifier) @variable.builtin
- (#match? @variable.builtin "^(arguments|module|console|window|document)$")
- (#is-not? local))
-
-((identifier) @function.builtin
- (#eq? @function.builtin "require")
- (#is-not? local))
+(property_identifier) @property
 
 ; Function and method definitions
 ;--------------------------------
@@ -57,15 +45,26 @@
   function: (member_expression
     property: (property_identifier) @function.method))
 
-; Variables
-;----------
+; Special identifiers
+;--------------------
 
-(identifier) @variable
+((identifier) @constructor
+ (#match? @constructor "^[A-Z]"))
 
-; Properties
-;-----------
+([
+    (identifier)
+    (shorthand_property_identifier)
+    (shorthand_property_identifier_pattern)
+ ] @constant
+ (#match? @constant "^[A-Z_][A-Z\\d_]+$"))
 
-(property_identifier) @property
+((identifier) @variable.builtin
+ (#match? @variable.builtin "^(arguments|module|console|window|document)$")
+ (#is-not? local))
+
+((identifier) @function.builtin
+ (#eq? @function.builtin "require")
+ (#is-not? local))
 
 ; Literals
 ;---------
@@ -92,10 +91,6 @@
 
 ; Tokens
 ;-------
-
-(template_substitution
-  "${" @punctuation.special
-  "}" @punctuation.special) @embedded
 
 [
   ";"
@@ -159,6 +154,10 @@
   "{"
   "}"
 ]  @punctuation.bracket
+
+(template_substitution
+  "${" @punctuation.special
+  "}" @punctuation.special) @embedded
 
 [
   "as"
