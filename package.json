@@ -6,7 +6,7 @@
   "keywords": [
     "parser",
     "lexer",
-	"javascript"
+    "javascript"
   ],
   "repository": {
     "type": "git",
@@ -39,6 +39,9 @@
         "queries/highlights.scm",
         "queries/highlights-jsx.scm",
         "queries/highlights-params.scm"
+      ],
+      "tags": [
+        "queries/tags.scm"
       ],
       "injection-regex": "^(js|javascript)$"
     }
