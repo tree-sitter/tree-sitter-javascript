@@ -1,0 +1,11 @@
+prefix=/usr/local
+libdir=${prefix}/lib
+includedir=${prefix}/include
+additionallibs=
+
+Name: tree-sitter-javascript
+Description: A tree-sitter grammar for the javascript programming language.
+URL: https///github.com/tree-sitter/tree-sitter-javascript
+Version: 0.3.2
+Libs: -L${libdir} ${additionallibs} -ltree-sitter-javascript
+Cflags: -I${includedir}
