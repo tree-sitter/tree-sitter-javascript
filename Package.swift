@@ -2,13 +2,13 @@
 import PackageDescription
 
 let package = Package(
-    name: "TreeSitterJS",
+    name: "TreeSitterJavascript",
     products: [
-        .library(name: "TreeSitterJS", targets: ["TreeSitterJS"]),
+        .library(name: "TreeSitterJavascript", targets: ["TreeSitterJavascript"]),
     ],
     dependencies: [],
     targets: [
-        .target(name: "TreeSitterJS",
+        .target(name: "TreeSitterJavascript",
                 path: ".",
                 exclude: [
                     "binding.gyp",
