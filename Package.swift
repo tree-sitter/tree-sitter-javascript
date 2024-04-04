@@ -2,28 +2,36 @@
 import PackageDescription
 
 let package = Package(
-    name: "TreeSitterJS",
+    name: "TreeSitterJavascript",
     products: [
-        .library(name: "TreeSitterJS", targets: ["TreeSitterJS"]),
+        .library(name: "TreeSitterJavascript", targets: ["TreeSitterJavascript"]),
     ],
     dependencies: [],
     targets: [
-        .target(name: "TreeSitterJS",
+        .target(name: "TreeSitterJavascript",
                 path: ".",
                 exclude: [
-                    "binding.gyp",
-                    "bindings",
                     "Cargo.toml",
-                    "corpus",
-                    "grammar.js",
-                    "LICENSE",
                     "Makefile",
+                    "binding.gyp",
+                    "bindings/c",
+                    "bindings/go",
+                    "bindings/node",
+                    "bindings/python",
+                    "bindings/rust",
+                    "prebuilds",
+                    "grammar.js",
                     "package.json",
-                    "README.md",
-                    "script",
-                    "src/grammar.json",
-                    "src/node-types.json",
-                    "*.wasm",
+                    "package-lock.json",
+                    "pyproject.toml",
+                    "setup.py",
+                    "test",
+                    "examples",
+                    ".editorconfig",
+                    ".github",
+                    ".gitignore",
+                    ".gitattributes",
+                    ".gitmodules",
                 ],
                 sources: [
                     "src/parser.c",
@@ -34,5 +42,6 @@ let package = Package(
                 ],
                 publicHeadersPath: "bindings/swift",
                 cSettings: [.headerSearchPath("src")])
-    ]
+    ],
+    cLanguageStandard: .c11
 )
