@@ -44,7 +44,7 @@ pub const NODE_TYPES: &str = include_str!("../../src/node-types.json");
 pub const HIGHLIGHT_QUERY: &str = include_str!("../../queries/highlights.scm");
 
 /// The syntax highlighting query for languages injected into this one.
-pub const INJECTION_QUERY: &str = include_str!("../../queries/injections.scm");
+pub const INJECTIONS_QUERY: &str = include_str!("../../queries/injections.scm");
 
 /// The syntax highlighting query for JSX.
 pub const JSX_HIGHLIGHT_QUERY: &str = include_str!("../../queries/highlights-jsx.scm");
