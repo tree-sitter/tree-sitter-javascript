@@ -7,10 +7,7 @@
 [![npm][npm]](https://www.npmjs.com/package/tree-sitter-javascript)
 [![pypi][pypi]](https://pypi.org/project/tree-sitter-javascript)
 
-JavaScript and JSX grammar for [tree-sitter][]. For TypeScript, see [tree-sitter-typescript][].
-
-[tree-sitter]: https://github.com/tree-sitter/tree-sitter
-[tree-sitter-typescript]: https://github.com/tree-sitter/tree-sitter-typescript
+JavaScript and JSX grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter).
 
 References
 
