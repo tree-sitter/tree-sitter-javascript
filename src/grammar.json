@@ -1,5 +1,6 @@
 {
   "name": "javascript",
+  "inherits": null,
   "word": "identifier",
   "rules": {
     "program": {
@@ -6298,6 +6299,18 @@
           "value": "static"
         },
         {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_semicolon"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
           "type": "FIELD",
           "name": "body",
           "content": {
@@ -6693,6 +6706,10 @@
     [
       "binary_expression",
       "_initializer"
+    ],
+    [
+      "class_static_block",
+      "_property_name"
     ]
   ],
   "precedences": [
