@@ -534,7 +534,8 @@ class Foo extends require('another-class') {
     super()
   }
 
-  static {
+  static
+  {
     this.#foo = 'bar';
   }
 

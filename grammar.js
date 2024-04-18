@@ -101,6 +101,7 @@ module.exports = grammar({
     [$.labeled_statement, $._property_name],
     [$.computed_property_name, $.array],
     [$.binary_expression, $._initializer],
+    [$.class_static_block, $._property_name],
   ],
 
   word: $ => $.identifier,
@@ -1176,6 +1177,7 @@ module.exports = grammar({
 
     class_static_block: $ => seq(
       'static',
+      optional($._semicolon),
       field('body', $.statement_block),
     ),
 
