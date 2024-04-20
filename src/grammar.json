@@ -6303,7 +6303,7 @@
           "members": [
             {
               "type": "SYMBOL",
-              "name": "_semicolon"
+              "name": "_automatic_semicolon"
             },
             {
               "type": "BLANK"

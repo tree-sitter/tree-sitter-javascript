@@ -1177,7 +1177,7 @@ module.exports = grammar({
 
     class_static_block: $ => seq(
       'static',
-      optional($._semicolon),
+      optional($._automatic_semicolon),
       field('body', $.statement_block),
     ),
 
