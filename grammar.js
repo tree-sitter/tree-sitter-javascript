@@ -40,7 +40,6 @@ module.exports = grammar({
   inline: $ => [
     $._call_signature,
     $._formal_parameter,
-    $.statement,
     $._expressions,
     $._semicolon,
     $._identifier,

@@ -1,6 +1,5 @@
 {
   "name": "javascript",
-  "inherits": null,
   "word": "identifier",
   "rules": {
     "program": {
@@ -6907,7 +6906,6 @@
   "inline": [
     "_call_signature",
     "_formal_parameter",
-    "statement",
     "_expressions",
     "_semicolon",
     "_identifier",
