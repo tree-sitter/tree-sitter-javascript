@@ -57,7 +57,8 @@
       "file-types": [
         "js",
         "mjs",
-        "cjs"
+        "cjs",
+        "jsx"
       ],
       "highlights": [
         "queries/highlights.scm",
