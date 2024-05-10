@@ -55,7 +55,9 @@
     {
       "scope": "source.js",
       "file-types": [
-        "js"
+        "js",
+        "mjs",
+        "cjs"
       ],
       "highlights": [
         "queries/highlights.scm",
