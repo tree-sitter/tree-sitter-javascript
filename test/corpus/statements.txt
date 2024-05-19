@@ -1353,3 +1353,22 @@ console.log("HI")
       (arguments
         (string
           (string_fragment))))))
+
+==========================================
+U+2028 as a line terminator
+==========================================
+
+let x = { a: //  3
+}
+
+---
+
+(program
+  (lexical_declaration
+    (variable_declarator
+      (identifier)
+      (object
+        (pair
+          (property_identifier)
+          (comment)
+          (number))))))
