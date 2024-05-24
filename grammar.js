@@ -1195,7 +1195,10 @@ module.exports = grammar({
 
     method_definition: $ => seq(
       repeat(field('decorator', $.decorator)),
-      optional(choice('static', alias(token(seq('static', /\s+/, 'get', /\s*\n/)), 'static get'))),
+      optional(choice(
+        'static',
+        alias(token(seq('static', /\s+/, 'get', /\s*\n/)), 'static get'),
+      )),
       optional('async'),
       optional(choice('get', 'set', '*')),
       field('name', $._property_name),
@@ -1216,10 +1219,10 @@ module.exports = grammar({
     ),
 
     _property_name: $ => choice(
-      alias(choice(
-        $.identifier,
-        $._reserved_identifier,
-      ), $.property_identifier),
+      alias(
+        choice($.identifier, $._reserved_identifier),
+        $.property_identifier,
+      ),
       $.private_property_identifier,
       $.string,
       $.number,
