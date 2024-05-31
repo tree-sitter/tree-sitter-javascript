@@ -977,11 +977,6 @@
     }
   },
   {
-    "type": "comment",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "computed_property_name",
     "named": true,
     "fields": {},
@@ -3349,6 +3344,10 @@
   {
     "type": "class",
     "named": false
+  },
+  {
+    "type": "comment",
+    "named": true
   },
   {
     "type": "const",
