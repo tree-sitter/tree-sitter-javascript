@@ -47,7 +47,7 @@ static bool scan_template_chars(TSLexer *lexer) {
     }
 }
 
-static bool scan_whitespace_and_comments(TSLexer *lexer, bool *scanned_comment) {
+static bool scan_whitespace_and_comments(TSLexer *lexer, bool *scanned_comment, bool *saw_block_newline) {
     for (;;) {
         while (iswspace(lexer->lookahead)) {
             skip(lexer);
@@ -73,6 +73,10 @@ static bool scan_whitespace_and_comments(TSLexer *lexer, bool *scanned_comment) 
                             *scanned_comment = true;
                             break;
                         }
+                    } else if (lexer->lookahead == '\n' || lexer->lookahead == 0x2028 ||
+                               lexer->lookahead == 0x2029) {
+                        *saw_block_newline = true;
+                        skip(lexer);
                     } else {
                         skip(lexer);
                     }
@@ -90,17 +94,19 @@ static bool scan_automatic_semicolon(TSLexer *lexer, bool comment_condition, boo
     lexer->result_symbol = AUTOMATIC_SEMICOLON;
     lexer->mark_end(lexer);
 
+    bool saw_comment_newline = false;
     for (;;) {
         if (lexer->lookahead == 0) {
             return true;
         }
 
         if (lexer->lookahead == '/') {
-            if (!scan_whitespace_and_comments(lexer, scanned_comment)) {
+            if (!scan_whitespace_and_comments(lexer, scanned_comment, &saw_comment_newline)) {
                 return false;
             }
+
             if (comment_condition && lexer->lookahead != ',' && lexer->lookahead != '=') {
-                return true;
+                return saw_comment_newline;
             }
         }
 
@@ -125,7 +131,9 @@ static bool scan_automatic_semicolon(TSLexer *lexer, bool comment_condition, boo
 
     skip(lexer);
 
-    if (!scan_whitespace_and_comments(lexer, scanned_comment)) {
+
+
+    if (!scan_whitespace_and_comments(lexer, scanned_comment, &saw_comment_newline)) {
         return false;
     }
 
