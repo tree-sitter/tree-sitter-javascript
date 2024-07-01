@@ -96,13 +96,13 @@ static bool scan_automatic_semicolon(TSLexer *lexer, bool comment_condition, boo
     lexer->result_symbol = AUTOMATIC_SEMICOLON;
     lexer->mark_end(lexer);
 
-    bool saw_single_block_comment = true;
     for (;;) {
         if (lexer->lookahead == 0) {
             return true;
         }
 
         if (lexer->lookahead == '/') {
+            bool saw_single_block_comment = false;
             if (!scan_whitespace_and_comments(lexer, scanned_comment, &saw_single_block_comment)) {
                 return false;
             }
@@ -135,7 +135,8 @@ static bool scan_automatic_semicolon(TSLexer *lexer, bool comment_condition, boo
 
 
 
-    if (!scan_whitespace_and_comments(lexer, scanned_comment, &saw_single_block_comment)) {
+    bool unused = false;
+    if (!scan_whitespace_and_comments(lexer, scanned_comment, &unused)) {
         return false;
     }
 
