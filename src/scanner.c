@@ -48,9 +48,9 @@ static bool scan_template_chars(TSLexer *lexer) {
 }
 
 enum WhitespaceResult {
-    REJECT,
+    REJECT, // Semicolon is illegal, ie a syntax error occurred
     NO_NEWLINE, // Unclear if semicolon will be legal, continue
-    ACCEPT, // Semicolon is legal due to comment
+    ACCEPT, // Semicolon is legal, assuming a comment was encountered
 };
 
 /**
