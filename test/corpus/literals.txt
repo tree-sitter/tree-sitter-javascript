@@ -13,6 +13,7 @@ Numbers
 0b1_000_000
 1_2_3
 12_3.4_5e6_7
+.4_5e6_7
 0b1_000_000n
 01
 00000123
@@ -20,6 +21,7 @@ Numbers
 ---
 
 (program
+  (expression_statement (number))
   (expression_statement (number))
   (expression_statement (number))
   (expression_statement (number))
