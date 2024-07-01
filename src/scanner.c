@@ -47,7 +47,18 @@ static bool scan_template_chars(TSLexer *lexer) {
     }
 }
 
-static bool scan_whitespace_and_comments(TSLexer *lexer, bool *scanned_comment) {
+enum WhitespaceResult {
+    REJECT, // Semicolon is illegal, ie a syntax error occurred
+    NO_NEWLINE, // Unclear if semicolon will be legal, continue
+    ACCEPT, // Semicolon is legal, assuming a comment was encountered
+};
+
+/**
+ * @param consume If false, only consume enough to check if comment indicates semicolon-legality
+ */
+static enum WhitespaceResult scan_whitespace_and_comments(TSLexer *lexer, bool *scanned_comment, bool consume) {
+    bool saw_block_newline = false;
+
     for (;;) {
         while (iswspace(lexer->lookahead)) {
             skip(lexer);
@@ -71,17 +82,26 @@ static bool scan_whitespace_and_comments(TSLexer *lexer, bool *scanned_comment) 
                         if (lexer->lookahead == '/') {
                             skip(lexer);
                             *scanned_comment = true;
+
+                            if(lexer->lookahead != '/' && !consume){
+                                return saw_block_newline ? ACCEPT : NO_NEWLINE;
+                            }
+
                             break;
                         }
+                    } else if (lexer->lookahead == '\n' || lexer->lookahead == 0x2028 ||
+                               lexer->lookahead == 0x2029) {
+                        saw_block_newline = true;
+                        skip(lexer);
                     } else {
                         skip(lexer);
                     }
                 }
             } else {
-                return false;
+                return REJECT;
             }
         } else {
-            return true;
+            return ACCEPT;
         }
     }
 }
@@ -95,13 +115,17 @@ static bool scan_automatic_semicolon(TSLexer *lexer, bool comment_condition, boo
             return true;
         }
 
+
         if (lexer->lookahead == '/') {
-            if (!scan_whitespace_and_comments(lexer, scanned_comment)) {
+            enum WhitespaceResult result = scan_whitespace_and_comments(lexer, scanned_comment, false);
+            if (result == REJECT) {
                 return false;
             }
-            if (comment_condition && lexer->lookahead != ',' && lexer->lookahead != '=') {
+
+            if (result == ACCEPT && comment_condition && lexer->lookahead != ',' && lexer->lookahead != '=') {
                 return true;
             }
+            
         }
 
         if (lexer->lookahead == '}') {
@@ -125,7 +149,9 @@ static bool scan_automatic_semicolon(TSLexer *lexer, bool comment_condition, boo
 
     skip(lexer);
 
-    if (!scan_whitespace_and_comments(lexer, scanned_comment)) {
+
+
+    if (scan_whitespace_and_comments(lexer, scanned_comment, true) == REJECT) {
         return false;
     }
 
