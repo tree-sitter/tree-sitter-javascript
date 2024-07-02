@@ -2165,8 +2165,10 @@ i = <Foo:Bar bar={}>{...children}</Foo:Bar>
       left: (identifier)
       right: (jsx_element
         open_tag: (jsx_opening_element)
+        (jsx_text)
         (jsx_self_closing_element
           name: (identifier))
+        (jsx_text)
         close_tag: (jsx_closing_element))))
   (expression_statement
     (assignment_expression
@@ -2174,8 +2176,10 @@ i = <Foo:Bar bar={}>{...children}</Foo:Bar>
       right: (jsx_element
         open_tag: (jsx_opening_element
           name: (identifier))
+        (jsx_text)
         (jsx_self_closing_element
           name: (identifier))
+        (jsx_text)
         close_tag: (jsx_closing_element
           name: (identifier)))))
   (expression_statement
@@ -2239,6 +2243,7 @@ i = <Foo:Bar bar={}>{...children}</Foo:Bar>
                       object: (this)
                       property: (property_identifier))
                     property: (property_identifier)))))))
+        (jsx_text)
         close_tag: (jsx_closing_element
           name: (identifier)))))
   (expression_statement

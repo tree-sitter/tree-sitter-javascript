@@ -2478,12 +2478,18 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "[^{}<>\\n& ]([^{}<>\\n&]*[^{}<>\\n& ])?"
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "[^{}<>&]*[^{}<>\\n& ][^{}<>&]*"
+          }
         },
         {
-          "type": "PATTERN",
-          "value": "\\/\\/[^\\n]*"
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "[^{}<>\\n&]+"
+          }
         }
       ]
     },
@@ -6922,3 +6928,4 @@
     "pattern"
   ]
 }
+
