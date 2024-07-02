@@ -2003,6 +2003,11 @@
     }
   },
   {
+    "type": "jsx_text",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "labeled_statement",
     "named": true,
     "fields": {
@@ -3429,10 +3434,6 @@
   {
     "type": "instanceof",
     "named": false
-  },
-  {
-    "type": "jsx_text",
-    "named": true
   },
   {
     "type": "let",

@@ -2465,11 +2465,23 @@
       ]
     },
     "jsx_text": {
-      "type": "IMMEDIATE_TOKEN",
-      "content": {
-        "type": "PATTERN",
-        "value": "[^{}<>&]+"
-      }
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "[^{}<>&]*[^{}<>\\n& ][^{}<>&]*"
+          }
+        },
+        {
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "[^{}<>\\n&]+"
+          }
+        }
+      ]
     },
     "html_character_reference": {
       "type": "PATTERN",
