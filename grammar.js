@@ -608,11 +608,7 @@ module.exports = grammar({
       field('close_tag', $.jsx_closing_element),
     ),
 
-    // Should not contain new lines and should not start or end with a space
-    jsx_text: _ => choice(
-      /[^{}<>\n& ]([^{}<>\n&]*[^{}<>\n& ])?/,
-      /\/\/[^\n]*/,
-    ),
+    jsx_text: _ => token.immediate(/[^{}<>&]+/),
 
     // An entity can be named, numeric (decimal), or numeric (hexadecimal). The
     // longest entity name is 29 characters long, and the HTML spec says that
