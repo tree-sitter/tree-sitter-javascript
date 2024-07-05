@@ -48,9 +48,9 @@ static bool scan_template_chars(TSLexer *lexer) {
 }
 
 enum WhitespaceResult {
-    REJECT, // Semicolon is illegal, ie a syntax error occurred
+    REJECT,     // Semicolon is illegal, ie a syntax error occurred
     NO_NEWLINE, // Unclear if semicolon will be legal, continue
-    ACCEPT, // Semicolon is legal, assuming a comment was encountered
+    ACCEPT,     // Semicolon is legal, assuming a comment was encountered
 };
 
 /**
@@ -83,14 +83,13 @@ static enum WhitespaceResult scan_whitespace_and_comments(TSLexer *lexer, bool *
                             skip(lexer);
                             *scanned_comment = true;
 
-                            if(lexer->lookahead != '/' && !consume){
+                            if (lexer->lookahead != '/' && !consume) {
                                 return saw_block_newline ? ACCEPT : NO_NEWLINE;
                             }
 
                             break;
                         }
-                    } else if (lexer->lookahead == '\n' || lexer->lookahead == 0x2028 ||
-                               lexer->lookahead == 0x2029) {
+                    } else if (lexer->lookahead == '\n' || lexer->lookahead == 0x2028 || lexer->lookahead == 0x2029) {
                         saw_block_newline = true;
                         skip(lexer);
                     } else {
@@ -115,7 +114,6 @@ static bool scan_automatic_semicolon(TSLexer *lexer, bool comment_condition, boo
             return true;
         }
 
-
         if (lexer->lookahead == '/') {
             enum WhitespaceResult result = scan_whitespace_and_comments(lexer, scanned_comment, false);
             if (result == REJECT) {
@@ -125,7 +123,6 @@ static bool scan_automatic_semicolon(TSLexer *lexer, bool comment_condition, boo
             if (result == ACCEPT && comment_condition && lexer->lookahead != ',' && lexer->lookahead != '=') {
                 return true;
             }
-            
         }
 
         if (lexer->lookahead == '}') {
@@ -148,8 +145,6 @@ static bool scan_automatic_semicolon(TSLexer *lexer, bool comment_condition, boo
     }
 
     skip(lexer);
-
-
 
     if (scan_whitespace_and_comments(lexer, scanned_comment, true) == REJECT) {
         return false;
