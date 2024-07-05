@@ -47,16 +47,16 @@ static bool scan_template_chars(TSLexer *lexer) {
     }
 }
 
-enum WhitespaceResult {
+typedef enum {
     REJECT,     // Semicolon is illegal, ie a syntax error occurred
     NO_NEWLINE, // Unclear if semicolon will be legal, continue
     ACCEPT,     // Semicolon is legal, assuming a comment was encountered
-};
+} WhitespaceResult;
 
 /**
  * @param consume If false, only consume enough to check if comment indicates semicolon-legality
  */
-static enum WhitespaceResult scan_whitespace_and_comments(TSLexer *lexer, bool *scanned_comment, bool consume) {
+static WhitespaceResult scan_whitespace_and_comments(TSLexer *lexer, bool *scanned_comment, bool consume) {
     bool saw_block_newline = false;
 
     for (;;) {
@@ -115,7 +115,7 @@ static bool scan_automatic_semicolon(TSLexer *lexer, bool comment_condition, boo
         }
 
         if (lexer->lookahead == '/') {
-            enum WhitespaceResult result = scan_whitespace_and_comments(lexer, scanned_comment, false);
+            WhitespaceResult result = scan_whitespace_and_comments(lexer, scanned_comment, false);
             if (result == REJECT) {
                 return false;
             }
