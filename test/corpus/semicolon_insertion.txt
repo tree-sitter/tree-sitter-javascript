@@ -272,6 +272,16 @@ let b /* comment between declarators */, c
 
 let d
 
+let e
+/* back to back *//* comments */
+
+class C {
+  method/*comment*/() {}
+}
+
+b
+/* interleaved non-semi-insertion */
+  .c
 ---
 
 (program
@@ -286,4 +296,14 @@ let d
   (comment)
   (comment)
   (comment)
-  (lexical_declaration (variable_declarator (identifier))))
+  (lexical_declaration (variable_declarator (identifier)))
+  (lexical_declaration (variable_declarator (identifier)))
+  (comment)
+  (comment)
+  (class_declaration (identifier) (class_body (method_definition
+    (property_identifier)
+    (comment)
+    (formal_parameters)
+    (statement_block))))
+  (expression_statement
+    (member_expression (identifier) (comment) (property_identifier))))
