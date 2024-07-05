@@ -152,7 +152,6 @@ static bool scan_automatic_semicolon(TSLexer *lexer, bool comment_condition, boo
 
     switch (lexer->lookahead) {
         case ',':
-        case '.':
         case ':':
         case ';':
         case '*':
@@ -168,6 +167,11 @@ static bool scan_automatic_semicolon(TSLexer *lexer, bool comment_condition, boo
         case '&':
         case '/':
             return false;
+
+        // Insert a semicolon before decimals literals but not otherwise.
+        case '.':
+            skip(lexer);
+            return iswdigit(lexer->lookahead);
 
         // Insert a semicolon before `--` and `++`, but not before binary `+` or `-`.
         case '+':
