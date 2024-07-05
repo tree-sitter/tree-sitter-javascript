@@ -1613,16 +1613,6 @@
     }
   },
   {
-    "type": "glimmer_closing_tag",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "glimmer_opening_tag",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "glimmer_template",
     "named": true,
     "fields": {
@@ -3222,10 +3212,6 @@
     "named": false
   },
   {
-    "type": "</template>",
-    "named": false
-  },
-  {
     "type": "<<",
     "named": false
   },
@@ -3235,10 +3221,6 @@
   },
   {
     "type": "<=",
-    "named": false
-  },
-  {
-    "type": "<template>",
     "named": false
   },
   {
@@ -3412,6 +3394,14 @@
   {
     "type": "get",
     "named": false
+  },
+  {
+    "type": "glimmer_closing_tag",
+    "named": true
+  },
+  {
+    "type": "glimmer_opening_tag",
+    "named": true
   },
   {
     "type": "hash_bang_line",

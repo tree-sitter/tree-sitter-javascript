@@ -597,8 +597,8 @@ module.exports = grammar({
     ),
 
     _glimmer_template_content: _ => /.{1,}/,
-    glimmer_opening_tag: _ => seq('<template>'),
-    glimmer_closing_tag: _ => seq('</template>'),
+    glimmer_opening_tag: _ => '<template>',
+    glimmer_closing_tag: _ => '</template>',
 
     _jsx_element: $ => choice($.jsx_element, $.jsx_self_closing_element),
 
@@ -1061,7 +1061,7 @@ module.exports = grammar({
         seq(decimalIntegerLiteral, '.', optional(decimalDigits), optional(exponentPart)),
         seq('.', decimalDigits, optional(exponentPart)),
         seq(decimalIntegerLiteral, exponentPart),
-        seq(decimalDigits),
+        decimalDigits,
       );
 
       return token(choice(

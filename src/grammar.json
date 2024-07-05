@@ -2416,22 +2416,12 @@
       "value": ".{1,}"
     },
     "glimmer_opening_tag": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "<template>"
-        }
-      ]
+      "type": "STRING",
+      "value": "<template>"
     },
     "glimmer_closing_tag": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "</template>"
-        }
-      ]
+      "type": "STRING",
+      "value": "</template>"
     },
     "_jsx_element": {
       "type": "CHOICE",
@@ -5651,13 +5641,8 @@
                 ]
               },
               {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "PATTERN",
-                    "value": "\\d(_?\\d)*"
-                  }
-                ]
+                "type": "PATTERN",
+                "value": "\\d(_?\\d)*"
               }
             ]
           },
