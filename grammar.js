@@ -609,10 +609,10 @@ module.exports = grammar({
     ),
 
     jsx_text: _ => choice(
-        // if there is a newline, only capture if there's non-whitespace-text
-        token.immediate(/[^{}<>&]*[^{}<>\n& ][^{}<>&]*/),
-        // whitespace between jsx_tags should be captured if there's no newline
-        token.immediate(/[^{}<>\n&]+/)
+      // if there is a newline, only capture if there's non-whitespace-text
+      token.immediate(/[^{}<>&]*[^{}<>\n& ][^{}<>&]*/),
+      // whitespace between jsx_tags should be captured if there's no newline
+      token.immediate(/[^{}<>\n&]+/),
     ),
 
     // An entity can be named, numeric (decimal), or numeric (hexadecimal). The
