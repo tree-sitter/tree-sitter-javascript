@@ -610,7 +610,7 @@ module.exports = grammar({
 
     jsx_text: _ => choice(
       // if there is a newline, only capture if there's non-whitespace-text
-      token.immediate(/[^{}<>&]*[^{}<>\n& ][^{}<>&]*/),
+      token.immediate(/[^{}<>&]*[^{}<>\s\p{Zs}\uFEFF\u2028\u2029\u2060\u200B&][^{}<>&]*/),
       // whitespace between jsx_tags should be captured if there's no newline
       token.immediate(/[^{}<>\n&]+/),
     ),
