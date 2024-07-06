@@ -2468,12 +2468,18 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "PATTERN",
-          "value": "[^{}<>\\n& ]([^{}<>\\n&]*[^{}<>\\n& ])?"
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "[^{}<>&]*[^{}<>\\s\\p{Zs}\\uFEFF\\u2028\\u2029\\u2060\\u200B&][^{}<>&]*"
+          }
         },
         {
-          "type": "PATTERN",
-          "value": "\\/\\/[^\\n]*"
+          "type": "IMMEDIATE_TOKEN",
+          "content": {
+            "type": "PATTERN",
+            "value": "[^{}<>\\n&]+"
+          }
         }
       ]
     },

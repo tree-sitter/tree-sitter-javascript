@@ -608,10 +608,11 @@ module.exports = grammar({
       field('close_tag', $.jsx_closing_element),
     ),
 
-    // Should not contain new lines and should not start or end with a space
     jsx_text: _ => choice(
-      /[^{}<>\n& ]([^{}<>\n&]*[^{}<>\n& ])?/,
-      /\/\/[^\n]*/,
+      // if there is a newline, only capture if there's non-whitespace-text
+      token.immediate(/[^{}<>&]*[^{}<>\s\p{Zs}\uFEFF\u2028\u2029\u2060\u200B&][^{}<>&]*/),
+      // whitespace between jsx_tags should be captured if there's no newline
+      token.immediate(/[^{}<>\n&]+/),
     ),
 
     // An entity can be named, numeric (decimal), or numeric (hexadecimal). The
