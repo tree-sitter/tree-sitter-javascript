@@ -5839,19 +5839,41 @@
       }
     },
     "meta_property": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "STRING",
-          "value": "new"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "new"
+            },
+            {
+              "type": "STRING",
+              "value": "."
+            },
+            {
+              "type": "STRING",
+              "value": "target"
+            }
+          ]
         },
         {
-          "type": "STRING",
-          "value": "."
-        },
-        {
-          "type": "STRING",
-          "value": "target"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "import"
+            },
+            {
+              "type": "STRING",
+              "value": "."
+            },
+            {
+              "type": "STRING",
+              "value": "meta"
+            }
+          ]
         }
       ]
     },
@@ -6826,6 +6848,16 @@
       {
         "type": "STRING",
         "value": "object"
+      }
+    ],
+    [
+      {
+        "type": "SYMBOL",
+        "name": "meta_property"
+      },
+      {
+        "type": "SYMBOL",
+        "name": "import"
       }
     ],
     [

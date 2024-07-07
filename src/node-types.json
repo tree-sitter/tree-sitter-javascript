@@ -3440,6 +3440,10 @@
     "named": false
   },
   {
+    "type": "meta",
+    "named": false
+  },
+  {
     "type": "new",
     "named": false
   },
