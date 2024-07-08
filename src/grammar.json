@@ -670,31 +670,6 @@
         }
       ]
     },
-    "_variable_declaration_list": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "variable_declarator"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": ","
-              },
-              {
-                "type": "SYMBOL",
-                "name": "variable_declarator"
-              }
-            ]
-          }
-        }
-      ]
-    },
     "variable_declaration": {
       "type": "SEQ",
       "members": [
@@ -703,8 +678,29 @@
           "value": "var"
         },
         {
-          "type": "SYMBOL",
-          "name": "_variable_declaration_list"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "variable_declarator"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "variable_declarator"
+                  }
+                ]
+              }
+            }
+          ]
         },
         {
           "type": "SYMBOL",
@@ -916,19 +912,6 @@
         }
       ]
     },
-    "_for_var_production": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "var"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_variable_declaration_list"
-        }
-      ]
-    },
     "for_statement": {
       "type": "SEQ",
       "members": [
@@ -947,31 +930,18 @@
               "type": "FIELD",
               "name": "initializer",
               "content": {
-                "type": "SYMBOL",
-                "name": "lexical_declaration"
-              }
-            },
-            {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "FIELD",
-                  "name": "initializer",
-                  "content": {
-                    "type": "ALIAS",
-                    "content": {
-                      "type": "SYMBOL",
-                      "name": "_for_var_production"
-                    },
-                    "named": true,
-                    "value": "variable_declaration"
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "lexical_declaration"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "variable_declaration"
                   }
-                },
-                {
-                  "type": "STRING",
-                  "value": ";"
-                }
-              ]
+                ]
+              }
             },
             {
               "type": "SEQ",
