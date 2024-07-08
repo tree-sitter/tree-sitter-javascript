@@ -271,11 +271,9 @@ module.exports = grammar({
       $._semicolon,
     ),
 
-    _variable_declaration_list: $ => commaSep1($.variable_declarator),
-
     variable_declaration: $ => seq(
       'var',
-      $._variable_declaration_list,
+      commaSep1($.variable_declarator),
       $._semicolon,
     ),
 
@@ -312,19 +310,11 @@ module.exports = grammar({
       field('body', $.switch_body),
     ),
 
-    _for_var_production: $ => seq('var', $._variable_declaration_list),
     for_statement: $ => seq(
       'for',
       '(',
       choice(
-        field('initializer', $.lexical_declaration),
-        seq(
-          field(
-            'initializer',
-            alias($._for_var_production, $.variable_declaration),
-          ),
-          ';',
-        ),
+        field('initializer', choice($.lexical_declaration, $.variable_declaration)),
         seq(field('initializer', $._expressions), ';'),
         field('initializer', $.empty_statement),
       ),
