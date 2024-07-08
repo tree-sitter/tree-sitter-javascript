@@ -6749,15 +6749,15 @@
     ],
     [
       "primary_expression",
-      "_for_header"
-    ],
-    [
-      "primary_expression",
       "rest_pattern"
     ],
     [
       "primary_expression",
       "pattern"
+    ],
+    [
+      "primary_expression",
+      "_for_header"
     ],
     [
       "variable_declarator",
