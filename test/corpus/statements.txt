@@ -500,24 +500,21 @@ for (let in {});
         name: (identifier))
       (variable_declarator
         name: (identifier)))
-    condition: (expression_statement
-      (identifier))
+    condition: (identifier)
     increment: (identifier)
     body: (expression_statement
       (identifier)))
   (for_statement
-    initializer: (expression_statement
-      (sequence_expression
-        (assignment_expression
-          left: (identifier)
-          right: (number))
-        (call_expression
-          function: (identifier)
-          arguments: (arguments))))
-    condition: (expression_statement
-      (binary_expression
+    initializer: (sequence_expression
+      (assignment_expression
         left: (identifier)
-        right: (number)))
+        right: (number))
+      (call_expression
+        function: (identifier)
+        arguments: (arguments)))
+    condition: (binary_expression
+      left: (identifier)
+      right: (number))
     increment: (update_expression
       argument: (identifier))
     body: (expression_statement
@@ -537,10 +534,9 @@ for (let in {});
       (variable_declarator
         name: (identifier)
         value: (number)))
-    condition: (expression_statement
-      (binary_expression
-        left: (identifier)
-        right: (identifier)))
+    condition: (binary_expression
+      left: (identifier)
+      right: (identifier))
     increment: (update_expression
       argument: (identifier))
     body: (statement_block))
@@ -653,18 +649,16 @@ for (key in something && i = 0; i < n; i++) {
 
 (program
   (for_statement
-    (expression_statement
-      (binary_expression
-        (binary_expression
-          (identifier)
-          (identifier))
-        (assignment_expression
-          (identifier)
-          (number))))
-    (expression_statement
+    (binary_expression
       (binary_expression
         (identifier)
-        (identifier)))
+        (identifier))
+      (assignment_expression
+        (identifier)
+        (number)))
+    (binary_expression
+      (identifier)
+      (identifier))
     (update_expression
       (identifier))
     (statement_block

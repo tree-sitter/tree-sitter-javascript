@@ -86,14 +86,16 @@ module.exports = grammar({
     [$.lexical_declaration, $.primary_expression],
   ],
 
+
   conflicts: $ => [
     [$.primary_expression, $._property_name],
     [$.primary_expression, $._property_name, $.arrow_function],
     [$.primary_expression, $.arrow_function],
     [$.primary_expression, $.method_definition],
+    [$.primary_expression, $._for_header],
     [$.primary_expression, $.rest_pattern],
     [$.primary_expression, $.pattern],
-    [$.primary_expression, $._for_header],
+    [$.variable_declarator, $._for_header],
     [$.array, $.array_pattern],
     [$.object, $.object_pattern],
     [$.assignment_expression, $.pattern],
@@ -271,9 +273,11 @@ module.exports = grammar({
       $._semicolon,
     ),
 
+    _variable_declaration_list: $ => commaSep1($.variable_declarator),
+
     variable_declaration: $ => seq(
       'var',
-      commaSep1($.variable_declarator),
+      $._variable_declaration_list,
       $._semicolon,
     ),
 
@@ -310,17 +314,24 @@ module.exports = grammar({
       field('body', $.switch_body),
     ),
 
+    _for_var_production: $ => seq('var', $._variable_declaration_list),
     for_statement: $ => seq(
       'for',
       '(',
-      field('initializer', choice(
-        $.lexical_declaration,
-        $.variable_declaration,
-        $.expression_statement,
-        $.empty_statement,
-      )),
+      choice(
+        field('initializer', $.lexical_declaration),
+        seq(
+          field(
+            'initializer',
+            alias($._for_var_production, $.variable_declaration),
+          ),
+          ';',
+        ),
+        seq(field('initializer', $._expressions), ';'),
+        field('initializer', $.empty_statement),
+      ),
       field('condition', choice(
-        $.expression_statement,
+        seq($._expressions, ';'),
         $.empty_statement,
       )),
       field('increment', optional($._expressions)),
@@ -356,6 +367,7 @@ module.exports = grammar({
             $.identifier,
             $._destructuring_pattern,
           )),
+            optional($._automatic_semicolon),
         ),
       ),
       field('operator', choice('in', 'of')),
