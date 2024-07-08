@@ -1398,15 +1398,23 @@
         ]
       },
       "condition": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
+          {
+            "type": ";",
+            "named": false
+          },
           {
             "type": "empty_statement",
             "named": true
           },
           {
-            "type": "expression_statement",
+            "type": "expression",
+            "named": true
+          },
+          {
+            "type": "sequence_expression",
             "named": true
           }
         ]
@@ -1434,11 +1442,15 @@
             "named": true
           },
           {
-            "type": "expression_statement",
+            "type": "expression",
             "named": true
           },
           {
             "type": "lexical_declaration",
+            "named": true
+          },
+          {
+            "type": "sequence_expression",
             "named": true
           },
           {
