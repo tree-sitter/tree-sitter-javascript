@@ -356,7 +356,7 @@ module.exports = grammar({
             $.identifier,
             $._destructuring_pattern,
           )),
-            optional($._automatic_semicolon),
+          optional($._automatic_semicolon),
         ),
       ),
       field('operator', choice('in', 'of')),
