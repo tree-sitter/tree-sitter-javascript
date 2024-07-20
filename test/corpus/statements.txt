@@ -191,9 +191,7 @@ import { b } from
           (statement_block)))))
   (expression_statement
     (member_expression
-      (member_expression
-        (import)
-        (property_identifier))
+      (meta_property)
       (property_identifier)))
   (import_statement
     (import_clause

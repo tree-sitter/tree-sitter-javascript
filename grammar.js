@@ -80,6 +80,7 @@ module.exports = grammar({
     ['member', 'new', 'call', $.expression],
     ['declaration', 'literal'],
     [$.primary_expression, $.statement_block, 'object'],
+    [$.meta_property, $.import],
     [$.import_statement, $.import],
     [$.export_statement, $.primary_expression],
     [$.lexical_declaration, $.primary_expression],
@@ -1100,7 +1101,7 @@ module.exports = grammar({
       return token(seq('#', alpha, repeat(alphanumeric)));
     },
 
-    meta_property: _ => seq('new', '.', 'target'),
+    meta_property: _ => choice(seq('new', '.', 'target'), seq('import', '.', 'meta')),
 
     this: _ => 'this',
     super: _ => 'super',
