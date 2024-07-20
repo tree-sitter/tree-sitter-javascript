@@ -151,6 +151,7 @@ static bool scan_automatic_semicolon(TSLexer *lexer, bool comment_condition, boo
     }
 
     switch (lexer->lookahead) {
+        case '`':
         case ',':
         case ':':
         case ';':

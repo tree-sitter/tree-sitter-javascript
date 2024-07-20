@@ -64,7 +64,7 @@ Template strings
 
 `\ `;
 
-`The command \`git ${args.join(' ')}\` exited with an unexpected code: ${exitCode}. The caller should either handle this error, or expect that exit code.`
+`The command \`git ${args.join(' ')}\` exited with an unexpected code: ${exitCode}. The caller should either handle this error, or expect that exit code.`;
 
 `\\`;
 
@@ -154,10 +154,17 @@ Function calls with template strings
 ============================================
 
 f `hello`;
+f 
+`hello`;
 
 ---
 
 (program
+  (expression_statement
+    (call_expression
+      (identifier)
+      (template_string
+        (string_fragment))))
   (expression_statement
     (call_expression
       (identifier)
