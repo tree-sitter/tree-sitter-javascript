@@ -21,6 +21,7 @@ module.exports = grammar({
     // it should NOT parse html comments.
     $.escape_sequence,
     $.regex_pattern,
+    $.jsx_text,
   ],
 
   extras: $ => [
@@ -608,13 +609,6 @@ module.exports = grammar({
       field('open_tag', $.jsx_opening_element),
       repeat($._jsx_child),
       field('close_tag', $.jsx_closing_element),
-    ),
-
-    jsx_text: _ => choice(
-      // if there is a newline, only capture if there's non-whitespace-text
-      token.immediate(/[^{}<>&]*[^{}<>\s\p{Zs}\uFEFF\u2028\u2029\u2060\u200B&][^{}<>&]*/),
-      // whitespace between jsx_tags should be captured if there's no newline
-      token.immediate(/[^{}<>\n&]+/),
     ),
 
     // An entity can be named, numeric (decimal), or numeric (hexadecimal). The
