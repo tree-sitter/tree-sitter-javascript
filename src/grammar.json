@@ -2507,25 +2507,6 @@
         }
       ]
     },
-    "jsx_text": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "IMMEDIATE_TOKEN",
-          "content": {
-            "type": "PATTERN",
-            "value": "[^{}<>&]*[^{}<>\\s\\p{Zs}\\uFEFF\\u2028\\u2029\\u2060\\u200B&][^{}<>&]*"
-          }
-        },
-        {
-          "type": "IMMEDIATE_TOKEN",
-          "content": {
-            "type": "PATTERN",
-            "value": "[^{}<>\\n&]+"
-          }
-        }
-      ]
-    },
     "html_character_reference": {
       "type": "PATTERN",
       "value": "&(#([xX][0-9a-fA-F]{1,6}|[0-9]{1,5})|[A-Za-z]{1,30});"
@@ -6966,6 +6947,10 @@
     {
       "type": "SYMBOL",
       "name": "regex_pattern"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "jsx_text"
     }
   ],
   "inline": [

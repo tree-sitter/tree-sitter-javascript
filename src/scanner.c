@@ -1,5 +1,6 @@
 #include "tree_sitter/parser.h"
 
+#include <stdio.h>
 #include <wctype.h>
 
 enum TokenType {
@@ -10,19 +11,20 @@ enum TokenType {
     LOGICAL_OR,
     ESCAPE_SEQUENCE,
     REGEX_PATTERN,
+    JSX_TEXT,
 };
 
 void *tree_sitter_javascript_external_scanner_create() { return NULL; }
 
 void tree_sitter_javascript_external_scanner_destroy(void *p) {}
 
-unsigned tree_sitter_javascript_external_scanner_serialize(void *p, char *buffer) { return 0; }
+unsigned tree_sitter_javascript_external_scanner_serialize(void *payload, char *buffer) { return 0; }
 
 void tree_sitter_javascript_external_scanner_deserialize(void *p, const char *b, unsigned n) {}
 
-static void advance(TSLexer *lexer) { lexer->advance(lexer, false); }
+static inline void advance(TSLexer *lexer) { lexer->advance(lexer, false); }
 
-static void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
+static inline void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
 
 static bool scan_template_chars(TSLexer *lexer) {
     lexer->result_symbol = TEMPLATE_CHARS;
@@ -287,12 +289,57 @@ static bool scan_html_comment(TSLexer *lexer) {
     return true;
 }
 
+static bool scan_jsx_text(TSLexer *lexer) {
+    // saw_text will be true if we see any non-whitespace content, or any whitespace content that is not a newline and
+    // does not immediately follow a newline.
+    bool saw_text = false;
+    // at_newline will be true if we are currently at a newline, or if we are at whitespace that is not a newline but
+    // immediately follows a newline.
+    bool at_newline = false;
+
+    while (lexer->lookahead != 0 && lexer->lookahead != '<' && lexer->lookahead != '>' && lexer->lookahead != '{' &&
+           lexer->lookahead != '}' && lexer->lookahead != '&') {
+        bool is_wspace = iswspace(lexer->lookahead);
+        if (lexer->lookahead == '\n') {
+            at_newline = true;
+        } else {
+            // If at_newline is already true, and we see some whitespace, then it must stay true.
+            // Otherwise, it should be false.
+            //
+            // See the table below to determine the logic for computing `saw_text`.
+            //
+            // |------------------------------------|
+            // | at_newline | is_wspace | saw_text  |
+            // |------------|-----------|-----------|
+            // | false (0)  | false (0) | true  (1) |
+            // | false (0)  | true  (1) | true  (1) |
+            // | true  (1)  | false (0) | true  (1) |
+            // | true  (1)  | true  (1) | false (0) |
+            // |------------------------------------|
+
+            at_newline &= is_wspace;
+            if (!at_newline) {
+                saw_text = true;
+            }
+        }
+
+        advance(lexer);
+    }
+
+    lexer->result_symbol = JSX_TEXT;
+    return saw_text;
+}
+
 bool tree_sitter_javascript_external_scanner_scan(void *payload, TSLexer *lexer, const bool *valid_symbols) {
     if (valid_symbols[TEMPLATE_CHARS]) {
         if (valid_symbols[AUTOMATIC_SEMICOLON]) {
             return false;
         }
         return scan_template_chars(lexer);
+    }
+
+    if (valid_symbols[JSX_TEXT] && scan_jsx_text(lexer)) {
+        return true;
     }
 
     if (valid_symbols[AUTOMATIC_SEMICOLON]) {
