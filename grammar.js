@@ -94,6 +94,7 @@ module.exports = grammar({
     [$.primary_expression, $.rest_pattern],
     [$.primary_expression, $.pattern],
     [$.primary_expression, $._for_header],
+    [$.variable_declarator, $._for_header],
     [$.array, $.array_pattern],
     [$.object, $.object_pattern],
     [$.assignment_expression, $.pattern],
@@ -313,14 +314,13 @@ module.exports = grammar({
     for_statement: $ => seq(
       'for',
       '(',
-      field('initializer', choice(
-        $.lexical_declaration,
-        $.variable_declaration,
-        $.expression_statement,
-        $.empty_statement,
-      )),
+      choice(
+        field('initializer', choice($.lexical_declaration, $.variable_declaration)),
+        seq(field('initializer', $._expressions), ';'),
+        field('initializer', $.empty_statement),
+      ),
       field('condition', choice(
-        $.expression_statement,
+        seq($._expressions, ';'),
         $.empty_statement,
       )),
       field('increment', optional($._expressions)),
@@ -356,6 +356,7 @@ module.exports = grammar({
             $.identifier,
             $._destructuring_pattern,
           )),
+          optional($._automatic_semicolon),
         ),
       ),
       field('operator', choice('in', 'of')),
