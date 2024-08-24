@@ -6780,6 +6780,10 @@
       },
       {
         "type": "STRING",
+        "value": "template_call"
+      },
+      {
+        "type": "STRING",
         "value": "call"
       },
       {

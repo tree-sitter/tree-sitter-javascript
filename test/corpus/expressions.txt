@@ -155,6 +155,7 @@ Complex function calls with template strings
 new f()`hello`;
 new f`hello`;
 arr[0]`hello`;
+f`hello``goodbye`;
 
 ---
 (program
@@ -176,6 +177,14 @@ arr[0]`hello`;
       (subscript_expression
         (identifier)
         (number))
+      (template_string
+        (string_fragment))))
+  (expression_statement
+    (call_expression
+      (call_expression
+        (identifier)
+        (template_string
+          (string_fragment)))
       (template_string
         (string_fragment)))))
 
