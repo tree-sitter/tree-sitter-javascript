@@ -150,6 +150,36 @@ Template strings
       (string_fragment))))
 
 ============================================
+Complex function calls with template strings
+============================================
+new f()`hello`;
+new f`hello`;
+arr[0]`hello`;
+
+---
+(program
+  (expression_statement
+    (call_expression
+      (new_expression
+        (identifier)
+        (arguments))
+      (template_string
+        (string_fragment))))
+  (expression_statement
+    (new_expression
+      (call_expression
+        (identifier)
+        (template_string
+          (string_fragment)))))
+  (expression_statement
+    (call_expression
+      (subscript_expression
+        (identifier)
+        (number))
+      (template_string
+        (string_fragment)))))
+
+============================================
 Function calls with template strings
 ============================================
 
