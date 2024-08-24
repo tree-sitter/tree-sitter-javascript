@@ -802,12 +802,12 @@ module.exports = grammar({
 
     call_expression: $ => choice(
       prec('call', seq(
-          field('function', choice($.expression, $.import)),
-          field('arguments', $.arguments),
+        field('function', choice($.expression, $.import)),
+        field('arguments', $.arguments),
       )),
       prec('template_call', seq(
-          field('function', choice($.primary_expression, $.new_expression)),
-          field('arguments', $.template_string),
+        field('function', choice($.primary_expression, $.new_expression)),
+        field('arguments', $.template_string),
       )),
       prec('member', seq(
         field('function', $.primary_expression),
