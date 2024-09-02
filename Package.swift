@@ -39,7 +39,7 @@ let package = Package(
             ],
             sources: [
                 "src/parser.c",
-                // NOTE: if your language has an external scanner, add it here.
+                "src/scanner.c",
             ],
             resources: [
                 .copy("queries")
