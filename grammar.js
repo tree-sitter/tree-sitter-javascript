@@ -58,6 +58,7 @@ module.exports = grammar({
   precedences: $ => [
     [
       'member',
+      'template_call',
       'call',
       $.update_expression,
       'unary_void',
@@ -78,7 +79,7 @@ module.exports = grammar({
       $.arrow_function,
     ],
     ['assign', $.primary_expression],
-    ['member', 'new', 'call', $.expression],
+    ['member', 'template_call', 'new', 'call', $.expression],
     ['declaration', 'literal'],
     [$.primary_expression, $.statement_block, 'object'],
     [$.meta_property, $.import],
@@ -802,7 +803,11 @@ module.exports = grammar({
     call_expression: $ => choice(
       prec('call', seq(
         field('function', choice($.expression, $.import)),
-        field('arguments', choice($.arguments, $.template_string)),
+        field('arguments', $.arguments),
+      )),
+      prec('template_call', seq(
+        field('function', choice($.primary_expression, $.new_expression)),
+        field('arguments', $.template_string),
       )),
       prec('member', seq(
         field('function', $.primary_expression),
