@@ -2,7 +2,7 @@ ifeq ($(OS),Windows_NT)
 $(error Windows is not supported)
 endif
 
-VERSION := 0.0.1
+VERSION := 0.23.0
 
 LANGUAGE_NAME := tree-sitter-javascript
 
