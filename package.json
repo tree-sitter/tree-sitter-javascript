@@ -25,7 +25,8 @@
     "prebuilds/**",
     "bindings/node/*",
     "queries/*",
-    "src/**"
+    "src/**",
+    "*.wasm"
   ],
   "dependencies": {
     "node-addon-api": "^8.2.1",
