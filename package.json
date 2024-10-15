@@ -8,6 +8,9 @@
   "contributors": [
     "Amaan Qureshi <amaanq12@gmail.com>"
   ],
+  "maintainers": [
+    "Amaan Qureshi <amaanq12@gmail.com>"
+  ],
   "main": "bindings/node",
   "types": "bindings/node",
   "keywords": [
@@ -25,7 +28,7 @@
     "src/**"
   ],
   "dependencies": {
-    "node-addon-api": "^8.1.0",
+    "node-addon-api": "^8.2.1",
     "node-gyp-build": "^4.8.2"
   },
   "peerDependencies": {
@@ -37,9 +40,9 @@
     }
   },
   "devDependencies": {
-    "eslint": "^8.57.0",
-    "eslint-config-google": "^0.14.0",
-    "tree-sitter-cli": "^0.23.0",
+    "eslint": "^9.12.0",
+    "eslint-config-treesitter": "^1.0.2",
+    "tree-sitter-cli": "^0.24.3",
     "prebuildify": "^6.0.1"
   },
   "scripts": {
@@ -49,26 +52,6 @@
     "start": "tree-sitter playground",
     "test": "node --test bindings/node/*_test.js"
   },
-  "tree-sitter": [
-    {
-      "scope": "source.js",
-      "file-types": [
-        "js",
-        "mjs",
-        "cjs",
-        "jsx"
-      ],
-      "highlights": [
-        "queries/highlights.scm",
-        "queries/highlights-jsx.scm",
-        "queries/highlights-params.scm"
-      ],
-      "tags": [
-        "queries/tags.scm"
-      ],
-      "injection-regex": "^(js|javascript)$"
-    }
-  ],
   "eslintConfig": {
     "env": {
       "commonjs": true,
