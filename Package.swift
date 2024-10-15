@@ -2,41 +2,18 @@
 import PackageDescription
 
 let package = Package(
-    name: "TreeSitterJavascript",
+    name: "TreeSitterJavaScript",
     products: [
-        .library(name: "TreeSitterJavascript", targets: ["TreeSitterJavascript"]),
+        .library(name: "TreeSitterJavaScript", targets: ["TreeSitterJavaScript"]),
     ],
     dependencies: [
         .package(url: "https://github.com/ChimeHQ/SwiftTreeSitter", from: "0.8.0"),
     ],
     targets: [
         .target(
-            name: "TreeSitterJavascript",
+            name: "TreeSitterJavaScript",
             dependencies: [],
             path: ".",
-            exclude: [
-                "Cargo.toml",
-                "Makefile",
-                "binding.gyp",
-                "bindings/c",
-                "bindings/go",
-                "bindings/node",
-                "bindings/python",
-                "bindings/rust",
-                "prebuilds",
-                "grammar.js",
-                "package.json",
-                "package-lock.json",
-                "pyproject.toml",
-                "setup.py",
-                "test",
-                "examples",
-                ".editorconfig",
-                ".github",
-                ".gitignore",
-                ".gitattributes",
-                ".gitmodules",
-            ],
             sources: [
                 "src/parser.c",
                 "src/scanner.c",
@@ -48,12 +25,12 @@ let package = Package(
             cSettings: [.headerSearchPath("src")]
         ),
         .testTarget(
-            name: "TreeSitterJavascriptTests",
+            name: "TreeSitterJavaScriptTests",
             dependencies: [
                 "SwiftTreeSitter",
-                "TreeSitterJavascript",
+                "TreeSitterJavaScript",
             ],
-            path: "bindings/swift/TreeSitterJavascriptTests"
+            path: "bindings/swift/TreeSitterJavaScriptTests"
         )
     ],
     cLanguageStandard: .c11

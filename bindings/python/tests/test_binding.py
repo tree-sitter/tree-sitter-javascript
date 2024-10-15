@@ -8,4 +8,4 @@ class TestLanguage(TestCase):
         try:
             tree_sitter.Language(tree_sitter_javascript.language())
         except Exception:
-            self.fail("Error loading Javascript grammar")
+            self.fail("Error loading JavaScript grammar")
