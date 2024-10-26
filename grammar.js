@@ -480,7 +480,6 @@ module.exports = grammar({
 
     expression: $ => choice(
       $.primary_expression,
-      $.glimmer_template,
       $._jsx_element,
       $.assignment_expression,
       $.augmented_assignment_expression,
@@ -585,24 +584,6 @@ module.exports = grammar({
       ))),
       ']',
     ),
-
-    glimmer_template: $ => choice(
-      seq(
-        field('open_tag', $.glimmer_opening_tag),
-        field('content', repeat($._glimmer_template_content)),
-        field('close_tag', $.glimmer_closing_tag),
-      ),
-      // empty template has no content
-      // <template></template>
-      seq(
-        field('open_tag', $.glimmer_opening_tag),
-        field('close_tag', $.glimmer_closing_tag),
-      ),
-    ),
-
-    _glimmer_template_content: _ => /.{1,}/,
-    glimmer_opening_tag: _ => '<template>',
-    glimmer_closing_tag: _ => '</template>',
 
     _jsx_element: $ => choice($.jsx_element, $.jsx_self_closing_element),
 
@@ -1086,17 +1067,15 @@ module.exports = grammar({
     ),
 
     identifier: _ => {
-      // eslint-disable-next-line max-len
       const alpha = /[^\x00-\x1F\s\p{Zs}0-9:;`"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u2028\u2029]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/;
-      // eslint-disable-next-line max-len
+
       const alphanumeric = /[^\x00-\x1F\s\p{Zs}:;`"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u2028\u2029]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/;
       return token(seq(alpha, repeat(alphanumeric)));
     },
 
     private_property_identifier: _ => {
-      // eslint-disable-next-line max-len
       const alpha = /[^\x00-\x1F\s\p{Zs}0-9:;`"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u2028\u2029]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/;
-      // eslint-disable-next-line max-len
+
       const alphanumeric = /[^\x00-\x1F\s\p{Zs}:;`"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u2028\u2029]|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}/;
       return token(seq('#', alpha, repeat(alphanumeric)));
     },
@@ -1152,7 +1131,6 @@ module.exports = grammar({
         seq(field('member', $.method_definition), optional(';')),
         seq(field('member', $.field_definition), $._semicolon),
         field('member', $.class_static_block),
-        field('template', $.glimmer_template),
         ';',
       )),
       '}',
@@ -1253,8 +1231,7 @@ module.exports = grammar({
  *
  * @param {Rule} rule
  *
- * @return {SeqRule}
- *
+ * @returns {SeqRule}
  */
 function commaSep1(rule) {
   return seq(rule, repeat(seq(',', rule)));
@@ -1265,8 +1242,7 @@ function commaSep1(rule) {
  *
  * @param {Rule} rule
  *
- * @return {ChoiceRule}
- *
+ * @returns {ChoiceRule}
  */
 function commaSep(rule) {
   return optional(commaSep1(rule));
