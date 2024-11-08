@@ -1,78 +1,66 @@
-// -*- coding: utf-8 -*-
-// ------------------------------------------------------------------------------------------------
-// Copyright © 2020, tree-sitter-javascript authors.
-// See the LICENSE file in this repo for license details.
-// ------------------------------------------------------------------------------------------------
-
-//! This crate provides a JavaScript grammar for the [tree-sitter][] parsing library.
+//! This crate provides JavaScript language support for the [tree-sitter][] parsing library.
 //!
-//! Typically, you will use the [language][language func] function to add this grammar to a
+//! Typically, you will use the [LANGUAGE][] constant to add this language to a
 //! tree-sitter [Parser][], and then use the parser to parse some code:
 //!
 //! ```
 //! use tree_sitter::Parser;
 //!
 //! let code = r#"
-//!     function double(x) {
-//!         return x * 2;
-//!     }
+//! function double(x) {
+//!     return x * 2;
+//! }
 //! "#;
 //! let mut parser = Parser::new();
-//! parser.set_language(tree_sitter_javascript::language()).expect("Error loading JavaScript grammar");
-//! let parsed = parser.parse(code, None);
-//! # let parsed = parsed.unwrap();
-//! # let root = parsed.root_node();
-//! # assert!(!root.has_error());
+//! let language = tree_sitter_javascript::LANGUAGE;
+//! parser
+//!     .set_language(&language.into())
+//!     .expect("Error loading JavaScript parser");
+//! let tree = parser.parse(code, None).unwrap();
+//! assert!(!tree.root_node().has_error());
 //! ```
 //!
-//! [Language]: https://docs.rs/tree-sitter/*/tree_sitter/struct.Language.html
-//! [language func]: fn.language.html
 //! [Parser]: https://docs.rs/tree-sitter/*/tree_sitter/struct.Parser.html
 //! [tree-sitter]: https://tree-sitter.github.io/
 
-use tree_sitter::Language;
+use tree_sitter_language::LanguageFn;
 
 extern "C" {
-    fn tree_sitter_javascript() -> Language;
+    fn tree_sitter_javascript() -> *const ();
 }
 
-/// Returns the tree-sitter [Language][] for this grammar.
+/// The tree-sitter [`LanguageFn`][LanguageFn] for this grammar.
 ///
-/// [Language]: https://docs.rs/tree-sitter/*/tree_sitter/struct.Language.html
-pub fn language() -> Language {
-    unsafe { tree_sitter_javascript() }
-}
-
-/// The source of the JavaScript tree-sitter grammar description.
-pub const GRAMMAR: &'static str = include_str!("../../grammar.js");
-
-/// The syntax highlighting query for this language.
-pub const HIGHLIGHT_QUERY: &'static str = include_str!("../../queries/highlights.scm");
-
-/// The syntax highlighting query for languages injected into this one.
-pub const INJECTION_QUERY: &'static str = include_str!("../../queries/injections.scm");
-
-/// The syntax highlighting query for JSX.
-pub const JSX_HIGHLIGHT_QUERY: &'static str = include_str!("../../queries/highlights-jsx.scm");
-
-/// The local-variable syntax highlighting query for this language.
-pub const LOCALS_QUERY: &'static str = include_str!("../../queries/locals.scm");
+/// [LanguageFn]: https://docs.rs/tree-sitter-language/*/tree_sitter_language/struct.LanguageFn.html
+pub const LANGUAGE: LanguageFn = unsafe { LanguageFn::from_raw(tree_sitter_javascript) };
 
 /// The content of the [`node-types.json`][] file for this grammar.
 ///
 /// [`node-types.json`]: https://tree-sitter.github.io/tree-sitter/using-parsers#static-node-types
-pub const NODE_TYPES: &'static str = include_str!("../../src/node-types.json");
+pub const NODE_TYPES: &str = include_str!("../../src/node-types.json");
+
+/// The syntax highlighting query for this language.
+pub const HIGHLIGHT_QUERY: &str = include_str!("../../queries/highlights.scm");
+
+/// The syntax highlighting query for languages injected into this one.
+pub const INJECTIONS_QUERY: &str = include_str!("../../queries/injections.scm");
+
+/// The syntax highlighting query for JSX.
+pub const JSX_HIGHLIGHT_QUERY: &str = include_str!("../../queries/highlights-jsx.scm");
+
+/// The local-variable syntax highlighting query for this language.
+pub const LOCALS_QUERY: &str = include_str!("../../queries/locals.scm");
 
 /// The symbol tagging query for this language.
-pub const TAGGING_QUERY: &'static str = include_str!("../../queries/tags.scm");
+pub const TAGS_QUERY: &str = include_str!("../../queries/tags.scm");
 
 #[cfg(test)]
 mod tests {
     #[test]
-    fn can_load_grammar() {
+    fn test_can_load_grammar() {
         let mut parser = tree_sitter::Parser::new();
         parser
-            .set_language(super::language())
-            .expect("Error loading JavaScript grammar");
+            .set_language(&super::LANGUAGE.into())
+            .expect("Error loading JavaScript parser");
     }
 }

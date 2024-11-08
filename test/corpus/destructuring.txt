@@ -109,3 +109,27 @@ function b({c} = {}) {}
     (formal_parameters
       (assignment_pattern (object_pattern (shorthand_property_identifier_pattern)) (object)))
     (statement_block)))
+
+===================================================
+Extra complex literals in expressions
+===================================================
+
+if ({a: 'b'} {c: 'd'}) {
+  x = function(a) { b; } function(c) { d; }
+}
+
+---
+
+(program
+  (if_statement
+    (parenthesized_expression
+      (ERROR (object (pair (property_identifier) (string (string_fragment)))))
+      (object (pair (property_identifier) (string (string_fragment)))))
+    (statement_block
+      (expression_statement
+        (assignment_expression
+          (identifier)
+          (function_expression (formal_parameters (identifier)) (statement_block (expression_statement (identifier)))))
+        (MISSING ";"))
+      (expression_statement
+        (function_expression (formal_parameters (identifier)) (statement_block (expression_statement (identifier))))))))

@@ -3,7 +3,7 @@
 
 [
   (statement_block)
-  (function)
+  (function_expression)
   (arrow_function)
   (function_declaration)
   (method_definition)
@@ -12,7 +12,7 @@
 ; Definitions
 ;------------
 
-(pattern/identifier)@local.definition
+(pattern/identifier) @local.definition
 
 (variable_declarator
   name: (identifier) @local.definition)
