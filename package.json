@@ -2,14 +2,17 @@
   "name": "tree-sitter-javascript",
   "version": "0.23.0",
   "description": "JavaScript grammar for tree-sitter",
-  "repository": "github:tree-sitter/tree-sitter-javascript",
+  "repository": "https://github.com/tree-sitter/tree-sitter-javascript",
   "license": "MIT",
-  "author": "Max Brunsfeld <maxbrunsfeld@gmail.com>",
+  "author": {
+    "name": "Max Brunsfeld",
+    "email": "maxbrunsfeld@gmail.com"
+  },
   "contributors": [
-    "Amaan Qureshi <amaanq12@gmail.com>"
-  ],
-  "maintainers": [
-    "Amaan Qureshi <amaanq12@gmail.com>"
+    {
+      "name": "Amaan Qureshi",
+      "email": "amaanq12@gmail.com"
+    }
   ],
   "main": "bindings/node",
   "types": "bindings/node",
@@ -21,6 +24,7 @@
   ],
   "files": [
     "grammar.js",
+    "tree-sitter.json",
     "binding.gyp",
     "prebuilds/**",
     "bindings/node/*",
@@ -29,8 +33,14 @@
     "*.wasm"
   ],
   "dependencies": {
-    "node-addon-api": "^8.2.1",
+    "node-addon-api": "^8.2.2",
     "node-gyp-build": "^4.8.2"
+  },
+  "devDependencies": {
+    "eslint": "^9.14.0",
+    "eslint-config-treesitter": "^1.0.2",
+    "tree-sitter-cli": "^0.24.4",
+    "prebuildify": "^6.0.1"
   },
   "peerDependencies": {
     "tree-sitter": "^0.21.1"
@@ -40,59 +50,11 @@
       "optional": true
     }
   },
-  "devDependencies": {
-    "eslint": "^9.12.0",
-    "eslint-config-treesitter": "^1.0.2",
-    "tree-sitter-cli": "^0.24.3",
-    "prebuildify": "^6.0.1"
-  },
   "scripts": {
     "install": "node-gyp-build",
     "lint": "eslint grammar.js",
     "prestart": "tree-sitter build --wasm",
     "start": "tree-sitter playground",
     "test": "node --test bindings/node/*_test.js"
-  },
-  "eslintConfig": {
-    "env": {
-      "commonjs": true,
-      "es2021": true
-    },
-    "extends": "google",
-    "parserOptions": {
-      "ecmaVersion": "latest",
-      "sourceType": "module"
-    },
-    "rules": {
-      "arrow-parens": "off",
-      "camel-case": "off",
-      "indent": [
-        "error",
-        2,
-        {
-          "SwitchCase": 1
-        }
-      ],
-      "max-len": [
-        "error",
-        {
-          "code": 160,
-          "ignoreComments": true,
-          "ignoreUrls": true,
-          "ignoreStrings": true
-        }
-      ],
-      "spaced-comment": [
-        "warn",
-        "always",
-        {
-          "line": {
-            "markers": [
-              "/"
-            ]
-          }
-        }
-      ]
-    }
   }
 }
