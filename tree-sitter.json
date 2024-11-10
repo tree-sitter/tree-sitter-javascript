@@ -23,7 +23,7 @@
     }
   ],
   "metadata": {
-    "version": "0.23.0",
+    "version": "0.23.1",
     "license": "MIT",
     "description": "JavaScript grammar for tree-sitter",
     "authors": [
