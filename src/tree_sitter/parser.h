@@ -135,6 +135,7 @@ struct TSLanguage {
     void (*deserialize)(void *, const char *, unsigned);
   } external_scanner;
   const TSStateId *primary_state_ids;
+  const char *name;
   const TSSymbol *reserved_words;
   uint16_t max_reserved_word_set_size;
 };

@@ -3591,7 +3591,7 @@
                     "named": true,
                     "value": "property_identifier"
                   },
-                  "words": []
+                  "context_name": "properties"
                 }
               ]
             }
@@ -6556,7 +6556,7 @@
           }
         ]
       },
-      "words": []
+      "context_name": "properties"
     },
     "computed_property_name": {
       "type": "SEQ",
@@ -6936,54 +6936,57 @@
     "primary_expression",
     "pattern"
   ],
-  "reserved": [
-    {
-      "type": "STRING",
-      "value": "const"
-    },
-    {
-      "type": "STRING",
-      "value": "do"
-    },
-    {
-      "type": "STRING",
-      "value": "else"
-    },
-    {
-      "type": "STRING",
-      "value": "finally"
-    },
-    {
-      "type": "STRING",
-      "value": "for"
-    },
-    {
-      "type": "STRING",
-      "value": "function"
-    },
-    {
-      "type": "STRING",
-      "value": "if"
-    },
-    {
-      "type": "STRING",
-      "value": "let"
-    },
-    {
-      "type": "STRING",
-      "value": "return"
-    },
-    {
-      "type": "STRING",
-      "value": "throw"
-    },
-    {
-      "type": "STRING",
-      "value": "var"
-    },
-    {
-      "type": "STRING",
-      "value": "while"
-    }
-  ]
+  "reserved": {
+    "global": [
+      {
+        "type": "STRING",
+        "value": "const"
+      },
+      {
+        "type": "STRING",
+        "value": "do"
+      },
+      {
+        "type": "STRING",
+        "value": "else"
+      },
+      {
+        "type": "STRING",
+        "value": "finally"
+      },
+      {
+        "type": "STRING",
+        "value": "for"
+      },
+      {
+        "type": "STRING",
+        "value": "function"
+      },
+      {
+        "type": "STRING",
+        "value": "if"
+      },
+      {
+        "type": "STRING",
+        "value": "let"
+      },
+      {
+        "type": "STRING",
+        "value": "return"
+      },
+      {
+        "type": "STRING",
+        "value": "throw"
+      },
+      {
+        "type": "STRING",
+        "value": "var"
+      },
+      {
+        "type": "STRING",
+        "value": "while"
+      }
+    ],
+    "properties": []
+  }
 }

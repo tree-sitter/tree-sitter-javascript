@@ -31,7 +31,7 @@ module.exports = grammar({
   ],
 
   reserved: {
-    global: [
+    global: $ => [
       'const',
       'do',
       'else',
@@ -45,7 +45,7 @@ module.exports = grammar({
       'var',
       'while',
     ],
-    properties: [],
+    properties: $ => [],
   },
 
   supertypes: $ => [
@@ -550,7 +550,7 @@ module.exports = grammar({
         $.method_definition,
         alias(
           choice($.identifier, $._reserved_identifier),
-          $.shorthand_property_identifier
+          $.shorthand_property_identifier,
         ),
       ))),
       '}',
@@ -564,7 +564,7 @@ module.exports = grammar({
         $.object_assignment_pattern,
         alias(
           choice($.identifier, $._reserved_identifier),
-          $.shorthand_property_identifier_pattern
+          $.shorthand_property_identifier_pattern,
         ),
       ))),
       '}',
@@ -581,7 +581,7 @@ module.exports = grammar({
         $._destructuring_pattern,
         alias(
           choice($._reserved_identifier, $.identifier),
-          $.shorthand_property_identifier_pattern
+          $.shorthand_property_identifier_pattern,
         ),
       )),
       '=',
@@ -1217,15 +1217,15 @@ module.exports = grammar({
       field('value', choice($.pattern, $.assignment_pattern)),
     ),
 
-    _property_name: $ => reserved([], choice(
+    _property_name: $ => reserved('properties', choice(
       alias(choice(
         $.identifier,
-        $._reserved_identifier
+        $._reserved_identifier,
       ), $.property_identifier),
       $.private_property_identifier,
       $.string,
       $.number,
-      $.computed_property_name
+      $.computed_property_name,
     )),
 
     computed_property_name: $ => seq(
