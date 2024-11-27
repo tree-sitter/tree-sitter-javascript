@@ -292,6 +292,10 @@
         {
           "type": "SYMBOL",
           "name": "string"
+        },
+        {
+          "type": "STRING",
+          "value": "default"
         }
       ]
     },
@@ -1496,17 +1500,8 @@
             "content": {
               "type": "ALIAS",
               "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "identifier"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_reserved_identifier"
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "identifier"
               },
               "named": true,
               "value": "statement_identifier"
@@ -1783,15 +1778,6 @@
           "name": "_identifier"
         },
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_reserved_identifier"
-          },
-          "named": true,
-          "value": "identifier"
-        },
-        {
           "type": "SYMBOL",
           "name": "this"
         },
@@ -1941,17 +1927,8 @@
                           {
                             "type": "ALIAS",
                             "content": {
-                              "type": "CHOICE",
-                              "members": [
-                                {
-                                  "type": "SYMBOL",
-                                  "name": "identifier"
-                                },
-                                {
-                                  "type": "SYMBOL",
-                                  "name": "_reserved_identifier"
-                                }
-                              ]
+                              "type": "SYMBOL",
+                              "name": "identifier"
                             },
                             "named": true,
                             "value": "shorthand_property_identifier"
@@ -1993,17 +1970,8 @@
                                 {
                                   "type": "ALIAS",
                                   "content": {
-                                    "type": "CHOICE",
-                                    "members": [
-                                      {
-                                        "type": "SYMBOL",
-                                        "name": "identifier"
-                                      },
-                                      {
-                                        "type": "SYMBOL",
-                                        "name": "_reserved_identifier"
-                                      }
-                                    ]
+                                    "type": "SYMBOL",
+                                    "name": "identifier"
                                   },
                                   "named": true,
                                   "value": "shorthand_property_identifier"
@@ -2069,17 +2037,8 @@
                           {
                             "type": "ALIAS",
                             "content": {
-                              "type": "CHOICE",
-                              "members": [
-                                {
-                                  "type": "SYMBOL",
-                                  "name": "identifier"
-                                },
-                                {
-                                  "type": "SYMBOL",
-                                  "name": "_reserved_identifier"
-                                }
-                              ]
+                              "type": "SYMBOL",
+                              "name": "identifier"
                             },
                             "named": true,
                             "value": "shorthand_property_identifier_pattern"
@@ -2121,17 +2080,8 @@
                                 {
                                   "type": "ALIAS",
                                   "content": {
-                                    "type": "CHOICE",
-                                    "members": [
-                                      {
-                                        "type": "SYMBOL",
-                                        "name": "identifier"
-                                      },
-                                      {
-                                        "type": "SYMBOL",
-                                        "name": "_reserved_identifier"
-                                      }
-                                    ]
+                                    "type": "SYMBOL",
+                                    "name": "identifier"
                                   },
                                   "named": true,
                                   "value": "shorthand_property_identifier_pattern"
@@ -2201,17 +2151,8 @@
               {
                 "type": "ALIAS",
                 "content": {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "_reserved_identifier"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "identifier"
-                    }
-                  ]
+                  "type": "SYMBOL",
+                  "name": "identifier"
                 },
                 "named": true,
                 "value": "shorthand_property_identifier_pattern"
@@ -3284,15 +3225,6 @@
                 "type": "CHOICE",
                 "members": [
                   {
-                    "type": "ALIAS",
-                    "content": {
-                      "type": "SYMBOL",
-                      "name": "_reserved_identifier"
-                    },
-                    "named": true,
-                    "value": "identifier"
-                  },
-                  {
                     "type": "SYMBOL",
                     "name": "identifier"
                   }
@@ -3673,15 +3605,6 @@
           "name": "_identifier"
         },
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_reserved_identifier"
-          },
-          "named": true,
-          "value": "identifier"
-        },
-        {
           "type": "SYMBOL",
           "name": "_destructuring_pattern"
         }
@@ -3735,15 +3658,6 @@
         {
           "type": "SYMBOL",
           "name": "subscript_expression"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_reserved_identifier"
-          },
-          "named": true,
-          "value": "identifier"
         },
         {
           "type": "SYMBOL",
@@ -6523,17 +6437,8 @@
           {
             "type": "ALIAS",
             "content": {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "identifier"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_reserved_identifier"
-                }
-              ]
+              "type": "SYMBOL",
+              "name": "identifier"
             },
             "named": true,
             "value": "property_identifier"
@@ -6575,35 +6480,6 @@
         }
       ]
     },
-    "_reserved_identifier": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "STRING",
-          "value": "get"
-        },
-        {
-          "type": "STRING",
-          "value": "set"
-        },
-        {
-          "type": "STRING",
-          "value": "async"
-        },
-        {
-          "type": "STRING",
-          "value": "static"
-        },
-        {
-          "type": "STRING",
-          "value": "export"
-        },
-        {
-          "type": "STRING",
-          "value": "let"
-        }
-      ]
-    },
     "_semicolon": {
       "type": "CHOICE",
       "members": [
@@ -6636,19 +6512,6 @@
     [
       "primary_expression",
       "_property_name"
-    ],
-    [
-      "primary_expression",
-      "_property_name",
-      "arrow_function"
-    ],
-    [
-      "primary_expression",
-      "arrow_function"
-    ],
-    [
-      "primary_expression",
-      "method_definition"
     ],
     [
       "primary_expression",
@@ -6693,10 +6556,6 @@
     [
       "binary_expression",
       "_initializer"
-    ],
-    [
-      "class_static_block",
-      "_property_name"
     ]
   ],
   "precedences": [
@@ -6919,7 +6778,6 @@
     "_expressions",
     "_semicolon",
     "_identifier",
-    "_reserved_identifier",
     "_jsx_attribute",
     "_jsx_element_name",
     "_jsx_child",
@@ -6940,7 +6798,39 @@
     "global": [
       {
         "type": "STRING",
+        "value": "break"
+      },
+      {
+        "type": "STRING",
+        "value": "case"
+      },
+      {
+        "type": "STRING",
+        "value": "catch"
+      },
+      {
+        "type": "STRING",
+        "value": "class"
+      },
+      {
+        "type": "STRING",
         "value": "const"
+      },
+      {
+        "type": "STRING",
+        "value": "continue"
+      },
+      {
+        "type": "STRING",
+        "value": "debugger"
+      },
+      {
+        "type": "STRING",
+        "value": "default"
+      },
+      {
+        "type": "STRING",
+        "value": "delete"
       },
       {
         "type": "STRING",
@@ -6949,6 +6839,18 @@
       {
         "type": "STRING",
         "value": "else"
+      },
+      {
+        "type": "STRING",
+        "value": "export"
+      },
+      {
+        "type": "STRING",
+        "value": "extends"
+      },
+      {
+        "type": "STRING",
+        "value": "false"
       },
       {
         "type": "STRING",
@@ -6968,7 +6870,23 @@
       },
       {
         "type": "STRING",
-        "value": "let"
+        "value": "import"
+      },
+      {
+        "type": "STRING",
+        "value": "in"
+      },
+      {
+        "type": "STRING",
+        "value": "instanceof"
+      },
+      {
+        "type": "STRING",
+        "value": "new"
+      },
+      {
+        "type": "STRING",
+        "value": "null"
       },
       {
         "type": "STRING",
@@ -6976,7 +6894,31 @@
       },
       {
         "type": "STRING",
+        "value": "super"
+      },
+      {
+        "type": "STRING",
+        "value": "switch"
+      },
+      {
+        "type": "STRING",
+        "value": "this"
+      },
+      {
+        "type": "STRING",
         "value": "throw"
+      },
+      {
+        "type": "STRING",
+        "value": "true"
+      },
+      {
+        "type": "STRING",
+        "value": "try"
+      },
+      {
+        "type": "STRING",
+        "value": "typeof"
       },
       {
         "type": "STRING",
@@ -6984,7 +6926,15 @@
       },
       {
         "type": "STRING",
+        "value": "void"
+      },
+      {
+        "type": "STRING",
         "value": "while"
+      },
+      {
+        "type": "STRING",
+        "value": "with"
       }
     ],
     "properties": []
