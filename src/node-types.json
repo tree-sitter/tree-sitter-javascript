@@ -30,6 +30,10 @@
     "named": true,
     "subtypes": [
       {
+        "type": "arrow_function",
+        "named": true
+      },
+      {
         "type": "assignment_expression",
         "named": true
       },
@@ -51,10 +55,6 @@
       },
       {
         "type": "jsx_self_closing_element",
-        "named": true
-      },
-      {
-        "type": "new_expression",
         "named": true
       },
       {
@@ -122,10 +122,6 @@
         "named": true
       },
       {
-        "type": "arrow_function",
-        "named": true
-      },
-      {
         "type": "call_expression",
         "named": true
       },
@@ -155,6 +151,10 @@
       },
       {
         "type": "meta_property",
+        "named": true
+      },
+      {
+        "type": "new_expression",
         "named": true
       },
       {
@@ -760,11 +760,11 @@
         "required": true,
         "types": [
           {
-            "type": "expression",
+            "type": "import",
             "named": true
           },
           {
-            "type": "import",
+            "type": "primary_expression",
             "named": true
           }
         ]
@@ -2209,10 +2209,6 @@
         "required": true,
         "types": [
           {
-            "type": "new_expression",
-            "named": true
-          },
-          {
             "type": "primary_expression",
             "named": true
           }
@@ -3297,7 +3293,8 @@
   },
   {
     "type": "comment",
-    "named": true
+    "named": true,
+    "extra": true
   },
   {
     "type": "const",
@@ -3373,7 +3370,8 @@
   },
   {
     "type": "html_comment",
-    "named": true
+    "named": true,
+    "extra": true
   },
   {
     "type": "identifier",

@@ -15,8 +15,13 @@ module.exports = grammar({
     $._automatic_semicolon,
     $._template_chars,
     $._ternary_qmark,
+    $._shorthand_arrow,
     $.html_comment,
+    // we use these just as signaling to the ASI scanner
     '||',
+    '(',
+    '[',
+    '{',
     // We use escape sequence and regex pattern to tell the scanner if we're currently inside a string or template string, in which case
     // it should NOT parse html comments.
     $.escape_sequence,
@@ -58,7 +63,6 @@ module.exports = grammar({
   precedences: $ => [
     [
       'member',
-      'template_call',
       'call',
       $.update_expression,
       'unary_void',
@@ -78,8 +82,9 @@ module.exports = grammar({
       $.sequence_expression,
       $.arrow_function,
     ],
+    ['new', $.primary_expression],
     ['assign', $.primary_expression],
-    ['member', 'template_call', 'new', 'call', $.expression],
+    ['member', 'new_args', 'call', 'new_no_args', $.expression],
     ['declaration', 'literal'],
     [$.primary_expression, $.statement_block, 'object'],
     [$.meta_property, $.import],
@@ -488,12 +493,14 @@ module.exports = grammar({
       $.binary_expression,
       $.ternary_expression,
       $.update_expression,
-      $.new_expression,
       $.yield_expression,
+      $.arrow_function,
     ),
 
+    // Note: this is similar to MemberExpression from the ecmascript spec
     primary_expression: $ => choice(
       $.subscript_expression,
+      $.new_expression,
       $.member_expression,
       $.parenthesized_expression,
       $._identifier,
@@ -510,7 +517,6 @@ module.exports = grammar({
       $.object,
       $.array,
       $.function_expression,
-      $.arrow_function,
       $.generator_function,
       $.class,
       $.meta_property,
@@ -768,11 +774,16 @@ module.exports = grammar({
         )),
         $._call_signature,
       ),
-      '=>',
-      field('body', choice(
-        $.expression,
-        $.statement_block,
-      )),
+      choice(
+        seq(
+          alias($._shorthand_arrow, '=>'),
+          field('body', $.expression),
+        ),
+        seq(
+          choice('=>', alias($._shorthand_arrow, '=>')),
+          field('body', $.statement_block),
+        ),
+      ),
     ),
 
     // Override
@@ -783,12 +794,8 @@ module.exports = grammar({
 
     call_expression: $ => choice(
       prec('call', seq(
-        field('function', choice($.expression, $.import)),
-        field('arguments', $.arguments),
-      )),
-      prec('template_call', seq(
-        field('function', choice($.primary_expression, $.new_expression)),
-        field('arguments', $.template_string),
+        field('function', choice($.primary_expression, $.import)),
+        field('arguments', choice($.arguments, $.template_string)),
       )),
       prec('member', seq(
         field('function', $.primary_expression),
@@ -797,11 +804,17 @@ module.exports = grammar({
       )),
     ),
 
-    new_expression: $ => prec.right('new', seq(
-      'new',
-      field('constructor', choice($.primary_expression, $.new_expression)),
-      field('arguments', optional(prec.dynamic(1, $.arguments))),
-    )),
+    new_expression: $ => choice(
+      prec('new_args', seq(
+        'new',
+        field('constructor', $.primary_expression),
+        field('arguments', $.arguments),
+      )),
+      prec('new_no_args', seq(
+        'new',
+        field('constructor', $.primary_expression),
+      )),
+    ),
 
     await_expression: $ => prec('unary_void', seq(
       'await',
