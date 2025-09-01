@@ -30,6 +30,48 @@ module.exports = grammar({
     /[\s\p{Zs}\uFEFF\u2028\u2029\u2060\u200B]/,
   ],
 
+  reserved: {
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#reserved_words
+    global: $ => [
+      'break',
+      'case',
+      'catch',
+      'class',
+      'const',
+      'continue',
+      'debugger',
+      'default',
+      'delete',
+      'do',
+      'else',
+      'export',
+      'extends',
+      'false',
+      'finally',
+      'for',
+      'function',
+      'if',
+      'import',
+      'in',
+      'instanceof',
+      'new',
+      'null',
+      'return',
+      'super',
+      'switch',
+      'this',
+      'throw',
+      'true',
+      'try',
+      'typeof',
+      'var',
+      'void',
+      'while',
+      'with',
+    ],
+    properties: $ => [],
+  },
+
   supertypes: $ => [
     $.statement,
     $.declaration,
@@ -173,6 +215,7 @@ module.exports = grammar({
     _module_export_name: $ => choice(
       $.identifier,
       $.string,
+      'default',
     ),
 
     declaration: $ => choice(
@@ -841,7 +884,8 @@ module.exports = grammar({
       choice('.', field('optional_chain', $.optional_chain)),
       field('property', choice(
         $.private_property_identifier,
-        alias($.identifier, $.property_identifier))),
+        reserved('properties', alias($.identifier, $.property_identifier)),
+      )),
     )),
 
     subscript_expression: $ => prec.right('member', seq(
@@ -1224,7 +1268,7 @@ module.exports = grammar({
       field('value', choice($.pattern, $.assignment_pattern)),
     ),
 
-    _property_name: $ => choice(
+    _property_name: $ => reserved('properties', choice(
       alias(
         choice($.identifier, $._reserved_identifier),
         $.property_identifier,
@@ -1233,7 +1277,7 @@ module.exports = grammar({
       $.string,
       $.number,
       $.computed_property_name,
-    ),
+    )),
 
     computed_property_name: $ => seq(
       '[',
