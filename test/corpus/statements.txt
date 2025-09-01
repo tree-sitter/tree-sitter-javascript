@@ -936,6 +936,33 @@ for await (await using resource of resources) {
             (identifier)))))))
 
 ============================================
+'of' as identifier in declarations
+============================================
+
+for (let of of []) break;
+for (const of = '';;) break;
+const of = 2;
+
+---
+
+(program
+  (for_in_statement
+    (identifier)
+    (array)
+    (break_statement))
+  (for_statement
+    (lexical_declaration
+      (variable_declarator
+        (identifier)
+        (string)))
+    (empty_statement)
+    (break_statement))
+  (lexical_declaration
+    (variable_declarator
+      (identifier)
+      (number))))
+
+============================================
 Comments
 ============================================
 

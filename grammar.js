@@ -297,7 +297,11 @@ module.exports = grammar({
     ),
 
     variable_declarator: $ => seq(
-      field('name', choice($.identifier, $._destructuring_pattern)),
+      field('name', choice(
+        $.identifier,
+        alias('of', $.identifier),
+        $._destructuring_pattern,
+      )),
       optional($._initializer),
     ),
 
@@ -358,6 +362,7 @@ module.exports = grammar({
           field('kind', 'var'),
           field('left', choice(
             $.identifier,
+            alias('of', $.identifier),
             $._destructuring_pattern,
           )),
           optional($._initializer),
@@ -366,6 +371,7 @@ module.exports = grammar({
           field('kind', choice('let', 'const')),
           field('left', choice(
             $.identifier,
+            alias('of', $.identifier),
             $._destructuring_pattern,
           )),
           optional($._automatic_semicolon),
@@ -377,6 +383,7 @@ module.exports = grammar({
           )),
           field('left', choice(
             $.identifier,
+            alias('of', $.identifier),
             $._destructuring_pattern,
           )),
           optional($._automatic_semicolon),
