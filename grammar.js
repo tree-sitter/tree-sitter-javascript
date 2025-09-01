@@ -132,8 +132,10 @@ module.exports = grammar({
 
   conflicts: $ => [
     [$.primary_expression, $._property_name],
-    [$.primary_expression, $._property_name, $.arrow_function],
+    [$.primary_expression, $.await_expression],
+    [$.primary_expression, $.await_expression, $._property_name],
     [$.primary_expression, $.arrow_function],
+    [$.primary_expression, $.arrow_function, $._property_name],
     [$.primary_expression, $.method_definition],
     [$.primary_expression, $.rest_pattern],
     [$.primary_expression, $.pattern],
@@ -1289,6 +1291,7 @@ module.exports = grammar({
       'get',
       'set',
       'async',
+      'await',
       'static',
       'export',
       'let',
