@@ -193,7 +193,7 @@ Function calls with template strings
 ============================================
 
 f `hello`;
-f 
+f
 `hello`;
 
 ---

@@ -304,8 +304,7 @@ export { "string import" as "string export" } from 'foo';
   (export_statement
     (export_clause
       (export_specifier
-        name: (identifier)
-        alias: (identifier))))
+        name: (identifier))))
   (export_statement
     source: (string
       (string_fragment)))
