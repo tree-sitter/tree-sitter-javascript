@@ -8,7 +8,7 @@
     "name": "Max Brunsfeld",
     "email": "maxbrunsfeld@gmail.com"
   },
-  "contributors": [
+  "maintainers": [
     {
       "name": "Amaan Qureshi",
       "email": "amaanq12@gmail.com"
@@ -33,17 +33,17 @@
     "*.wasm"
   ],
   "dependencies": {
-    "node-addon-api": "^8.2.2",
-    "node-gyp-build": "^4.8.2"
+    "node-addon-api": "^8.3.1",
+    "node-gyp-build": "^4.8.4"
   },
   "devDependencies": {
     "eslint": "^9.14.0",
     "eslint-config-treesitter": "^1.0.2",
-    "tree-sitter-cli": "^0.24.4",
-    "prebuildify": "^6.0.1"
+    "prebuildify": "^6.0.1",
+    "tree-sitter-cli": "^0.25.8"
   },
   "peerDependencies": {
-    "tree-sitter": "^0.21.1"
+    "tree-sitter": "^0.25.0"
   },
   "peerDependenciesMeta": {
     "tree-sitter": {
