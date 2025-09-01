@@ -158,6 +158,7 @@ arr[0]`hello`;
 f`hello``goodbye`;
 
 ---
+
 (program
   (expression_statement
     (call_expression
@@ -530,6 +531,7 @@ Objects with reserved words for keys
   set: function () {},
   static: true,
   async: true,
+  await: true,
 };
 
 ---
@@ -555,6 +557,9 @@ Objects with reserved words for keys
         (function_expression
           (formal_parameters)
           (statement_block)))
+      (pair
+        (property_identifier)
+        (true))
       (pair
         (property_identifier)
         (true))
@@ -698,6 +703,7 @@ Classes with reserved words as methods
 class Foo {
   catch() {}
   finally() {}
+  await() {}
 }
 
 ---
@@ -706,6 +712,10 @@ class Foo {
   (class_declaration
     (identifier)
     (class_body
+      (method_definition
+        (property_identifier)
+        (formal_parameters)
+        (statement_block))
       (method_definition
         (property_identifier)
         (formal_parameters)
@@ -2168,6 +2178,30 @@ yield db.users.where('[endpoint+email]')
         (arguments
           (string
             (string_fragment)))))))
+
+============================================
+Reserved words as identifiers
+============================================
+
+function await(await) { await: await (await + await (0)); }
+
+---
+
+(program
+  (function_declaration
+    (identifier)
+    (formal_parameters (identifier))
+    (statement_block
+      (labeled_statement
+        (statement_identifier)
+        (expression_statement
+          (await_expression
+            (parenthesized_expression
+              (await_expression
+                (unary_expression
+                  (await_expression
+                    (parenthesized_expression
+                      (number))))))))))))
 
 ============================================
 JSX
