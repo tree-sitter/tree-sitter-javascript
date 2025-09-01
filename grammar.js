@@ -181,6 +181,7 @@ module.exports = grammar({
       $.class_declaration,
       $.lexical_declaration,
       $.variable_declaration,
+      $.using_declaration,
     ),
 
     //
@@ -286,6 +287,15 @@ module.exports = grammar({
       $._semicolon,
     ),
 
+    using_declaration: $ => seq(
+      field('kind', choice(
+        'using',
+        seq('await', 'using'),
+      )),
+      commaSep1($.variable_declarator),
+      $._semicolon,
+    ),
+
     variable_declarator: $ => seq(
       field('name', choice($.identifier, $._destructuring_pattern)),
       optional($._initializer),
@@ -354,6 +364,17 @@ module.exports = grammar({
         ),
         seq(
           field('kind', choice('let', 'const')),
+          field('left', choice(
+            $.identifier,
+            $._destructuring_pattern,
+          )),
+          optional($._automatic_semicolon),
+        ),
+        seq(
+          field('kind', choice(
+            'using',
+            seq('await', 'using'),
+          )),
           field('left', choice(
             $.identifier,
             $._destructuring_pattern,

@@ -871,6 +871,71 @@ var x, y = {}, z;
       (identifier))))
 
 ============================================
+Using declarations
+============================================
+
+using file = getFile();
+await using resource = getResource();
+using x = a, y = b;
+
+---
+
+(program
+  (using_declaration
+    (variable_declarator
+      (identifier)
+      (call_expression
+        (identifier)
+        (arguments))))
+  (using_declaration
+    (variable_declarator
+      (identifier)
+      (call_expression
+        (identifier)
+        (arguments))))
+  (using_declaration
+    (variable_declarator
+      (identifier)
+      (identifier))
+    (variable_declarator
+      (identifier)
+      (identifier))))
+
+============================================
+Using declarations in for loops
+============================================
+
+for (using item of items) {
+  process(item);
+}
+
+for await (await using resource of resources) {
+  consume(resource);
+}
+
+---
+
+(program
+  (for_in_statement
+    (identifier)
+    (identifier)
+    (statement_block
+      (expression_statement
+        (call_expression
+          (identifier)
+          (arguments
+            (identifier))))))
+  (for_in_statement
+    (identifier)
+    (identifier)
+    (statement_block
+      (expression_statement
+        (call_expression
+          (identifier)
+          (arguments
+            (identifier)))))))
+
+============================================
 Comments
 ============================================
 
