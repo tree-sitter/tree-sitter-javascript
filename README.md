@@ -9,10 +9,15 @@
 
 JavaScript and JSX grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter).
 
+This grammar intends to be a close approximation of the [ECMAScript](https://ecma-international.org/publications-and-standards/standards/ecma-262/)
+specification, with some extensions to support JSX syntax. We try to support the
+latest version of the spec, though it is possible that some very new features may
+not be supported yet.
+
 References
 
 - [The ESTree Spec](https://github.com/estree/estree)
-- [The ECMAScript 2015 Spec](http://www.ecma-international.org/ecma-262/6.0/)
+- [The ECMAScript 2025 Spec](https://tc39.es/ecma262/2025/)
 
 [ci]: https://img.shields.io/github/actions/workflow/status/tree-sitter/tree-sitter-javascript/ci.yml?logo=github&label=CI
 [discord]: https://img.shields.io/discord/1063097320771698699?logo=discord&label=discord
