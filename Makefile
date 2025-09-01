@@ -4,7 +4,7 @@ endif
 
 LANGUAGE_NAME := tree-sitter-javascript
 HOMEPAGE_URL := https://github.com/tree-sitter/tree-sitter-javascript
-VERSION := 0.23.1
+VERSION := 0.25.0
 
 # repository
 SRC_DIR := src
