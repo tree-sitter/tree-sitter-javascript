@@ -39,7 +39,7 @@ jobs:
           git config --global core.longpaths true
           git clone https://github.com/npm/cli examples/cli --single-branch --depth=1 --filter=blob:none
       - name: Run tests
-        uses: tree-sitter/parser-test-action@v2
+        uses: tree-sitter/parser-test-action@v3
         with:
           test-rust: true
           test-node: true
