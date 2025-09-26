@@ -233,6 +233,10 @@ export { import1 as name1, import2 as name2, nameN } from 'foo';
 export { import1 as "string name" } from 'foo';
 export { "string import" as "string export" } from 'foo';
 
+export { name1 } from './data.json' with { type: 'json' };
+export * from './styles.css' assert { type: 'css' };
+export * as ns from './module.js' with { type: 'js' };
+
 ----
 
 (program
@@ -357,7 +361,39 @@ export { "string import" as "string export" } from 'foo';
         alias: (string
           (string_fragment))))
     source: (string
-      (string_fragment))))
+      (string_fragment)))
+  (export_statement
+    (export_clause
+      (export_specifier
+        name: (identifier)))
+    source: (string
+      (string_fragment))
+    (import_attribute
+      (object
+        (pair
+          key: (property_identifier)
+          value: (string
+            (string_fragment))))))
+  (export_statement
+    source: (string
+      (string_fragment))
+    (import_attribute
+      (object
+        (pair
+          key: (property_identifier)
+          value: (string
+            (string_fragment))))))
+  (export_statement
+    (namespace_export
+      (identifier))
+    source: (string
+      (string_fragment))
+    (import_attribute
+      (object
+        (pair
+          key: (property_identifier)
+          value: (string
+            (string_fragment)))))))
 
 ============================================
 Decorators before exports
