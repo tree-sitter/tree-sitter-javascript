@@ -174,6 +174,7 @@ module.exports = grammar({
           seq($.export_clause, $._from_clause),
           $.export_clause,
         ),
+        optional($.import_attribute),
         $._semicolon,
       ),
       seq(
@@ -284,7 +285,7 @@ module.exports = grammar({
       ),
     ),
 
-    import_attribute: $ => seq('with', $.object),
+    import_attribute: $ => seq(choice('with', 'assert'), $.object),
 
     //
     // Statements
