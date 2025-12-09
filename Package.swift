@@ -4,9 +4,7 @@ import Foundation
 import PackageDescription
 
 var sources = ["src/parser.c"]
-if FileManager.default.fileExists(atPath: "src/scanner.c") {
-    sources.append("src/scanner.c")
-}
+sources.append("src/scanner.c")
 
 let package = Package(
     name: "TreeSitterJavaScript",
