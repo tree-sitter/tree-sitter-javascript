@@ -3,11 +3,6 @@
 import Foundation
 import PackageDescription
 
-var sources = ["src/parser.c"]
-if FileManager.default.fileExists(atPath: "src/scanner.c") {
-    sources.append("src/scanner.c")
-}
-
 let package = Package(
     name: "TreeSitterJavaScript",
     products: [
@@ -21,7 +16,7 @@ let package = Package(
             name: "TreeSitterJavaScript",
             dependencies: [],
             path: ".",
-            sources: sources,
+            sources:["src/parser.c", "src/scanner.c"],
             resources: [
                 .copy("queries")
             ],
