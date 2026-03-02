@@ -25,3 +25,6 @@ References
 [npm]: https://img.shields.io/npm/v/tree-sitter-javascript?logo=npm
 [crates]: https://img.shields.io/crates/v/tree-sitter-javascript?logo=rust
 [pypi]: https://img.shields.io/pypi/v/tree-sitter-javascript?logo=pypi&logoColor=ffd242
+
+# uses:
+dianesterling11@gmail.com
