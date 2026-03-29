@@ -1218,6 +1218,36 @@ a ?. b;
       (property_identifier))))
 
 ============================================
+Optional chaining with reserved words
+============================================
+
+a?.delete(b);
+a?.class;
+a?.return;
+
+---
+
+(program
+  (expression_statement
+    (call_expression
+      (member_expression
+        (identifier)
+        (optional_chain)
+        (property_identifier))
+      (arguments
+        (identifier))))
+  (expression_statement
+    (member_expression
+      (identifier)
+      (optional_chain)
+      (property_identifier)))
+  (expression_statement
+    (member_expression
+      (identifier)
+      (optional_chain)
+      (property_identifier))))
+
+============================================
 Optional chaining array access
 ============================================
 

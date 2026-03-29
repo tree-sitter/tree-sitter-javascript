@@ -8,6 +8,20 @@
 /// <reference types="tree-sitter-cli/dsl" />
 // @ts-check
 
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#reserved_words
+const RESERVED_WORDS = [
+  'break', 'case', 'catch', 'class', 'const', 'continue',
+  'debugger', 'default', 'delete', 'do', 'else', 'export',
+  'extends', 'false', 'finally', 'for', 'function', 'if',
+  'import', 'in', 'instanceof', 'new', 'null', 'return',
+  'super', 'switch', 'this', 'throw', 'true', 'try',
+  'typeof', 'var', 'void', 'while', 'with',
+];
+
+const CONTEXTUAL_KEYWORDS = [
+  'get', 'set', 'async', 'await', 'static', 'export', 'let',
+];
+
 module.exports = grammar({
   name: 'javascript',
 
@@ -31,44 +45,7 @@ module.exports = grammar({
   ],
 
   reserved: {
-    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Lexical_grammar#reserved_words
-    global: $ => [
-      'break',
-      'case',
-      'catch',
-      'class',
-      'const',
-      'continue',
-      'debugger',
-      'default',
-      'delete',
-      'do',
-      'else',
-      'export',
-      'extends',
-      'false',
-      'finally',
-      'for',
-      'function',
-      'if',
-      'import',
-      'in',
-      'instanceof',
-      'new',
-      'null',
-      'return',
-      'super',
-      'switch',
-      'this',
-      'throw',
-      'true',
-      'try',
-      'typeof',
-      'var',
-      'void',
-      'while',
-      'with',
-    ],
+    global: $ => RESERVED_WORDS,
     properties: $ => [],
   },
 
@@ -95,6 +72,7 @@ module.exports = grammar({
     $._jsx_attribute_value,
     $._jsx_identifier,
     $._lhs_expression,
+    $._keyword_identifier,
   ],
 
   precedences: $ => [
@@ -699,9 +677,12 @@ module.exports = grammar({
 
     jsx_identifier: _ => /[a-zA-Z_$][a-zA-Z\d_$]*-[a-zA-Z\d_$\-]*/,
 
+    jsx_keyword_identifier: _ => choice(...RESERVED_WORDS, ...CONTEXTUAL_KEYWORDS),
+
     _jsx_identifier: $ => choice(
       alias($.jsx_identifier, $.identifier),
       $.identifier,
+      alias($.jsx_keyword_identifier, $.identifier),
     ),
 
     nested_identifier: $ => prec('member', seq(
@@ -710,11 +691,20 @@ module.exports = grammar({
       field('property', alias($.identifier, $.property_identifier)),
     )),
 
+    jsx_member_expression: $ => prec('member', seq(
+      field('object', choice(
+        $._jsx_identifier,
+        alias($.jsx_member_expression, $.member_expression),
+      )),
+      '.',
+      field('property', alias($._jsx_identifier, $.property_identifier)),
+    )),
+
     jsx_namespace_name: $ => seq($._jsx_identifier, ':', $._jsx_identifier),
 
     _jsx_element_name: $ => choice(
       $._jsx_identifier,
-      alias($.nested_identifier, $.member_expression),
+      alias($.jsx_member_expression, $.member_expression),
       $.jsx_namespace_name,
     ),
 
@@ -733,7 +723,10 @@ module.exports = grammar({
 
     _jsx_attribute: $ => choice($.jsx_attribute, $.jsx_expression),
 
-    _jsx_attribute_name: $ => choice(alias($._jsx_identifier, $.property_identifier), $.jsx_namespace_name),
+    _jsx_attribute_name: $ => choice(
+      alias($._jsx_identifier, $.property_identifier),
+      $.jsx_namespace_name,
+    ),
 
     jsx_attribute: $ => seq(
       $._jsx_attribute_name,
@@ -886,7 +879,10 @@ module.exports = grammar({
       choice('.', field('optional_chain', $.optional_chain)),
       field('property', choice(
         $.private_property_identifier,
-        reserved('properties', alias($.identifier, $.property_identifier)),
+        reserved('properties', alias(
+          choice($.identifier, $._keyword_identifier),
+          $.property_identifier,
+        )),
       )),
     )),
 
@@ -1287,15 +1283,9 @@ module.exports = grammar({
       ']',
     ),
 
-    _reserved_identifier: _ => choice(
-      'get',
-      'set',
-      'async',
-      'await',
-      'static',
-      'export',
-      'let',
-    ),
+    _reserved_identifier: _ => choice(...CONTEXTUAL_KEYWORDS),
+
+    _keyword_identifier: _ => choice(...RESERVED_WORDS, ...CONTEXTUAL_KEYWORDS),
 
     _semicolon: $ => choice($._automatic_semicolon, ';'),
   },
