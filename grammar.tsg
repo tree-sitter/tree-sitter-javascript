@@ -1,0 +1,1140 @@
+// JavaScript grammar for tree-sitter (native DSL)
+// Translated from grammar.js
+
+grammar {
+    language: "javascript",
+
+    externals: [
+        _automatic_semicolon,
+        _template_chars,
+        _ternary_qmark,
+        html_comment,
+        "||",
+        escape_sequence,
+        regex_pattern,
+        jsx_text,
+    ],
+
+    extras: [
+        comment,
+        html_comment,
+        regexp(r"[\s\p{Zs}\uFEFF\u2028\u2029\u2060\u200B]"),
+    ],
+
+    reserved: {
+        global: [
+            "break", "case", "catch", "class", "const", "continue",
+            "debugger", "default", "delete", "do", "else", "export",
+            "extends", "false", "finally", "for", "function", "if",
+            "import", "in", "instanceof", "new", "null", "return",
+            "super", "switch", "this", "throw", "true", "try",
+            "typeof", "var", "void", "while", "with",
+        ],
+        properties: [],
+    },
+
+    supertypes: [statement, declaration, expression, primary_expression, pattern],
+
+    inline: [
+        _call_signature,
+        _formal_parameter,
+        _expressions,
+        _semicolon,
+        _identifier,
+        _reserved_identifier,
+        _jsx_attribute,
+        _jsx_element_name,
+        _jsx_child,
+        _jsx_element,
+        _jsx_attribute_name,
+        _jsx_attribute_value,
+        _jsx_identifier,
+        _lhs_expression,
+    ],
+
+    precedences: [
+        [
+            "member", "template_call", "call",
+            update_expression, "unary_void",
+            "binary_exp", "binary_times", "binary_plus",
+            "binary_shift", "binary_compare", "binary_relation",
+            "binary_equality", "bitwise_and", "bitwise_xor",
+            "bitwise_or", "logical_and", "logical_or", "ternary",
+            sequence_expression, arrow_function,
+        ],
+        ["assign", primary_expression],
+        ["member", "template_call", "new", "call", expression],
+        ["declaration", "literal"],
+        [primary_expression, statement_block, "object"],
+        [meta_property, import],
+        [import_statement, import],
+        [export_statement, primary_expression],
+        [lexical_declaration, primary_expression],
+    ],
+
+    conflicts: [
+        [primary_expression, _property_name],
+        [primary_expression, await_expression],
+        [primary_expression, await_expression, _property_name],
+        [primary_expression, arrow_function],
+        [primary_expression, arrow_function, _property_name],
+        [primary_expression, method_definition],
+        [primary_expression, rest_pattern],
+        [primary_expression, pattern],
+        [primary_expression, _for_header],
+        [variable_declarator, _for_header],
+        [array, array_pattern],
+        [object, object_pattern],
+        [assignment_expression, pattern],
+        [assignment_expression, object_assignment_pattern],
+        [labeled_statement, _property_name],
+        [computed_property_name, array],
+        [binary_expression, _initializer],
+        [class_static_block, _property_name],
+    ],
+
+    word: identifier,
+}
+
+macro commaSep1(item: rule_t) rule_t {
+    seq(item, repeat(seq(",", item)))
+}
+
+macro commaSep(item: rule_t) rule_t {
+    optional(commaSep1(item))
+}
+
+// ---------------------------------------------------------------------------
+// Program
+// ---------------------------------------------------------------------------
+
+rule program {
+    seq(optional(hash_bang_line), repeat(statement))
+}
+
+rule hash_bang_line { regexp("#!.*") }
+
+// ---------------------------------------------------------------------------
+// Export declarations
+// ---------------------------------------------------------------------------
+
+rule export_statement {
+    choice(
+        seq(
+            "export",
+            choice(
+                seq("*", _from_clause),
+                seq(namespace_export, _from_clause),
+                seq(export_clause, _from_clause),
+                export_clause,
+            ),
+            _semicolon,
+        ),
+        seq(
+            repeat(field(decorator, decorator)),
+            "export",
+            choice(
+                field(declaration, declaration),
+                seq(
+                    "default",
+                    choice(
+                        field(declaration, declaration),
+                        seq(field(value, expression), _semicolon),
+                    ),
+                ),
+            ),
+        ),
+    )
+}
+
+rule namespace_export { seq("*", "as", _module_export_name) }
+
+rule export_clause {
+    seq("{", commaSep(export_specifier), optional(","), "}")
+}
+
+rule export_specifier {
+    seq(
+        field(name, _module_export_name),
+        optional(seq("as", field(alias, _module_export_name))),
+    )
+}
+
+rule _module_export_name { choice(identifier, string, "default") }
+
+rule declaration {
+    choice(
+        function_declaration,
+        generator_function_declaration,
+        class_declaration,
+        lexical_declaration,
+        variable_declaration,
+        using_declaration,
+    )
+}
+
+// ---------------------------------------------------------------------------
+// Import declarations
+// ---------------------------------------------------------------------------
+
+rule import { token("import") }
+
+rule import_statement {
+    seq(
+        "import",
+        choice(
+            seq(import_clause, _from_clause),
+            field(source, string),
+        ),
+        optional(import_attribute),
+        _semicolon,
+    )
+}
+
+rule import_clause {
+    choice(
+        namespace_import,
+        named_imports,
+        seq(
+            identifier,
+            optional(seq(",", choice(namespace_import, named_imports))),
+        ),
+    )
+}
+
+rule _from_clause { seq("from", field(source, string)) }
+
+rule namespace_import { seq("*", "as", identifier) }
+
+rule named_imports {
+    seq("{", commaSep(import_specifier), optional(","), "}")
+}
+
+rule import_specifier {
+    choice(
+        field(name, identifier),
+        seq(
+            field(name, _module_export_name),
+            "as",
+            field(alias, identifier),
+        ),
+    )
+}
+
+rule import_attribute { seq("with", object) }
+
+// ---------------------------------------------------------------------------
+// Statements
+// ---------------------------------------------------------------------------
+
+rule statement {
+    choice(
+        export_statement,
+        import_statement,
+        debugger_statement,
+        expression_statement,
+        declaration,
+        statement_block,
+        if_statement,
+        switch_statement,
+        for_statement,
+        for_in_statement,
+        while_statement,
+        do_statement,
+        try_statement,
+        with_statement,
+        break_statement,
+        continue_statement,
+        return_statement,
+        throw_statement,
+        empty_statement,
+        labeled_statement,
+    )
+}
+
+rule expression_statement { seq(_expressions, _semicolon) }
+
+rule variable_declaration {
+    seq("var", commaSep1(variable_declarator), _semicolon)
+}
+
+rule lexical_declaration {
+    seq(field(kind, choice("let", "const")), commaSep1(variable_declarator), _semicolon)
+}
+
+rule using_declaration {
+    seq(
+        field(kind, choice("using", seq("await", "using"))),
+        commaSep1(variable_declarator),
+        _semicolon,
+    )
+}
+
+rule variable_declarator {
+    seq(
+        field(name, choice(identifier, alias("of", identifier), _destructuring_pattern)),
+        optional(_initializer),
+    )
+}
+
+rule statement_block {
+    prec_right(0, seq("{", repeat(statement), "}", optional(_automatic_semicolon)))
+}
+
+rule else_clause { seq("else", statement) }
+
+rule if_statement {
+    prec_right(0, seq(
+        "if",
+        field(condition, parenthesized_expression),
+        field(consequence, statement),
+        optional(field(alternative, else_clause)),
+    ))
+}
+
+rule switch_statement {
+    seq(
+        "switch",
+        field(value, parenthesized_expression),
+        field(body, switch_body),
+    )
+}
+
+rule for_statement {
+    seq(
+        "for", "(",
+        choice(
+            field(initializer, choice(lexical_declaration, variable_declaration)),
+            seq(field(initializer, _expressions), ";"),
+            field(initializer, empty_statement),
+        ),
+        field(condition, choice(seq(_expressions, ";"), empty_statement)),
+        field(increment, optional(_expressions)),
+        ")",
+        field(body, statement),
+    )
+}
+
+rule for_in_statement {
+    seq("for", optional("await"), _for_header, field(body, statement))
+}
+
+rule _for_header {
+    seq(
+        "(",
+        choice(
+            field(left, choice(_lhs_expression, parenthesized_expression)),
+            seq(
+                field(kind, "var"),
+                field(left, choice(identifier, alias("of", identifier), _destructuring_pattern)),
+                optional(_initializer),
+            ),
+            seq(
+                field(kind, choice("let", "const")),
+                field(left, choice(identifier, alias("of", identifier), _destructuring_pattern)),
+                optional(_automatic_semicolon),
+            ),
+            seq(
+                field(kind, choice("using", seq("await", "using"))),
+                field(left, choice(identifier, alias("of", identifier), _destructuring_pattern)),
+                optional(_automatic_semicolon),
+            ),
+        ),
+        field(operator, choice("in", "of")),
+        field(right, _expressions),
+        ")",
+    )
+}
+
+rule while_statement {
+    seq("while", field(condition, parenthesized_expression), field(body, statement))
+}
+
+rule do_statement {
+    prec_right(0, seq(
+        "do",
+        field(body, statement),
+        "while",
+        field(condition, parenthesized_expression),
+        optional(_semicolon),
+    ))
+}
+
+rule try_statement {
+    seq(
+        "try",
+        field(body, statement_block),
+        optional(field(handler, catch_clause)),
+        optional(field(finalizer, finally_clause)),
+    )
+}
+
+rule with_statement {
+    seq("with", field(object, parenthesized_expression), field(body, statement))
+}
+
+rule break_statement {
+    seq("break", field(label, optional(alias(identifier, statement_identifier))), _semicolon)
+}
+
+rule continue_statement {
+    seq("continue", field(label, optional(alias(identifier, statement_identifier))), _semicolon)
+}
+
+rule debugger_statement { seq("debugger", _semicolon) }
+
+rule return_statement { seq("return", optional(_expressions), _semicolon) }
+
+rule throw_statement { seq("throw", _expressions, _semicolon) }
+
+rule empty_statement { ";" }
+
+rule labeled_statement {
+    prec_dynamic(-1, seq(
+        field(label, alias(choice(identifier, _reserved_identifier), statement_identifier)),
+        ":",
+        field(body, statement),
+    ))
+}
+
+// ---------------------------------------------------------------------------
+// Statement components
+// ---------------------------------------------------------------------------
+
+rule switch_body {
+    seq("{", repeat(choice(switch_case, switch_default)), "}")
+}
+
+rule switch_case {
+    seq("case", field(value, _expressions), ":", field(body, repeat(statement)))
+}
+
+rule switch_default {
+    seq("default", ":", field(body, repeat(statement)))
+}
+
+rule catch_clause {
+    seq(
+        "catch",
+        optional(seq("(", field(parameter, choice(identifier, _destructuring_pattern)), ")")),
+        field(body, statement_block),
+    )
+}
+
+rule finally_clause { seq("finally", field(body, statement_block)) }
+
+rule parenthesized_expression { seq("(", _expressions, ")") }
+
+// ---------------------------------------------------------------------------
+// Expressions
+// ---------------------------------------------------------------------------
+
+rule _expressions { choice(expression, sequence_expression) }
+
+rule expression {
+    choice(
+        primary_expression,
+        _jsx_element,
+        assignment_expression,
+        augmented_assignment_expression,
+        await_expression,
+        unary_expression,
+        binary_expression,
+        ternary_expression,
+        update_expression,
+        new_expression,
+        yield_expression,
+    )
+}
+
+rule primary_expression {
+    choice(
+        subscript_expression,
+        member_expression,
+        parenthesized_expression,
+        _identifier,
+        alias(_reserved_identifier, identifier),
+        this,
+        super,
+        number,
+        string,
+        template_string,
+        regex,
+        true,
+        false,
+        null,
+        object,
+        array,
+        function_expression,
+        arrow_function,
+        generator_function,
+        class,
+        meta_property,
+        call_expression,
+    )
+}
+
+rule yield_expression {
+    prec_right(0, seq("yield", choice(seq("*", expression), optional(expression))))
+}
+
+rule object {
+    prec("object", seq(
+        "{",
+        commaSep(optional(choice(
+            pair,
+            spread_element,
+            method_definition,
+            alias(choice(identifier, _reserved_identifier), shorthand_property_identifier),
+        ))),
+        "}",
+    ))
+}
+
+rule object_pattern {
+    prec("object", seq(
+        "{",
+        commaSep(optional(choice(
+            pair_pattern,
+            rest_pattern,
+            object_assignment_pattern,
+            alias(choice(identifier, _reserved_identifier), shorthand_property_identifier_pattern),
+        ))),
+        "}",
+    ))
+}
+
+rule assignment_pattern {
+    seq(field(left, pattern), "=", field(right, expression))
+}
+
+rule object_assignment_pattern {
+    seq(
+        field(left, choice(
+            alias(choice(_reserved_identifier, identifier), shorthand_property_identifier_pattern),
+            _destructuring_pattern,
+        )),
+        "=",
+        field(right, expression),
+    )
+}
+
+rule array {
+    seq("[", commaSep(optional(choice(expression, spread_element))), "]")
+}
+
+rule array_pattern {
+    seq("[", commaSep(optional(choice(pattern, assignment_pattern))), "]")
+}
+
+// ---------------------------------------------------------------------------
+// JSX
+// ---------------------------------------------------------------------------
+
+rule _jsx_element { choice(jsx_element, jsx_self_closing_element) }
+
+rule jsx_element {
+    seq(
+        field(open_tag, jsx_opening_element),
+        repeat(_jsx_child),
+        field(close_tag, jsx_closing_element),
+    )
+}
+
+rule html_character_reference {
+    regexp(r"&(#([xX][0-9a-fA-F]{1,6}|[0-9]{1,5})|[A-Za-z]{1,30});")
+}
+
+rule jsx_expression {
+    seq("{", optional(choice(expression, sequence_expression, spread_element)), "}")
+}
+
+rule _jsx_child { choice(jsx_text, html_character_reference, _jsx_element, jsx_expression) }
+
+rule jsx_opening_element {
+    prec_dynamic(-1, seq(
+        "<",
+        optional(seq(
+            field(name, _jsx_element_name),
+            repeat(field(attribute, _jsx_attribute)),
+        )),
+        ">",
+    ))
+}
+
+rule jsx_identifier { regexp(r"[a-zA-Z_$][a-zA-Z\d_$]*-[a-zA-Z\d_$\-]*") }
+
+rule _jsx_identifier { choice(alias(jsx_identifier, identifier), identifier) }
+
+rule nested_identifier {
+    prec("member", seq(
+        field(object, choice(identifier, alias(nested_identifier, member_expression))),
+        ".",
+        field(property, alias(identifier, property_identifier)),
+    ))
+}
+
+rule jsx_namespace_name { seq(_jsx_identifier, ":", _jsx_identifier) }
+
+rule _jsx_element_name {
+    choice(_jsx_identifier, alias(nested_identifier, member_expression), jsx_namespace_name)
+}
+
+rule jsx_closing_element {
+    seq("</", optional(field(name, _jsx_element_name)), ">")
+}
+
+rule jsx_self_closing_element {
+    seq(
+        "<",
+        field(name, _jsx_element_name),
+        repeat(field(attribute, _jsx_attribute)),
+        "/>",
+    )
+}
+
+rule _jsx_attribute { choice(jsx_attribute, jsx_expression) }
+
+rule _jsx_attribute_name {
+    choice(alias(_jsx_identifier, property_identifier), jsx_namespace_name)
+}
+
+rule jsx_attribute {
+    seq(_jsx_attribute_name, optional(seq("=", _jsx_attribute_value)))
+}
+
+rule _jsx_string {
+    choice(
+        seq(
+            "\"",
+            repeat(choice(
+                alias(unescaped_double_jsx_string_fragment, string_fragment),
+                html_character_reference,
+            )),
+            "\"",
+        ),
+        seq(
+            "'",
+            repeat(choice(
+                alias(unescaped_single_jsx_string_fragment, string_fragment),
+                html_character_reference,
+            )),
+            "'",
+        ),
+    )
+}
+
+rule unescaped_double_jsx_string_fragment {
+    token_immediate(prec(1, regexp(r#"([^"&]|&[^#A-Za-z])+"#)))
+}
+
+rule unescaped_single_jsx_string_fragment {
+    token_immediate(prec(1, regexp(r"([^'&]|&[^#A-Za-z])+")))
+}
+
+rule _jsx_attribute_value {
+    choice(alias(_jsx_string, string), jsx_expression, _jsx_element)
+}
+
+// ---------------------------------------------------------------------------
+// Classes
+// ---------------------------------------------------------------------------
+
+rule class {
+    prec("literal", seq(
+        repeat(field(decorator, decorator)),
+        "class",
+        field(name, optional(identifier)),
+        optional(class_heritage),
+        field(body, class_body),
+    ))
+}
+
+rule class_declaration {
+    prec("declaration", seq(
+        repeat(field(decorator, decorator)),
+        "class",
+        field(name, identifier),
+        optional(class_heritage),
+        field(body, class_body),
+        optional(_automatic_semicolon),
+    ))
+}
+
+rule class_heritage { seq("extends", expression) }
+
+// ---------------------------------------------------------------------------
+// Functions
+// ---------------------------------------------------------------------------
+
+rule function_expression {
+    prec("literal", seq(
+        optional("async"),
+        "function",
+        field(name, optional(identifier)),
+        _call_signature,
+        field(body, statement_block),
+    ))
+}
+
+rule function_declaration {
+    prec_right("declaration", seq(
+        optional("async"),
+        "function",
+        field(name, identifier),
+        _call_signature,
+        field(body, statement_block),
+        optional(_automatic_semicolon),
+    ))
+}
+
+rule generator_function {
+    prec("literal", seq(
+        optional("async"),
+        "function", "*",
+        field(name, optional(identifier)),
+        _call_signature,
+        field(body, statement_block),
+    ))
+}
+
+rule generator_function_declaration {
+    prec_right("declaration", seq(
+        optional("async"),
+        "function", "*",
+        field(name, identifier),
+        _call_signature,
+        field(body, statement_block),
+        optional(_automatic_semicolon),
+    ))
+}
+
+rule arrow_function {
+    seq(
+        optional("async"),
+        choice(
+            field(parameter, choice(alias(_reserved_identifier, identifier), identifier)),
+            _call_signature,
+        ),
+        "=>",
+        field(body, choice(expression, statement_block)),
+    )
+}
+
+rule _call_signature { field(parameters, formal_parameters) }
+rule _formal_parameter { choice(pattern, assignment_pattern) }
+
+rule optional_chain { "?." }
+
+rule call_expression {
+    choice(
+        prec("call", seq(
+            field(function, choice(expression, import)),
+            field(arguments, arguments),
+        )),
+        prec("template_call", seq(
+            field(function, choice(primary_expression, new_expression)),
+            field(arguments, template_string),
+        )),
+        prec("member", seq(
+            field(function, primary_expression),
+            field(optional_chain, optional_chain),
+            field(arguments, arguments),
+        )),
+    )
+}
+
+rule new_expression {
+    prec_right("new", seq(
+        "new",
+        field(constructor, choice(primary_expression, new_expression)),
+        field(arguments, optional(prec_dynamic(1, arguments))),
+    ))
+}
+
+rule await_expression { prec("unary_void", seq("await", expression)) }
+
+rule member_expression {
+    prec("member", seq(
+        field(object, choice(expression, primary_expression, import)),
+        choice(".", field(optional_chain, optional_chain)),
+        field(property, choice(
+            private_property_identifier,
+            reserved("properties", alias(identifier, property_identifier)),
+        )),
+    ))
+}
+
+rule subscript_expression {
+    prec_right("member", seq(
+        field(object, choice(expression, primary_expression)),
+        optional(field(optional_chain, optional_chain)),
+        "[", field(index, _expressions), "]",
+    ))
+}
+
+rule _lhs_expression {
+    choice(
+        member_expression,
+        subscript_expression,
+        _identifier,
+        alias(_reserved_identifier, identifier),
+        _destructuring_pattern,
+    )
+}
+
+rule assignment_expression {
+    prec_right("assign", seq(
+        field(left, choice(parenthesized_expression, _lhs_expression)),
+        "=",
+        field(right, expression),
+    ))
+}
+
+rule _augmented_assignment_lhs {
+    choice(
+        member_expression,
+        subscript_expression,
+        alias(_reserved_identifier, identifier),
+        identifier,
+        parenthesized_expression,
+    )
+}
+
+rule augmented_assignment_expression {
+    prec_right("assign", seq(
+        field(left, _augmented_assignment_lhs),
+        field(operator, choice(
+            "+=", "-=", "*=", "/=", "%=", "^=", "&=", "|=",
+            ">>=", ">>>=", "<<=", "**=", "&&=", "||=", "??=",
+        )),
+        field(right, expression),
+    ))
+}
+
+rule _initializer { seq("=", field(value, expression)) }
+
+rule _destructuring_pattern { choice(object_pattern, array_pattern) }
+
+rule spread_element { seq("...", expression) }
+
+rule ternary_expression {
+    prec_right("ternary", seq(
+        field(condition, expression),
+        alias(_ternary_qmark, "?"),
+        field(consequence, expression),
+        ":",
+        field(alternative, expression),
+    ))
+}
+
+// ---------------------------------------------------------------------------
+// Binary expression
+// ---------------------------------------------------------------------------
+
+rule binary_expression {
+    choice(
+        for (op: str_t, prec_name: str_t) in [
+            ("&&", "logical_and"),
+            ("||", "logical_or"),
+            (">>", "binary_shift"),
+            (">>>", "binary_shift"),
+            ("<<", "binary_shift"),
+            ("&", "bitwise_and"),
+            ("^", "bitwise_xor"),
+            ("|", "bitwise_or"),
+            ("+", "binary_plus"),
+            ("-", "binary_plus"),
+            ("*", "binary_times"),
+            ("/", "binary_times"),
+            ("%", "binary_times"),
+        ] {
+            prec_left(prec_name, seq(
+                field(left, expression),
+                field(operator, op),
+                field(right, expression),
+            ))
+        },
+        // ** is right-associative and appears between % and <
+        prec_right("binary_exp", seq(
+            field(left, expression),
+            field(operator, "**"),
+            field(right, expression),
+        )),
+        for (op: str_t, prec_name: str_t) in [
+            ("<", "binary_relation"),
+            ("<=", "binary_relation"),
+            ("==", "binary_equality"),
+            ("===", "binary_equality"),
+            ("!=", "binary_equality"),
+            ("!==", "binary_equality"),
+            (">=", "binary_relation"),
+            (">", "binary_relation"),
+            ("??", "ternary"),
+            ("instanceof", "binary_relation"),
+        ] {
+            prec_left(prec_name, seq(
+                field(left, expression),
+                field(operator, op),
+                field(right, expression),
+            ))
+        },
+        // 'in' - left operand can also be private_property_identifier
+        prec_left("binary_relation", seq(
+            field(left, choice(expression, private_property_identifier)),
+            field(operator, "in"),
+            field(right, expression),
+        )),
+    )
+}
+
+rule unary_expression {
+    prec_left("unary_void", seq(
+        field(operator, choice("!", "~", "-", "+", "typeof", "void", "delete")),
+        field(argument, expression),
+    ))
+}
+
+rule update_expression {
+    prec_left(0, choice(
+        seq(field(argument, expression), field(operator, choice("++", "--"))),
+        seq(field(operator, choice("++", "--")), field(argument, expression)),
+    ))
+}
+
+rule sequence_expression { prec_right(0, commaSep1(expression)) }
+
+// ---------------------------------------------------------------------------
+// Primitives
+// ---------------------------------------------------------------------------
+
+rule string {
+    choice(
+        seq("\"", repeat(choice(alias(unescaped_double_string_fragment, string_fragment), escape_sequence)), "\""),
+        seq("'", repeat(choice(alias(unescaped_single_string_fragment, string_fragment), escape_sequence)), "'"),
+    )
+}
+
+rule unescaped_double_string_fragment {
+    token_immediate(prec(1, regexp(r#"[^"\\\r\n]+"#)))
+}
+
+rule unescaped_single_string_fragment {
+    token_immediate(prec(1, regexp(r"[^'\\\r\n]+")))
+}
+
+rule escape_sequence {
+    token_immediate(seq(
+        "\\",
+        choice(
+            regexp(r"[^xu0-7]"),
+            regexp(r"[0-7]{1,3}"),
+            regexp(r"x[0-9a-fA-F]{2}"),
+            regexp(r"u[0-9a-fA-F]{4}"),
+            regexp(r"u\{[0-9a-fA-F]+\}"),
+            regexp(r"[\r?][\n\u2028\u2029]"),
+        ),
+    ))
+}
+
+rule comment {
+    token(choice(
+        seq("//", regexp(r"[^\r\n\u2028\u2029]*")),
+        seq("/*", regexp(r"[^*]*\*+([^/*][^*]*\*+)*"), "/"),
+    ))
+}
+
+rule template_string {
+    seq("`", repeat(choice(alias(_template_chars, string_fragment), escape_sequence, template_substitution)), "`")
+}
+
+rule template_substitution { seq("${", _expressions, "}") }
+
+rule regex {
+    seq(
+        "/",
+        field(pattern, regex_pattern),
+        token_immediate(prec(1, "/")),
+        optional(field(flags, regex_flags)),
+    )
+}
+
+rule regex_pattern {
+    token_immediate(prec(-1, repeat1(choice(
+        seq("[", repeat(choice(seq("\\", regexp(r".")), regexp(r"[^\]\n\\]"))), "]"),
+        seq("\\", regexp(r".")),
+        regexp(r"[^/\\\[\n]"),
+    ))))
+}
+
+rule regex_flags { token_immediate(regexp("[a-z]+")) }
+
+// number uses local variables in JS; we use let bindings
+let hex_literal: rule_t = seq(choice("0x", "0X"), regexp(r"[\da-fA-F](_?[\da-fA-F])*"))
+let decimal_digits: rule_t = regexp(r"\d(_?\d)*")
+let signed_integer: rule_t = seq(optional(choice("-", "+")), decimal_digits)
+let exponent_part: rule_t = seq(choice("e", "E"), signed_integer)
+let binary_literal: rule_t = seq(choice("0b", "0B"), regexp(r"[0-1](_?[0-1])*"))
+let octal_literal: rule_t = seq(choice("0o", "0O"), regexp(r"[0-7](_?[0-7])*"))
+let bigint_literal: rule_t = seq(choice(hex_literal, binary_literal, octal_literal, decimal_digits), "n")
+let decimal_integer_literal: rule_t = choice(
+    "0",
+    seq(optional("0"), regexp("[1-9]"), optional(seq(optional("_"), decimal_digits)))
+)
+let decimal_literal: rule_t = choice(
+    seq(decimal_integer_literal, ".", optional(decimal_digits), optional(exponent_part)),
+    seq(".", decimal_digits, optional(exponent_part)),
+    seq(decimal_integer_literal, exponent_part),
+    decimal_digits
+)
+
+rule number {
+    token(choice(hex_literal, decimal_literal, binary_literal, octal_literal, bigint_literal))
+}
+
+// ---------------------------------------------------------------------------
+// Identifiers
+// ---------------------------------------------------------------------------
+
+rule _identifier { choice(undefined, identifier) }
+
+// The identifier regex contains a double-quote character, so we use raw strings
+// with hash delimiters and concat to build the full pattern.
+let alpha: str_t = concat(
+    r#"[^\x00-\x1F\s\p{Zs}0-9:;`"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u2028\u2029]"#,
+    r"|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}",
+)
+let alphanumeric: str_t = concat(
+    r#"[^\x00-\x1F\s\p{Zs}:;`"'@#.,|^&<=>+\-*/\\%?!~()\[\]{}\uFEFF\u2060\u200B\u2028\u2029]"#,
+    r"|\\u[0-9a-fA-F]{4}|\\u\{[0-9a-fA-F]+\}",
+)
+
+rule identifier {
+    token(seq(regexp(alpha), repeat(regexp(alphanumeric))))
+}
+
+rule private_property_identifier {
+    token(seq("#", regexp(alpha), repeat(regexp(alphanumeric))))
+}
+
+rule meta_property { choice(seq("new", ".", "target"), seq("import", ".", "meta")) }
+
+rule this { "this" }
+rule super { "super" }
+rule true { "true" }
+rule false { "false" }
+rule null { "null" }
+rule undefined { "undefined" }
+
+// ---------------------------------------------------------------------------
+// Expression components
+// ---------------------------------------------------------------------------
+
+rule arguments {
+    seq("(", commaSep(optional(choice(expression, spread_element))), ")")
+}
+
+rule decorator {
+    seq(
+        "@",
+        choice(
+            identifier,
+            alias(decorator_member_expression, member_expression),
+            alias(decorator_call_expression, call_expression),
+        ),
+    )
+}
+
+rule decorator_member_expression {
+    prec("member", seq(
+        field(object, choice(identifier, alias(decorator_member_expression, member_expression))),
+        ".",
+        field(property, alias(identifier, property_identifier)),
+    ))
+}
+
+rule decorator_call_expression {
+    prec("call", seq(
+        field(function, choice(identifier, alias(decorator_member_expression, member_expression))),
+        field(arguments, arguments),
+    ))
+}
+
+rule class_body {
+    seq(
+        "{",
+        repeat(choice(
+            seq(field(member, method_definition), optional(";")),
+            seq(field(member, field_definition), _semicolon),
+            field(member, class_static_block),
+            ";",
+        )),
+        "}",
+    )
+}
+
+rule field_definition {
+    seq(
+        repeat(field(decorator, decorator)),
+        optional("static"),
+        field(property, _property_name),
+        optional(_initializer),
+    )
+}
+
+rule formal_parameters {
+    seq("(", optional(seq(commaSep1(_formal_parameter), optional(","))), ")")
+}
+
+rule class_static_block {
+    seq("static", optional(_automatic_semicolon), field(body, statement_block))
+}
+
+// ---------------------------------------------------------------------------
+// Patterns and properties
+// ---------------------------------------------------------------------------
+
+rule pattern { prec_dynamic(-1, choice(_lhs_expression, rest_pattern)) }
+
+rule rest_pattern { prec_right(0, seq("...", _lhs_expression)) }
+
+rule method_definition {
+    seq(
+        repeat(field(decorator, decorator)),
+        optional(choice(
+            "static",
+            alias(token(seq("static", regexp(r"\s+"), "get", regexp(r"\s*\n"))), "static get"),
+        )),
+        optional("async"),
+        optional(choice("get", "set", "*")),
+        field(name, _property_name),
+        field(parameters, formal_parameters),
+        field(body, statement_block),
+    )
+}
+
+rule pair {
+    seq(field(key, _property_name), ":", field(value, expression))
+}
+
+rule pair_pattern {
+    seq(field(key, _property_name), ":", field(value, choice(pattern, assignment_pattern)))
+}
+
+rule _property_name {
+    reserved("properties", choice(
+        alias(choice(identifier, _reserved_identifier), property_identifier),
+        private_property_identifier,
+        string,
+        number,
+        computed_property_name,
+    ))
+}
+
+rule computed_property_name { seq("[", expression, "]") }
+
+rule _reserved_identifier {
+    choice("get", "set", "async", "await", "static", "export", "let")
+}
+
+rule _semicolon { choice(_automatic_semicolon, ";") }
