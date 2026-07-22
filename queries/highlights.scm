@@ -59,12 +59,10 @@
  (#match? @constant "^[A-Z_][A-Z\\d_]+$"))
 
 ((identifier) @variable.builtin
- (#match? @variable.builtin "^(arguments|module|console|window|document)$")
- (#is-not? local))
+ (#match? @variable.builtin "^(arguments|module|console|window|document)$"))
 
 ((identifier) @function.builtin
- (#eq? @function.builtin "require")
- (#is-not? local))
+ (#eq? @function.builtin "require"))
 
 ; Literals
 ;---------

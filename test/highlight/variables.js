@@ -13,12 +13,12 @@ module.exports = function(one, two) {
 
   if (something()) {
     let module = null, one = 1;
-    //  ^ variable
+    //  ^ variable.builtin
     //                 ^ variable
 
     console.log(module, one, two);
     // ^ variable.builtin
-    //            ^ variable
+    //            ^ variable.builtin
     //                   ^ variable
     //                        ^ variable.parameter
   }
