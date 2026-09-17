@@ -1,7 +1,6 @@
 {
   "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "javascript",
-  "word": "identifier",
   "rules": {
     "program": {
       "type": "SEQ",
@@ -6800,6 +6799,41 @@
       "value": "[\\s\\p{Zs}\\uFEFF\\u2028\\u2029\\u2060\\u200B]"
     }
   ],
+  "externals": [
+    {
+      "type": "SYMBOL",
+      "name": "_automatic_semicolon"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_template_chars"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "_ternary_qmark"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "html_comment"
+    },
+    {
+      "type": "STRING",
+      "value": "||"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "escape_sequence"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "regex_pattern"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "jsx_text"
+    }
+  ],
+  "word": "identifier",
   "conflicts": [
     [
       "primary_expression",
@@ -6875,6 +6909,29 @@
       "class_static_block",
       "_property_name"
     ]
+  ],
+  "inline": [
+    "_call_signature",
+    "_formal_parameter",
+    "_expressions",
+    "_semicolon",
+    "_identifier",
+    "_reserved_identifier",
+    "_jsx_attribute",
+    "_jsx_element_name",
+    "_jsx_child",
+    "_jsx_element",
+    "_jsx_attribute_name",
+    "_jsx_attribute_value",
+    "_jsx_identifier",
+    "_lhs_expression"
+  ],
+  "supertypes": [
+    "statement",
+    "declaration",
+    "expression",
+    "primary_expression",
+    "pattern"
   ],
   "precedences": [
     [
@@ -7055,63 +7112,6 @@
         "name": "primary_expression"
       }
     ]
-  ],
-  "externals": [
-    {
-      "type": "SYMBOL",
-      "name": "_automatic_semicolon"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "_template_chars"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "_ternary_qmark"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "html_comment"
-    },
-    {
-      "type": "STRING",
-      "value": "||"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "escape_sequence"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "regex_pattern"
-    },
-    {
-      "type": "SYMBOL",
-      "name": "jsx_text"
-    }
-  ],
-  "inline": [
-    "_call_signature",
-    "_formal_parameter",
-    "_expressions",
-    "_semicolon",
-    "_identifier",
-    "_reserved_identifier",
-    "_jsx_attribute",
-    "_jsx_element_name",
-    "_jsx_child",
-    "_jsx_element",
-    "_jsx_attribute_name",
-    "_jsx_attribute_value",
-    "_jsx_identifier",
-    "_lhs_expression"
-  ],
-  "supertypes": [
-    "statement",
-    "declaration",
-    "expression",
-    "primary_expression",
-    "pattern"
   ],
   "reserved": {
     "global": [

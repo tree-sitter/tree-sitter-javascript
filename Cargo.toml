@@ -17,7 +17,7 @@ autoexamples = false
 build = "bindings/rust/build.rs"
 include = [
   "bindings/rust/*",
-  "grammar.js",
+  "grammar.mjs",
   "queries/*",
   "src/*",
   "tree-sitter.json",

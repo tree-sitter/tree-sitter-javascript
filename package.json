@@ -23,9 +23,10 @@
     "javascript"
   ],
   "files": [
-    "grammar.js",
+    "grammar.mjs",
     "tree-sitter.json",
     "binding.gyp",
+    "scripts/**",
     "prebuilds/**",
     "bindings/node/*",
     "queries/*",
@@ -40,7 +41,8 @@
     "eslint": "^9.14.0",
     "eslint-config-treesitter": "^1.0.2",
     "prebuildify": "^6.0.1",
-    "tree-sitter-cli": "^0.25.8"
+    "tree-sitter": "^0.25.0",
+    "tree-sitter-cli": "file:../tree-sitter/crates/cli/npm"
   },
   "peerDependencies": {
     "tree-sitter": "^0.25.0"
@@ -52,9 +54,12 @@
   },
   "scripts": {
     "install": "node-gyp-build",
-    "lint": "eslint grammar.js",
-    "prestart": "tree-sitter build --wasm",
-    "start": "tree-sitter playground",
+    "lint": "eslint grammar.mjs",
+    "tree-sitter": "node scripts/tree-sitter.cjs",
+    "generate": "npm run tree-sitter -- generate grammar.mjs --js-runtime native",
+    "test:corpus": "npm run tree-sitter -- test",
+    "prestart": "npm run tree-sitter -- build --wasm",
+    "start": "npm run tree-sitter -- playground",
     "test": "node --test bindings/node/*_test.js"
   }
 }
