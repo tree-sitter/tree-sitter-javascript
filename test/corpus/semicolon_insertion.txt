@@ -130,6 +130,18 @@ a
 a
   instanceofX;
 
+a
+  in_b;
+
+a
+  in1;
+
+a
+  in$;
+
+a
+  instanceof_;
+
 ---
 
 (program
@@ -145,6 +157,18 @@ a
   (expression_statement (identifier))
 
   (expression_statement (binary_expression (identifier) (identifier)))
+
+  (expression_statement (identifier))
+  (expression_statement (identifier))
+
+  (expression_statement (identifier))
+  (expression_statement (identifier))
+
+  (expression_statement (identifier))
+  (expression_statement (identifier))
+
+  (expression_statement (identifier))
+  (expression_statement (identifier))
 
   (expression_statement (identifier))
   (expression_statement (identifier)))

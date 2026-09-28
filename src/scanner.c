@@ -26,6 +26,8 @@ static inline void advance(TSLexer *lexer) { lexer->advance(lexer, false); }
 
 static inline void skip(TSLexer *lexer) { lexer->advance(lexer, true); }
 
+static inline bool is_identifier_char(int32_t c) { return iswalnum(c) || c == '_' || c == '$'; }
+
 static bool scan_template_chars(TSLexer *lexer) {
     lexer->result_symbol = TEMPLATE_CHARS;
     for (bool has_content = false;; has_content = true) {
@@ -199,7 +201,7 @@ static bool scan_automatic_semicolon(TSLexer *lexer, bool comment_condition, boo
             }
             skip(lexer);
 
-            if (!iswalpha(lexer->lookahead)) {
+            if (!is_identifier_char(lexer->lookahead)) {
                 return false;
             }
 
@@ -210,7 +212,7 @@ static bool scan_automatic_semicolon(TSLexer *lexer, bool comment_condition, boo
                 skip(lexer);
             }
 
-            if (!iswalpha(lexer->lookahead)) {
+            if (!is_identifier_char(lexer->lookahead)) {
                 return false;
             }
             break;
