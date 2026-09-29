@@ -57,6 +57,9 @@ setup(
         "tree_sitter_javascript": ["*.pyi", "py.typed"],
         "tree_sitter_javascript.queries": ["*.scm"],
     },
+    exclude_package_data={
+        "tree_sitter_javascript": ["*.c"],
+    },
     ext_package="tree_sitter_javascript",
     ext_modules=[
         Extension(
